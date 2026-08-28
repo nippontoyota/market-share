@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "2025-2026 performance analyzis dashboard"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "32023a43-55e6-4bc0-b29c-79ad8b7e5068"
+  }
+}

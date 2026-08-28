@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 409.82349260082151,
+            "y": 459.41108659861783
+          },
+          "nodeIndex": "Dim_Location",
+          "nodeLineageTag": "dim-loc-001",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 288.09143956535604,
+            "y": -50
+          },
+          "nodeIndex": "Dim_Maker",
+          "nodeLineageTag": "dim-maker-001",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 643.82349260082151,
+            "y": 254.09348384854093
+          },
+          "nodeIndex": "Dim_Metric",
+          "nodeLineageTag": "dim-metric-001",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50.000000000000014,
+            "y": 458.1869676970818
+          },
+          "nodeIndex": "Dim_Month",
+          "nodeLineageTag": "dim-month-001",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 213.13617008307324,
+            "y": 106.72906353643188
+          },
+          "nodeIndex": "Fact_Sales",
+          "nodeLineageTag": "fact-sales-001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

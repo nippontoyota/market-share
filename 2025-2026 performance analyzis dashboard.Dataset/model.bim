@@ -1,0 +1,449 @@
+{
+  "compatibilityLevel": 1600,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Fact_Sales\",\"Dim_Month\",\"Dim_Location\",\"Dim_Maker\",\"Dim_Metric\"]"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "en-IN",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "relationships": [
+      {
+        "name": "rel-fact-month",
+        "fromColumn": "Month",
+        "fromTable": "Fact_Sales",
+        "toColumn": "Month",
+        "toTable": "Dim_Month"
+      },
+      {
+        "name": "rel-fact-loc",
+        "fromColumn": "Mapped_Location",
+        "fromTable": "Fact_Sales",
+        "toColumn": "Mapped_Location",
+        "toTable": "Dim_Location"
+      },
+      {
+        "name": "rel-fact-maker",
+        "fromColumn": "Maker",
+        "fromTable": "Fact_Sales",
+        "toColumn": "Maker",
+        "toTable": "Dim_Maker"
+      }
+    ],
+    "sourceQueryCulture": "en-IN",
+    "tables": [
+      {
+        "name": "Fact_Sales",
+        "columns": [
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "lineageTag": "c-year",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "Year_Label",
+            "dataType": "string",
+            "lineageTag": "c-yearlabel",
+            "sourceColumn": "Year_Label"
+          },
+          {
+            "name": "Month",
+            "dataType": "string",
+            "lineageTag": "c-month",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "Month_Num",
+            "dataType": "int64",
+            "lineageTag": "c-monthnum",
+            "sourceColumn": "Month_Num"
+          },
+          {
+            "name": "RTO",
+            "dataType": "string",
+            "lineageTag": "c-rto",
+            "sourceColumn": "RTO"
+          },
+          {
+            "name": "RTO_clean",
+            "dataType": "string",
+            "lineageTag": "c-rtoclean",
+            "sourceColumn": "RTO_clean"
+          },
+          {
+            "name": "Mapped_Location",
+            "dataType": "string",
+            "lineageTag": "c-maploc",
+            "sourceColumn": "Mapped_Location"
+          },
+          {
+            "name": "Maker",
+            "dataType": "string",
+            "lineageTag": "c-maker",
+            "sourceColumn": "Maker"
+          },
+          {
+            "name": "Cluster",
+            "dataType": "string",
+            "lineageTag": "c-cluster",
+            "sourceColumn": "Cluster"
+          },
+          {
+            "name": "Check_Eligible",
+            "dataType": "string",
+            "lineageTag": "c-chkelig",
+            "sourceColumn": "Check_Eligible"
+          },
+          {
+            "name": "Nos",
+            "dataType": "int64",
+            "lineageTag": "c-nos",
+            "sourceColumn": "Nos"
+          }
+        ],
+        "lineageTag": "fact-sales-001",
+        "measures": [
+          {
+            "name": "Nos_2025",
+            "expression": "CALCULATE(SUM(Fact_Sales[Nos]), Fact_Sales[Year] = 2025)",
+            "formatString": "#,##0",
+            "lineageTag": "m-nos2025"
+          },
+          {
+            "name": "Nos_2026_Master",
+            "expression": "CALCULATE(SUM(Fact_Sales[Nos]), Fact_Sales[Year] = 2026)",
+            "formatString": "#,##0",
+            "lineageTag": "m-nos2026"
+          },
+          {
+            "name": "TIV_2025",
+            "expression": [
+              "CALCULATE(",
+              "    SUM(Fact_Sales[Nos]),",
+              "    Fact_Sales[Year] = 2025,",
+              "    REMOVEFILTERS(Dim_Maker),",
+              "    REMOVEFILTERS(Fact_Sales[Maker])",
+              ")"
+            ],
+            "formatString": "#,##0",
+            "lineageTag": "m-tiv2025"
+          },
+          {
+            "name": "TIV_2026_Master",
+            "expression": [
+              "CALCULATE(",
+              "    SUM(Fact_Sales[Nos]),",
+              "    Fact_Sales[Year] = 2026,",
+              "    REMOVEFILTERS(Dim_Maker),",
+              "    REMOVEFILTERS(Fact_Sales[Maker])",
+              ")"
+            ],
+            "formatString": "#,##0",
+            "lineageTag": "m-tiv2026"
+          },
+          {
+            "name": "Growth_Diff_Pct",
+            "expression": [
+              "VAR Y25 = [Nos_2025]",
+              "VAR Y26 = [Nos_2026_Master]",
+              "RETURN",
+              "    IF( Y25 > 0, DIVIDE(Y26 - Y25, Y25, 0), BLANK() )"
+            ],
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "lineageTag": "m-growth"
+          },
+          {
+            "name": "TIV_Growth_Pct",
+            "expression": [
+              "VAR T25 = [TIV_2025]",
+              "VAR T26 = [TIV_2026_Master]",
+              "RETURN",
+              "    IF( T25 > 0, DIVIDE(T26 - T25, T25, 0), BLANK() )"
+            ],
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "lineageTag": "m-tivgrowth"
+          },
+          {
+            "name": "MS_Pct_2025",
+            "expression": "DIVIDE([Nos_2025], [TIV_2025], 0)",
+            "formatString": "0.0%",
+            "lineageTag": "m-ms2025"
+          },
+          {
+            "name": "MS_Pct_2026",
+            "expression": "DIVIDE([Nos_2026_Master], [TIV_2026_Master], 0)",
+            "formatString": "0.0%",
+            "lineageTag": "m-ms2026"
+          },
+          {
+            "name": "MS_Diff",
+            "expression": "[MS_Pct_2026] - [MS_Pct_2025]",
+            "formatString": "+0.0%;-0.0%;0.0%",
+            "lineageTag": "m-msdiff"
+          },
+          {
+            "name": "Total_Nos",
+            "expression": "SUM(Fact_Sales[Nos])",
+            "formatString": "#,##0",
+            "lineageTag": "m-totalnos"
+          },
+          {
+            "name": "Nos_Diff",
+            "expression": "[Nos_2026_Master] - [Nos_2025]",
+            "formatString": "+#,##0;-#,##0;0",
+            "lineageTag": "m-nosdiff"
+          },
+          {
+            "name": "TIV_Diff",
+            "expression": "[TIV_2026_Master] - [TIV_2025]",
+            "formatString": "+#,##0;-#,##0;0",
+            "lineageTag": "m-tivdiff"
+          },
+          {
+            "name": "Maker_Rank_2025",
+            "expression": "IF(NOT(ISBLANK([Nos_2025])), RANKX(ALL(Dim_Maker[Maker]), [Nos_2025], , DESC, Dense))",
+            "formatString": "0",
+            "lineageTag": "m-rank2025"
+          },
+          {
+            "name": "Maker_Rank_2026",
+            "expression": "IF(NOT(ISBLANK([Nos_2026_Master])), RANKX(ALL(Dim_Maker[Maker]), [Nos_2026_Master], , DESC, Dense))",
+            "formatString": "0",
+            "lineageTag": "m-rank2026"
+          },
+          {
+            "name": "Display_2025",
+            "expression": [
+              "SWITCH(",
+              "    SELECTEDVALUE(Dim_Metric[Metric_Name]),",
+              "    \"TIV\",  FORMAT([TIV_2025], \"#,##0\"),",
+              "    \"Nos\",  FORMAT([Nos_2025], \"#,##0\"),",
+              "    \"MS %\", FORMAT([MS_Pct_2025], \"0.0%\"),",
+              "    BLANK()",
+              ")"
+            ],
+            "formatString": "@",
+            "lineageTag": "m-disp2025"
+          },
+          {
+            "name": "Display_Master_Jan_Aug",
+            "expression": [
+              "SWITCH(",
+              "    SELECTEDVALUE(Dim_Metric[Metric_Name]),",
+              "    \"TIV\",  FORMAT([TIV_2026_Master], \"#,##0\"),",
+              "    \"Nos\",  FORMAT([Nos_2026_Master], \"#,##0\"),",
+              "    \"MS %\", FORMAT([MS_Pct_2026], \"0.0%\"),",
+              "    BLANK()",
+              ")"
+            ],
+            "formatString": "@",
+            "lineageTag": "m-dispmaster"
+          },
+          {
+            "name": "Display_Growth_Diff",
+            "expression": [
+              "SWITCH(",
+              "    SELECTEDVALUE(Dim_Metric[Metric_Name]),",
+              "    \"TIV\",  FORMAT([TIV_Growth_Pct], \"+0.0%;-0.0%;0.0%\"),",
+              "    \"Nos\",  FORMAT([Growth_Diff_Pct], \"+0.0%;-0.0%;0.0%\"),",
+              "    \"MS %\", FORMAT([MS_Diff], \"+0.0%;-0.0%;0.0%\"),",
+              "    BLANK()",
+              ")"
+            ],
+            "formatString": "@",
+            "lineageTag": "m-dispgrowth"
+          },
+          {
+            "name": "Growth_Color",
+            "expression": [
+              "SWITCH(",
+              "    SELECTEDVALUE(Dim_Metric[Metric_Name]),",
+              "    \"TIV\",  IF([TIV_Growth_Pct] >= 0, \"#00E676\", \"#FF5252\"),",
+              "    \"Nos\",  IF([Growth_Diff_Pct] >= 0, \"#00E676\", \"#FF5252\"),",
+              "    \"MS %\", IF([MS_Diff] >= 0, \"#00E676\", \"#FF5252\"),",
+              "    \"#FFFFFF\"",
+              ")"
+            ],
+            "formatString": "@",
+            "lineageTag": "m-growthcolor"
+          },
+          {
+            "name": "Selected_Location_Title",
+            "expression": "\"Location: \" & IF(ISFILTERED(Dim_Location[Mapped_Location]), CONCATENATEX(VALUES(Dim_Location[Mapped_Location]), Dim_Location[Mapped_Location], \", \"), \"All Locations\")",
+            "formatString": "@",
+            "lineageTag": "m-titleloc"
+          },
+          {
+            "name": "Selected_Maker_Title",
+            "expression": "\"Maker: \" & IF(ISFILTERED(Dim_Maker[Maker]), CONCATENATEX(VALUES(Dim_Maker[Maker]), Dim_Maker[Maker], \", \"), \"All Makers\")",
+            "formatString": "@",
+            "lineageTag": "m-titlemaker"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Fact_Sales-Partition",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"c:\\\\Users\\\\alwin\\\\OneDrive\\\\Desktop\\\\DEMO_RTO\\\\RTO_2025_2026_Combined.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Typed   = Table.TransformColumnTypes(Headers, {",
+                "        {\"Year\", Int64.Type}, {\"Year_Label\", type text}, {\"Month\", type text},",
+                "        {\"Month_Num\", Int64.Type}, {\"RTO\", type text}, {\"RTO_clean\", type text},",
+                "        {\"Mapped_Location\", type text}, {\"Maker\", type text},",
+                "        {\"Cluster\", type text}, {\"Check_Eligible\", type text}, {\"Nos\", Int64.Type}",
+                "    })",
+                "in  Typed"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Dim_Month",
+        "columns": [
+          {
+            "name": "Month",
+            "dataType": "string",
+            "lineageTag": "dm-month",
+            "sortByColumn": "Month_Num",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "Month_Num",
+            "dataType": "int64",
+            "lineageTag": "dm-monthnum",
+            "sourceColumn": "Month_Num"
+          }
+        ],
+        "lineageTag": "dim-month-001",
+        "partitions": [
+          {
+            "name": "Dim_Month-Partition",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    tbl = #table(",
+                "        type table [Month=text, Month_Num=Int64.Type],",
+                "        {{\"JAN\",1},{\"FEB\",2},{\"MAR\",3},{\"APR\",4},{\"MAY\",5},{\"JUN\",6},",
+                "         {\"JUL\",7},{\"AUG\",8},{\"SEP\",9},{\"OCT\",10},{\"NOV\",11},{\"DEC\",12}}",
+                "    )",
+                "in  tbl"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Dim_Location",
+        "columns": [
+          {
+            "name": "Mapped_Location",
+            "dataType": "string",
+            "lineageTag": "dl-maploc",
+            "sourceColumn": "Mapped_Location"
+          }
+        ],
+        "lineageTag": "dim-loc-001",
+        "partitions": [
+          {
+            "name": "Dim_Location-Partition",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"c:\\\\Users\\\\alwin\\\\OneDrive\\\\Desktop\\\\DEMO_RTO\\\\RTO_2025_2026_Combined.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    H = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Sel = Table.SelectColumns(H, \"Mapped_Location\"),",
+                "    Dist = Table.Distinct(Sel)",
+                "in  Dist"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Dim_Maker",
+        "columns": [
+          {
+            "name": "Maker",
+            "dataType": "string",
+            "lineageTag": "dmk-maker",
+            "sourceColumn": "Maker"
+          }
+        ],
+        "lineageTag": "dim-maker-001",
+        "partitions": [
+          {
+            "name": "Dim_Maker-Partition",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(\"c:\\\\Users\\\\alwin\\\\OneDrive\\\\Desktop\\\\DEMO_RTO\\\\RTO_2025_2026_Combined.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.None]),",
+                "    H = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    Sel = Table.SelectColumns(H, \"Maker\"),",
+                "    Dist = Table.Distinct(Sel)",
+                "in  Dist"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Dim_Metric",
+        "columns": [
+          {
+            "name": "Metric_Name",
+            "dataType": "string",
+            "lineageTag": "dmtr-name",
+            "sortByColumn": "Sort_Order",
+            "sourceColumn": "Metric_Name"
+          },
+          {
+            "name": "Sort_Order",
+            "dataType": "int64",
+            "lineageTag": "dmtr-sort",
+            "sourceColumn": "Sort_Order"
+          }
+        ],
+        "lineageTag": "dim-metric-001",
+        "partitions": [
+          {
+            "name": "Dim_Metric-Partition",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    tbl = #table(",
+                "        type table [Metric_Name=text, Sort_Order=Int64.Type],",
+                "        {{\"TIV\", 1}, {\"Nos\", 2}, {\"MS %\", 3}}",
+                "    )",
+                "in  tbl"
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
