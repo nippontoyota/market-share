@@ -17,7 +17,7 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:"],
@@ -69,6 +69,11 @@ app.get('/login', (req, res) => {
   } else {
     res.sendFile(path.join(__dirname, 'login.html'));
   }
+});
+
+// Serve login.js
+app.get('/login.js', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login.js'));
 });
 
 // Handle login POST
