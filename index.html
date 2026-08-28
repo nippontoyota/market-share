@@ -535,6 +535,7 @@
             <div style="display: flex; align-items: center;">
                 <button class="btn-reset" id="btnResetFilters"> Clear All Filters </button>
                 <button class="btn-export" onclick="exportPowerBISpec()"> Power BI Specs </button>
+                <button class="btn-reset" id="btnLogout" style="margin-left: 10px; border-color: #ff4444;"> Logout </button>
             </div>
         </div>
     </div>
@@ -887,6 +888,26 @@
         function exportPowerBISpec() {
             alert("Power BI Implementation Specification Exported! Check implementation_plan.md and Power BI DAX code in your workspace.");
         }
+
+        async function logout() {
+            try {
+                const response = await fetch('/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = data.redirect;
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+                window.location.href = '/login';
+            }
+        }
+
+        document.getElementById('btnLogout').onclick = logout;
 
         window.onload = initUI;
     </script>
