@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTO Analytics Dashboard - 2025 vs 2026 Comparison</title>
+    <title>RTO Analytics Dashboard - 2025 vs 2026 Executive Comparison</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,21 +11,147 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script>
+        (function() {
+            function applyTheme() {
+                var theme = 'dark-red';
+                var vars = {
+                    '--bg-dark': '#120708',
+                    '--bg-gradient': 'radial-gradient(circle at 80% 20%, #2a0a0d 0%, #120708 65%)',
+                    '--card-bg': '#1c0b0e',
+                    '--card-bg-glass': 'rgba(28, 11, 14, 0.95)',
+                    '--card-bg-subtle': '#16080a',
+                    '--card-border': '#42181c',
+                    '--card-border-glow': '#63242a',
+                    '--text-main': '#ffffff',
+                    '--text-muted': '#c9a5a9',
+                    '--text-dim': '#9c7075',
+                    '--accent-orange': '#f97316',
+                    '--accent-orange-hover': '#ea580c',
+                    '--accent-orange-glow': 'rgba(249,115,22,0.35)',
+                    '--accent-blue': '#3b82f6',
+                    '--accent-blue-hover': '#2563eb',
+                    '--accent-green': '#10b981',
+                    '--accent-yellow': '#f59e0b',
+                    '--accent-red': '#ef4444',
+                    '--table-header-green': '#047857',
+                    '--table-header-orange': '#c2410c',
+                    '--input-bg': 'rgba(0,0,0,0.5)',
+                    '--slicer-btn-bg': '#2d1216',
+                    '--slicer-btn-hover': '#3d191e'
+                };
+                var root = document.documentElement;
+                root.setAttribute('data-theme', theme);
+                for (var k in vars) { root.style.setProperty(k, vars[k]); }
+                if (document.body) {
+                    document.body.setAttribute('data-theme', theme);
+                    document.body.style.backgroundColor = vars['--bg-dark'];
+                    document.body.style.backgroundImage = vars['--bg-gradient'];
+                    document.body.style.color = vars['--text-main'];
+                }
+                localStorage.setItem('rto_dashboard_theme', theme);
+                if (window.chartInstance) updateChartInstance(window.chartInstance);
+            }
+            function updateChartInstance(chart) {
+                if (!chart || !chart.options) return;
+                var tickColor = '#c9a5a9';
+                var gridColor = 'rgba(255,255,255,0.08)';
+                if (chart.options.scales) {
+                    if (chart.options.scales.x && chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = tickColor;
+                    if (chart.options.scales.y) {
+                        if (chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = tickColor;
+                        if (chart.options.scales.y.grid) chart.options.scales.y.grid.color = gridColor;
+                    }
+                }
+                if (chart.options.plugins && chart.options.plugins.legend && chart.options.plugins.legend.labels) {
+                    chart.options.plugins.legend.labels.color = '#ffffff';
+                }
+                chart.update();
+            }
+            document.documentElement.setAttribute('data-theme', 'dark-red');
+            applyTheme();
+            window.changeTheme = function() { applyTheme(); };
+            window.initTheme = function() { applyTheme(); };
+            window.updateChartTheme = function() {
+                if (window.chartInstance) updateChartInstance(window.chartInstance);
+            };
+        })();
+    </script>
     <style>
-        :root {
-            --bg-dark: #070d1e;
-            --card-bg: #0d1733;
-            --card-border: #1e3a70;
-            --card-border-glow: #1e4f9c;
+        :root, html, body, html[data-theme="dark-red"], body[data-theme="dark-red"], [data-theme="dark-red"] {
+            --bg-dark: #120708;
+            --bg-gradient: radial-gradient(circle at 80% 20%, #2a0a0d 0%, #120708 65%);
+            --card-bg: #1c0b0e;
+            --card-bg-glass: rgba(28, 11, 14, 0.95);
+            --card-bg-subtle: #16080a;
+            --card-border: #42181c;
+            --card-border-glow: #63242a;
             --text-main: #ffffff;
-            --text-muted: #8ca3cf;
-            --accent-orange: #ff6b00;
-            --accent-orange-hover: #e05e00;
-            --accent-blue: #1e56d4;
-            --accent-green: #00e676;
-            --accent-yellow: #f5b000;
-            --table-header-green: #0f7038;
-            --table-header-orange: #d95300;
+            --text-muted: #c9a5a9;
+            --text-dim: #9c7075;
+            --accent-orange: #f97316;
+            --accent-orange-hover: #ea580c;
+            --accent-orange-glow: rgba(249, 115, 22, 0.35);
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --table-header-green: #047857;
+            --table-header-orange: #c2410c;
+            --input-bg: rgba(0, 0, 0, 0.5);
+            --slicer-btn-bg: #2d1216;
+            --slicer-btn-hover: #3d191e;
+        }
+
+        html[data-theme="light"], body[data-theme="light"], [data-theme="light"] {
+            --bg-dark: #f0f4f9;
+            --bg-gradient: radial-gradient(circle at 80% 20%, #e2ebf7 0%, #f0f4f9 65%);
+            --card-bg: #ffffff;
+            --card-bg-glass: rgba(255, 255, 255, 0.98);
+            --card-bg-subtle: #f8fafc;
+            --card-border: #cbd5e1;
+            --card-border-glow: #94a3b8;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #64748b;
+            --accent-orange: #d9480f;
+            --accent-orange-hover: #c23e08;
+            --accent-orange-glow: rgba(217, 72, 15, 0.25);
+            --accent-blue: #1d4ed8;
+            --accent-blue-hover: #1e40af;
+            --accent-green: #15803d;
+            --accent-yellow: #b45309;
+            --accent-red: #b91c1c;
+            --table-header-green: #15803d;
+            --table-header-orange: #d9480f;
+            --input-bg: #ffffff;
+            --slicer-btn-bg: #e2e8f0;
+            --slicer-btn-hover: #cbd5e1;
+        }
+
+        html[data-theme="dark-red"], body[data-theme="dark-red"], [data-theme="dark-red"] {
+            --bg-dark: #120708;
+            --bg-gradient: radial-gradient(circle at 80% 20%, #2a0a0d 0%, #120708 65%);
+            --card-bg: #1c0b0e;
+            --card-bg-glass: rgba(28, 11, 14, 0.95);
+            --card-bg-subtle: #16080a;
+            --card-border: #42181c;
+            --card-border-glow: #63242a;
+            --text-main: #ffffff;
+            --text-muted: #c9a5a9;
+            --text-dim: #9c7075;
+            --accent-orange: #f97316;
+            --accent-orange-hover: #ea580c;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-yellow: #f59e0b;
+            --accent-red: #ef4444;
+            --table-header-green: #047857;
+            --table-header-orange: #c2410c;
+            --input-bg: rgba(0, 0, 0, 0.5);
+            --slicer-btn-bg: #2d1216;
+            --slicer-btn-hover: #3d191e;
         }
 
         * {
@@ -35,34 +161,203 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
+        /* VIEWPORT-FITTING BASE LAYOUT */
         body {
             background-color: var(--bg-dark);
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
             color: var(--text-main);
-            padding: 16px;
-            min-height: 100vh;
+            padding: 8px 12px;
+            height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
+        /* TOP EXECUTIVE HEADER */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 16px;
+            background: var(--card-bg-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            flex-shrink: 0;
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .header-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title-wrap h1 {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+        }
+
+        .badge-scope {
+            font-size: 10px;
+            font-weight: 700;
+            color: #93c5fd;
+            background: rgba(30, 86, 212, 0.18);
+            border: 1px solid rgba(30, 86, 212, 0.35);
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-period {
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--accent-orange);
+            background: rgba(255, 107, 0, 0.14);
+            border: 1px solid rgba(255, 107, 0, 0.35);
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .header-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-selector-container {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .theme-selector-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .theme-select {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .theme-select option {
+            background-color: #0d1733;
+            color: #ffffff;
+        }
+
+        html[data-theme="light"] .theme-select option {
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+
+        html[data-theme="dark-red"] .theme-select option {
+            background-color: #1c0b0e;
+            color: #ffffff;
+        }
+
+        .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 13px;
+            border-radius: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-reset-top {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+        }
+
+        .btn-reset-top:hover {
+            color: var(--text-main);
+            border-color: var(--card-border-glow);
+        }
+
+        .btn-orange-top {
+            background: linear-gradient(135deg, #ff6b00 0%, #e05e00 100%);
+            border: 1px solid #ff7b1a;
+            color: #ffffff;
+            box-shadow: 0 2px 10px var(--accent-orange-glow);
+        }
+
+        .btn-orange-top:hover {
+            background: linear-gradient(135deg, #ff7710 0%, #f06800 100%);
+            box-shadow: 0 4px 16px rgba(255, 107, 0, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger-top {
+            background: transparent;
+            border: 1px solid rgba(255, 68, 68, 0.5);
+            color: var(--accent-red);
+        }
+
+        .btn-danger-top:hover {
+            background: rgba(255, 68, 68, 0.15);
+            border-color: var(--accent-red);
+        }
+
+        /* 3-COLUMN DASHBOARD GRID */
         .dashboard-container {
-            max-width: 1600px;
-            margin: 0 auto;
+            flex: 1;
+            min-height: 0;
             display: grid;
-            grid-template-columns: 280px 1fr 340px;
-            grid-gap: 16px;
+            grid-template-columns: 260px 1fr 310px;
+            grid-gap: 10px;
         }
 
         @media (max-width: 1200px) {
+            body {
+                height: auto;
+                max-height: none;
+                overflow: auto;
+            }
             .dashboard-container {
                 grid-template-columns: 1fr;
             }
         }
 
-        /* Card Base */
+        /* CARD BASE */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
-            padding: 14px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            padding: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
             position: relative;
         }
 
@@ -70,10 +365,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 11.5px;
+            font-weight: 800;
             letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: var(--text-main);
             text-transform: uppercase;
         }
@@ -82,39 +377,38 @@
             display: flex;
             gap: 8px;
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 11px;
             cursor: pointer;
         }
 
-        /* Left Column Slicers */
+        /* LEFT COLUMN */
         .left-col {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 8px;
+            min-height: 0;
         }
 
-        /* Mapped Location Grid */
         .location-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 4px;
         }
 
         .btn-loc {
-            background-color: #122146;
-            border: 1px solid #1e3a70;
+            background-color: var(--slicer-btn-bg);
+            border: 1px solid var(--card-border);
             color: var(--text-main);
-            padding: 8px 4px;
+            padding: 5px 3px;
             border-radius: 4px;
-            font-size: 11px;
-            font-weight: 500;
+            font-size: 10px;
+            font-weight: 600;
             cursor: pointer;
             text-align: center;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             white-space: normal;
-            word-wrap: break-word;
-            line-height: 1.2;
-            min-height: 38px;
+            line-height: 1.15;
+            min-height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -122,27 +416,26 @@
 
         .btn-loc:hover {
             border-color: var(--accent-orange);
-            background-color: #1a2d5a;
+            background-color: var(--slicer-btn-hover);
         }
 
         .btn-loc.active {
             background-color: var(--accent-orange) !important;
             border-color: #ff8c33 !important;
             color: #ffffff;
-            font-weight: 700;
-            box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+            font-weight: 800;
+            box-shadow: 0 0 8px rgba(255, 107, 0, 0.4);
         }
 
-        /* Maker Slicer */
         .search-box {
             width: 100%;
-            padding: 8px 12px;
-            background-color: #081126;
-            border: 1px solid #1e3a70;
+            padding: 6px 10px;
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
             border-radius: 4px;
-            color: #ffffff;
-            font-size: 12px;
-            margin-bottom: 10px;
+            color: var(--text-main);
+            font-size: 11px;
+            margin-bottom: 6px;
             outline: none;
         }
 
@@ -151,43 +444,45 @@
         }
 
         .maker-list {
-            max-height: 340px;
+            flex: 1;
+            min-height: 0;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 4px;
-            padding-right: 4px;
+            gap: 3px;
+            padding-right: 3px;
         }
 
         .maker-list::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
         .maker-list::-webkit-scrollbar-thumb {
-            background: #1e3a70;
+            background: var(--card-border);
             border-radius: 3px;
         }
 
         .maker-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 8px;
+            gap: 6px;
+            padding: 4px 6px;
             border-radius: 4px;
-            font-size: 11px;
+            font-size: 10.5px;
             cursor: pointer;
             user-select: none;
             transition: background 0.15s ease;
-            color: #d1dcff;
+            color: var(--text-main);
         }
 
         .maker-item:hover {
-            background-color: #162954;
+            background-color: var(--slicer-btn-hover);
         }
 
         .maker-item.selected {
-            background-color: #0f4c92;
+            background-color: rgba(30, 86, 212, 0.35);
+            border-left: 2px solid var(--accent-blue);
             color: #ffffff;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .maker-item input[type="checkbox"] {
@@ -195,87 +490,119 @@
             cursor: pointer;
         }
 
-        /* Center Column */
+        /* CENTER COLUMN */
         .center-col {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 8px;
+            min-height: 0;
         }
 
-        /* Month Slicer Bar */
-        .month-bar {
+        /* CHECKBOX MONTH SLICER GRID */
+        .month-card {
+            padding: 8px 10px;
+        }
+
+        .month-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 4px;
-            background-color: #081126;
-            padding: 4px;
-            border-radius: 6px;
-            border: 1px solid #1e3a70;
         }
 
-        .btn-month {
-            background-color: var(--accent-blue);
-            border: none;
-            color: #ffffff;
-            padding: 8px 0;
-            font-size: 11px;
-            font-weight: 700;
-            border-radius: 3px;
+        .month-check-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 2px;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 5px;
             cursor: pointer;
-            text-align: center;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
+            user-select: none;
+            gap: 2px;
         }
 
-        .btn-month:hover {
-            opacity: 0.9;
+        .month-check-item:hover {
+            border-color: var(--accent-orange);
+            background: var(--card-bg-subtle);
         }
 
-        .btn-month.active {
-            background-color: #b0bec5 !important;
-            color: #070d1e !important;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        .month-check-item.selected {
+            background: rgba(255, 107, 0, 0.16);
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 8px rgba(255, 107, 0, 0.3);
         }
 
-        .btn-month.all-btn {
-            background-color: #37474f;
-            grid-column: span 12;
-            margin-top: 4px;
-            padding: 4px;
+        .month-check-box {
+            width: 13px;
+            height: 13px;
+            border-radius: 3px;
+            border: 1px solid var(--text-dim);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 10px;
+            font-weight: 900;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        /* KPI Metric Table Card */
+        .month-check-item.selected .month-check-box {
+            background: var(--accent-orange);
+            border-color: #ff8c33;
+        }
+
+        .month-check-text {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        .month-check-item.selected .month-check-text {
+            color: #ffffff;
+            font-weight: 800;
+        }
+
+        /* KPI METRIC TABLE CARD */
         .kpi-table-container {
             border-radius: 6px;
             overflow: hidden;
             border: 1px solid #10b981;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
         }
 
         .kpi-table {
             width: 100%;
             border-collapse: collapse;
             text-align: center;
-            font-size: 14px;
+            font-size: 12.5px;
         }
 
         .kpi-table th {
             background-color: var(--table-header-green);
             color: #ffffff;
-            padding: 10px;
-            font-weight: 700;
+            padding: 6px 8px;
+            font-weight: 800;
+            font-size: 11.5px;
+            letter-spacing: 0.4px;
         }
 
         .kpi-table td {
-            padding: 10px;
-            font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 6px 8px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-main);
         }
 
         .kpi-table tr:nth-child(1) td {
-            background-color: #0a2416;
+            background-color: var(--card-bg-subtle);
         }
         .kpi-table tr:nth-child(2) td {
-            background-color: #091c36;
+            background-color: var(--card-bg-subtle);
         }
         .kpi-table tr:nth-child(3) td {
             background-color: var(--accent-orange);
@@ -290,30 +617,33 @@
             color: #ffffff;
         }
 
-        /* Chart Card */
+        /* CHART CARD */
         .chart-card {
             flex: 1;
+            min-height: 0;
             display: flex;
             flex-direction: column;
-            min-height: 380px;
+            padding: 8px 10px;
         }
 
         .chart-container {
             position: relative;
             flex: 1;
+            min-height: 0;
             width: 100%;
             height: 100%;
-            min-height: 300px;
         }
 
-        /* Right Column: Maker Table */
+        /* RIGHT COLUMN: MAKER RANKING */
         .right-col {
             display: flex;
             flex-direction: column;
+            min-height: 0;
         }
 
         .maker-table-card {
             height: 100%;
+            min-height: 0;
             display: flex;
             flex-direction: column;
             border: 1px solid var(--accent-orange);
@@ -325,11 +655,13 @@
             background-color: var(--table-header-orange);
             color: #ffffff;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            padding: 12px 14px;
-            font-weight: 700;
-            font-size: 13px;
+            grid-template-columns: 2.1fr 1fr 1fr;
+            padding: 8px 10px;
+            font-weight: 800;
+            font-size: 11.5px;
             text-align: right;
+            letter-spacing: 0.4px;
+            flex-shrink: 0;
         }
 
         .maker-table-header div:first-child {
@@ -338,19 +670,28 @@
 
         .maker-table-body {
             flex: 1;
+            min-height: 0;
             overflow-y: auto;
-            max-height: 520px;
+        }
+
+        .maker-table-body::-webkit-scrollbar {
+            width: 5px;
+        }
+        .maker-table-body::-webkit-scrollbar-thumb {
+            background: var(--card-border);
+            border-radius: 3px;
         }
 
         .maker-row {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            padding: 10px 14px;
-            font-size: 11px;
+            grid-template-columns: 2.1fr 1fr 1fr;
+            padding: 6px 10px;
+            font-size: 10.5px;
             font-weight: 600;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid var(--card-border);
             text-align: right;
             align-items: center;
+            color: var(--text-main);
         }
 
         .maker-row div:first-child {
@@ -358,67 +699,57 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            padding-right: 8px;
+            padding-right: 6px;
         }
 
-        .maker-row:nth-child(1) { background-color: #0b1a3a; }
-        .maker-row:nth-child(2) { background-color: #d96b00; color: #ffffff; }
-        .maker-row:nth-child(3) { background-color: #0b1a3a; }
-        .maker-row:nth-child(4) { background-color: #0f244e; }
-        .maker-row:nth-child(even) { background-color: #09152e; }
+        .maker-row:nth-child(even) {
+            background-color: var(--card-bg-subtle);
+        }
 
-        /* Footer */
-        .footer-bar {
-            grid-column: span 3;
+        .maker-row.toyota-row {
+            background-color: rgba(232, 179, 57, 0.18) !important;
+            color: var(--accent-yellow) !important;
+            font-weight: 800;
+        }
+
+        /* STATUS STRIP */
+        .bottom-status-strip {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 6px;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .btn-reset {
-            background-color: transparent;
-            border: 1px solid var(--card-border-glow);
-            color: #ffffff;
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s;
-        }
-
-        .btn-reset:hover {
-            background-color: var(--accent-orange);
-            border-color: var(--accent-orange);
-        }
-
-        .btn-export {
-            background-color: #0f4c92;
-            border: 1px solid #1e56d4;
-            color: #ffffff;
-            padding: 6px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-
-        .btn-export:hover {
-            background-color: #1e56d4;
+            font-size: 10.5px;
+            color: var(--text-dim);
+            padding: 2px 6px;
+            flex-shrink: 0;
         }
     </style>
 </head>
 <body>
 
+    <!-- TOP EXECUTIVE HEADER -->
+    <div class="top-header">
+        <div class="header-left">
+            <div class="header-title-wrap">
+                <h1>🚗 Executive Performance Dashboard</h1>
+                <span class="badge-scope">2025 FULL vs 2026 JAN–AUG</span>
+                <span id="activePeriodBadge" class="badge-period">AUG 2025 vs AUG 2026</span>
+            </div>
+            <div class="header-subtitle">Comparative Automotive Retail & Market Share Analytics • Kerala Regional Transport Offices</div>
+        </div>
+        <div class="header-actions">
+            <button class="btn-top btn-reset-top" id="btnResetFilters" title="Reset all locations, makers, and months">
+                🔄 Clear All Filters
+            </button>
+            <a href="/rto-selection.html" class="btn-top btn-orange-top" title="Explore 11 Main RTO Clusters & 86 Sub-RTOs">
+                📍 RTO ANALYSIS &rarr;
+            </a>
+            <a href="/logout" id="btnLogout" class="btn-top btn-danger-top" onclick="logout(event)">
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN 3-COLUMN DASHBOARD (VIEWPORT-FITTING) -->
     <div class="dashboard-container">
         <!-- LEFT COLUMN: SLICERS -->
         <div class="left-col">
@@ -427,8 +758,7 @@
                 <div class="card-header">
                     <span>Mapped Location</span>
                     <div class="card-header-icons">
-                        <span>&#8801;</span>
-                        <span>&#128269;</span>
+                        <span title="Location filter">&#8801;</span>
                     </div>
                 </div>
                 <div class="location-grid" id="locationGrid">
@@ -437,18 +767,17 @@
             </div>
 
             <!-- MAKER SLICER -->
-            <div class="card" style="flex: 1;">
+            <div class="card" style="flex: 1; min-height: 0; display: flex; flex-direction: column;">
                 <div class="card-header">
                     <span>MAKER</span>
                     <div class="card-header-icons">
-                        <span>&#8801;</span>
-                        <span>&#128269;</span>
+                        <span title="Maker filter">&#8801;</span>
                     </div>
                 </div>
-                <input type="text" id="makerSearch" class="search-box" placeholder="Search maker...">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 11px;">
-                    <a href="#" id="selectAllMakers" style="color: var(--text-muted); text-decoration: none;">Select All</a>
-                    <a href="#" id="clearMakers" style="color: var(--text-muted); text-decoration: none;">Clear</a>
+                <input type="text" id="makerSearch" class="search-box" placeholder="🔍 Search maker...">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 10.5px;">
+                    <a href="#" id="selectAllMakers" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Select All</a>
+                    <a href="#" id="clearMakers" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Clear</a>
                 </div>
                 <div class="maker-list" id="makerList">
                     <!-- Maker checkboxes rendered by JS -->
@@ -458,13 +787,17 @@
 
         <!-- CENTER COLUMN: MAIN DASHBOARD -->
         <div class="center-col">
-            <!-- MONTH SLICER BAR -->
-            <div class="card" style="padding: 10px;">
-                <div class="card-header" style="margin-bottom: 8px;">
-                    <span>Month</span>
+            <!-- MONTH SLICER BAR (CHECKBOX / TICK SELECTION) -->
+            <div class="card month-card">
+                <div class="card-header" style="margin-bottom: 6px;">
+                    <span>Month Selection (Check To Compare)</span>
+                    <div style="display: flex; gap: 10px; font-size: 10px;">
+                        <a href="#" id="selectAllMonths" style="color: var(--accent-orange); text-decoration: none; font-weight: 700;">Select All</a>
+                        <a href="#" id="clearMonths" style="color: var(--text-muted); text-decoration: none; font-weight: 600;">Clear</a>
+                    </div>
                 </div>
-                <div class="month-bar" id="monthBar">
-                    <!-- Month buttons rendered by JS -->
+                <div class="month-grid" id="monthBar">
+                    <!-- Month checkboxes rendered by JS -->
                 </div>
             </div>
 
@@ -474,8 +807,8 @@
                     <thead>
                         <tr>
                             <th style="width: 25%;">Metric</th>
-                            <th style="width: 25%;">2025</th>
-                            <th style="width: 25%;">2026 Jan-Aug</th>
+                            <th style="width: 25%;" id="thKpi2025">2025</th>
+                            <th style="width: 25%;" id="thKpi2026">2026 Jan-Aug</th>
                             <th style="width: 25%;">Growth / Diff</th>
                         </tr>
                     </thead>
@@ -504,8 +837,8 @@
 
             <!-- COMPARISON BAR CHART CARD -->
             <div class="card chart-card">
-                <div class="card-header">
-                    <span>2025 vs 2026 Jan-Aug Comparison</span>
+                <div class="card-header" style="margin-bottom: 4px;">
+                    <span id="chartHeadingTitle">2025 vs 2026 Jan-Aug Comparison</span>
                 </div>
                 <div class="chart-container">
                     <canvas id="comparisonChart"></canvas>
@@ -518,26 +851,20 @@
             <div class="card maker-table-card">
                 <div class="maker-table-header">
                     <div>MAKER</div>
-                    <div>2025</div>
-                    <div>2026 Jan-Aug</div>
+                    <div id="thMaker2025">2025</div>
+                    <div id="thMaker2026">2026 Jan-Aug</div>
                 </div>
                 <div class="maker-table-body" id="makerTableBody">
                     <!-- Maker rows rendered by JS -->
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- FOOTER BAR -->
-        <div class="footer-bar">
-            <div>
-                <strong>Data Source:</strong> 2025 and 2026 Data working - 2025 Required only &nbsp;|&nbsp; 2026 Jan-Aug
-            </div>
-            <div style="display: flex; align-items: center;">
-                <button class="btn-reset" id="btnResetFilters"> Clear All Filters </button>
-                <button class="btn-export" onclick="exportPowerBISpec()"> Power BI Specs </button>
-                <button class="btn-reset" id="btnLogout" style="margin-left: 10px; border-color: #ff4444;"> Logout </button>
-            </div>
-        </div>
+    <!-- COMPACT BOTTOM STATUS STRIP -->
+    <div class="bottom-status-strip">
+        <span><strong>Data Source:</strong> 2025 Required Records vs 2026 Jan-Aug Verified Scope &nbsp;|&nbsp; Reconciled Kerala Total: 158,162 registrations</span>
+        <span id="filterSummaryText">Showing: Kazhakkottam & Enchakkal · AUG</span>
     </div>
 
     <!-- DASHBOARD LOGIC ENGINE -->
@@ -548,27 +875,131 @@
         const allMakers = ["AUDI AG","AUTOMOBILI LAMBORGHINI S.P.A","BMW INDIA PVT LTD","BYD INDIA PRIVATE LIMITED","FORCE MOTORS LIMITED","HINDUSTAN MOTORS LTD","HONDA CARS INDIA LTD","HYUNDAI MOTOR INDIA LTD","ISUZU MOTORS INDIA PVT LTD","JAGUAR LAND ROVER INDIA LIMITED","JSW MG MOTOR INDIA PVT LTD","KIA INDIA PRIVATE LIMITED","MAHINDRA \u0026 MAHINDRA LIMITED","MAHINDRA ELECTRIC AUTOMOBILE LTD","MARUTI SUZUKI INDIA LTD","MARUTI UDYOG LTD","MERCEDES -BENZ AG","MERCEDES-BENZ INDIA PVT LTD","NISSAN MOTOR INDIA PVT LTD","PORSCHE AG GERMANY","RENAULT INDIA PVT LTD","SKODA AUTO AS","SKODA AUTO VOLKSWAGEN INDIA PVT LTD","STELLANTIS AUTOMOBILES INDIA PVT LTD","STELLANTIS INDIA PVT LTD","TATA MOTORS PASSENGER VEHICLES LTD","TATA PASSENGER ELECTRIC MOBILITY LTD","TESLA INDIA MOTORS AND ENERGY PVT LTD","TOYOTA KIRLOSKAR MOTOR PVT LTD","VINFAST AUTO INDIA PVT LTD","VOLKSWAGEN AG","VOLVO AUTO INDIA PVT LTD"];
 
         // Active filter state
-        let selectedLocations = new Set();
-        let selectedMonths = new Set(['AUG']); // AUG pre-selected to match reference image!
+        let selectedLocations = new Set(['Kazhakkottam \u0026 Enchakkal']);
+        let selectedMonths = new Set(['AUG']); // Pre-selected default
         let selectedMakers = new Set();
         let chartInstance = null;
 
-        // Number formatter
+        // Number formatters
         function fmt(n) {
+            if (n === null || n === undefined || isNaN(n)) return '0';
             return new Intl.NumberFormat('en-US').format(Math.round(n));
         }
+
         function fmtPct(n) {
             if (isNaN(n) || !isFinite(n)) return '0.0%';
             return (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
         }
 
+        // Dynamic Period Label Formatter
+        function formatPeriodLabel(monthsSet) {
+            if (monthsSet.size === 0 || monthsSet.size === 12) {
+                return '2025 FULL vs 2026 JAN–AUG';
+            }
+            const sorted = allMonths.filter(m => monthsSet.has(m));
+            if (sorted.length === 1) {
+                return `${sorted[0]} 2025 vs ${sorted[0]} 2026`;
+            }
+            if (sorted.length === 2) {
+                return `${sorted[0]} + ${sorted[1]} 2025 vs ${sorted[0]} + ${sorted[1]} 2026`;
+            }
+            // Check if contiguous range
+            const indices = sorted.map(m => allMonths.indexOf(m));
+            let isContiguous = true;
+            for (let i = 1; i < indices.length; i++) {
+                if (indices[i] !== indices[i - 1] + 1) {
+                    isContiguous = false;
+                    break;
+                }
+            }
+            if (isContiguous) {
+                return `${sorted[0]}–${sorted[sorted.length - 1]} 2025 vs ${sorted[0]}–${sorted[sorted.length - 1]} 2026`;
+            }
+            return sorted.join(' + ') + ' 2025 vs ' + sorted.join(' + ') + ' 2026';
+        }
+
+        function formatShortPeriod(monthsSet) {
+            if (monthsSet.size === 0 || monthsSet.size === 12) return 'Jan-Aug';
+            const sorted = allMonths.filter(m => monthsSet.has(m));
+            if (sorted.length === 1) return sorted[0];
+            if (sorted.length === 2) return `${sorted[0]}+${sorted[1]}`;
+            const indices = sorted.map(m => allMonths.indexOf(m));
+            let isContiguous = true;
+            for (let i = 1; i < indices.length; i++) {
+                if (indices[i] !== indices[i - 1] + 1) {
+                    isContiguous = false;
+                    break;
+                }
+            }
+            if (isContiguous) return `${sorted[0]}–${sorted[sorted.length - 1]}`;
+            return sorted.join('+');
+        }
+
         // Initialize UI Elements
         function initUI() {
             // 1. Render Locations Grid
+            renderLocationGrid();
+
+            // 2. Render Months Checkbox Slicer
+            renderMonthSlicer();
+
+            // 3. Render Makers List
+            renderMakerList();
+
+            // Month Slicer Controls
+            document.getElementById('selectAllMonths').onclick = (e) => {
+                e.preventDefault();
+                allMonths.forEach(m => selectedMonths.add(m));
+                updateDashboard();
+            };
+
+            document.getElementById('clearMonths').onclick = (e) => {
+                e.preventDefault();
+                selectedMonths.clear();
+                updateDashboard();
+            };
+
+            // Maker Search Listener
+            document.getElementById('makerSearch').oninput = (e) => {
+                renderMakerList(e.target.value.toLowerCase());
+            };
+
+            document.getElementById('selectAllMakers').onclick = (e) => {
+                e.preventDefault();
+                allMakers.forEach(m => selectedMakers.add(m));
+                renderMakerList(document.getElementById('makerSearch').value.toLowerCase());
+                updateDashboard();
+            };
+
+            document.getElementById('clearMakers').onclick = (e) => {
+                e.preventDefault();
+                selectedMakers.clear();
+                renderMakerList(document.getElementById('makerSearch').value.toLowerCase());
+                updateDashboard();
+            };
+
+            // Reset Button
+            document.getElementById('btnResetFilters').onclick = () => {
+                selectedLocations.clear();
+                selectedLocations.add("Kazhakkottam \u0026 Enchakkal");
+                selectedMonths.clear();
+                selectedMonths.add('AUG');
+                selectedMakers.clear();
+                const searchInput = document.getElementById('makerSearch');
+                if (searchInput) searchInput.value = '';
+                renderMakerList();
+                updateDashboard();
+            };
+
+            // Initial calculation
+            updateDashboard();
+        }
+
+        function renderLocationGrid() {
             const locGrid = document.getElementById('locationGrid');
             locGrid.innerHTML = '';
             
-            // Add "All" button
+            // Add "All Locations" button
             const allBtn = document.createElement('button');
             allBtn.className = 'btn-loc' + (selectedLocations.size === 0 ? ' active' : '');
             allBtn.textContent = 'All Locations';
@@ -592,18 +1023,25 @@
                 };
                 locGrid.appendChild(btn);
             });
+        }
 
-            // Pre-select "Kazhakkottam & Enchakkal" to match reference screenshot!
-            selectedLocations.add("Kazhakkottam & Enchakkal");
-
-            // 2. Render Months Bar
+        // Render Interactive Month Checkbox Slicer
+        function renderMonthSlicer() {
             const monthBar = document.getElementById('monthBar');
+            if (!monthBar) return;
             monthBar.innerHTML = '';
+
             allMonths.forEach(m => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-month' + (selectedMonths.has(m) ? ' active' : '');
-                btn.textContent = m;
-                btn.onclick = () => {
+                const isSelected = selectedMonths.has(m);
+                const item = document.createElement('div');
+                item.className = 'month-check-item' + (isSelected ? ' selected' : '');
+                item.id = `month-check-${m}`;
+                item.title = `Click to toggle ${m} comparison`;
+                item.innerHTML = `
+                    <span class="month-check-box">${isSelected ? '✓' : ''}</span>
+                    <span class="month-check-text">${m}</span>
+                `;
+                item.onclick = () => {
                     if (selectedMonths.has(m)) {
                         selectedMonths.delete(m);
                     } else {
@@ -611,42 +1049,8 @@
                     }
                     updateDashboard();
                 };
-                monthBar.appendChild(btn);
+                monthBar.appendChild(item);
             });
-
-            // 3. Render Makers List
-            renderMakerList();
-
-            // Maker Search Listener
-            document.getElementById('makerSearch').oninput = (e) => {
-                renderMakerList(e.target.value.toLowerCase());
-            };
-
-            document.getElementById('selectAllMakers').onclick = (e) => {
-                e.preventDefault();
-                allMakers.forEach(m => selectedMakers.add(m));
-                renderMakerList(document.getElementById('makerSearch').value.toLowerCase());
-                updateDashboard();
-            };
-
-            document.getElementById('clearMakers').onclick = (e) => {
-                e.preventDefault();
-                selectedMakers.clear();
-                renderMakerList(document.getElementById('makerSearch').value.toLowerCase());
-                updateDashboard();
-            };
-
-            document.getElementById('btnResetFilters').onclick = () => {
-                selectedLocations.clear();
-                selectedMonths.clear();
-                selectedMakers.clear();
-                document.getElementById('makerSearch').value = '';
-                renderMakerList();
-                updateDashboard();
-            };
-
-            // Initial calculation
-            updateDashboard();
         }
 
         function renderMakerList(filter = '') {
@@ -663,9 +1067,7 @@
                 chk.type = 'checkbox';
                 chk.checked = isSelected;
                 chk.onclick = (e) => e.stopPropagation();
-                chk.onchange = () => {
-                    toggleMaker(maker);
-                };
+                chk.onchange = () => toggleMaker(maker);
 
                 const label = document.createElement('span');
                 label.textContent = maker;
@@ -701,23 +1103,44 @@
                 }
             });
 
-            // Highlight month buttons
-            const monthBtns = document.querySelectorAll('.btn-month');
-            monthBtns.forEach((btn, idx) => {
-                const m = allMonths[idx];
-                btn.className = 'btn-month' + (selectedMonths.has(m) ? ' active' : '');
+            // Update Month Checkbox Slicer items
+            allMonths.forEach(m => {
+                const item = document.getElementById(`month-check-${m}`);
+                if (item) {
+                    const isSelected = selectedMonths.has(m);
+                    item.className = 'month-check-item' + (isSelected ? ' selected' : '');
+                    const box = item.querySelector('.month-check-box');
+                    if (box) box.textContent = isSelected ? '✓' : '';
+                }
             });
+
+            // Dynamic Period Labels
+            const dynamicPeriodTitle = formatPeriodLabel(selectedMonths);
+            const shortPeriod = formatShortPeriod(selectedMonths);
+
+            const badgePeriod = document.getElementById('activePeriodBadge');
+            if (badgePeriod) badgePeriod.innerText = dynamicPeriodTitle;
+
+            const chartTitle = document.getElementById('chartHeadingTitle');
+            if (chartTitle) chartTitle.innerText = `${dynamicPeriodTitle} — Registration Volume & Share`;
+
+            const thKpi2025 = document.getElementById('thKpi2025');
+            if (thKpi2025) thKpi2025.innerText = `2025 (${shortPeriod})`;
+            const thKpi2026 = document.getElementById('thKpi2026');
+            if (thKpi2026) thKpi2026.innerText = `2026 (${shortPeriod})`;
+
+            const thMaker2025 = document.getElementById('thMaker2025');
+            if (thMaker2025) thMaker2025.innerText = `2025 (${shortPeriod})`;
+            const thMaker2026 = document.getElementById('thMaker2026');
+            if (thMaker2026) thMaker2026.innerText = `2026 (${shortPeriod})`;
 
             // Filter Records
             let sumTiv2025All = 0, sumTiv2026All = 0;
             let sumNos2025Sel = 0, sumNos2026Sel = 0;
-
             const makerSums = {};
 
             rawRecords.forEach(r => {
-                // Check location filter
                 const locMatch = selectedLocations.size === 0 || selectedLocations.has(r.Mapped_Location);
-                // Check month filter
                 const monthMatch = selectedMonths.size === 0 || selectedMonths.has(r.Month);
 
                 if (locMatch && monthMatch) {
@@ -727,7 +1150,6 @@
                         sumTiv2026All += r.Nos;
                     }
 
-                    // Maker filter for selected Nos
                     const makerMatch = selectedMakers.size === 0 || selectedMakers.has(r.Maker);
                     if (makerMatch) {
                         if (r.Year === 2025) {
@@ -737,7 +1159,6 @@
                         }
                     }
 
-                    // Accumulate for Maker table
                     if (!makerSums[r.Maker]) {
                         makerSums[r.Maker] = { y2025: 0, y2026: 0 };
                     }
@@ -749,11 +1170,10 @@
                 }
             });
 
-            // Compute 2026 movement against the 2025 baseline.
+            // Growth calculations
             const tivGrowth = sumTiv2025All > 0 ? ((sumTiv2026All - sumTiv2025All) / sumTiv2025All) * 100 : 0;
             const nosGrowth = sumNos2025Sel > 0 ? ((sumNos2026Sel - sumNos2025Sel) / sumNos2025Sel) * 100 : 0;
 
-            // Compute Market Share %
             const ms2025 = sumTiv2025All > 0 ? (sumNos2025Sel / sumTiv2025All) * 100 : 100;
             const ms2026 = sumTiv2026All > 0 ? (sumNos2026Sel / sumTiv2026All) * 100 : 100;
             const msGrowth = ms2026 - ms2025;
@@ -771,43 +1191,57 @@
             document.getElementById('kpiMs2026').textContent = ms2026.toFixed(1) + '%';
             document.getElementById('kpiMsGrowth').textContent = fmtPct(msGrowth);
 
-            // Update Chart
-            updateChart(sumTiv2025All, sumTiv2026All, sumNos2025Sel, sumNos2026Sel, tivGrowth, nosGrowth, ms2025, ms2026, msGrowth);
+            // Update Status Strip
+            const locLabel = selectedLocations.size === 0 ? 'All Locations' : (selectedLocations.size === 1 ? Array.from(selectedLocations)[0] : `${selectedLocations.size} Locations`);
+            const monthLabel = selectedMonths.size === 0 ? 'All Months' : Array.from(selectedMonths).join(', ');
+            const summaryEl = document.getElementById('filterSummaryText');
+            if (summaryEl) summaryEl.textContent = `Showing: ${locLabel} · ${monthLabel}`;
+
+            // Update Comparison Chart
+            updateChart(sumTiv2025All, sumTiv2026All, sumNos2025Sel, sumNos2026Sel, tivGrowth, nosGrowth, ms2025, ms2026, msGrowth, shortPeriod);
 
             // Update Maker Table
             updateMakerTable(makerSums);
         }
 
-        function updateChart(tiv25, tiv26, nos25, nos26, tivDiff, nosDiff, ms25, ms26, msDiff) {
-            const ctx = document.getElementById('comparisonChart').getContext('2d');
+        function updateChart(tiv25, tiv26, nos25, nos26, tivDiff, nosDiff, ms25, ms26, msDiff, periodShort) {
+            const canvas = document.getElementById('comparisonChart');
+            if (!canvas || typeof Chart === 'undefined') return;
+            const ctx = canvas.getContext('2d');
             
             if (chartInstance) {
                 chartInstance.destroy();
             }
 
-            Chart.register(ChartDataLabels);
+            if (typeof ChartDataLabels !== 'undefined') {
+                Chart.register(ChartDataLabels);
+            }
+
+            const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+            const tickColor = isLight ? '#0f172a' : '#ffffff';
+            const gridColor = isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255, 255, 255, 0.08)';
 
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['2025', '2026 Jan-Aug', 'Growth / Diff'],
+                    labels: [`2025 (${periodShort})`, `2026 (${periodShort})`, 'Growth / Diff'],
                     datasets: [
                         {
-                            label: 'TIV',
+                            label: 'TIV (Total Industry Volume)',
                             data: [tiv25, tiv26, tivDiff],
                             backgroundColor: '#f5b000',
                             borderRadius: 4,
                             barPercentage: 0.4
                         },
                         {
-                            label: 'Nos',
+                            label: 'Selected Maker Nos',
                             data: [nos25, nos26, nosDiff],
                             backgroundColor: '#00e676',
                             borderRadius: 4,
                             barPercentage: 0.4
                         },
                         {
-                            label: 'MS %',
+                            label: 'Market Share %',
                             data: [ms25, ms26, msDiff],
                             backgroundColor: '#ff6b6b',
                             borderRadius: 4,
@@ -823,8 +1257,8 @@
                             position: 'top',
                             align: 'end',
                             labels: {
-                                color: '#ffffff',
-                                font: { weight: 'bold', size: 12 },
+                                color: tickColor,
+                                font: { weight: 'bold', size: 11 },
                                 usePointStyle: true,
                                 pointStyle: 'rect'
                             }
@@ -832,12 +1266,12 @@
                         datalabels: {
                             anchor: 'end',
                             align: 'start',
-                            offset: -20,
-                            color: '#ffffff',
-                            font: { weight: 'bold', size: 11 },
+                            offset: -18,
+                            color: tickColor,
+                            font: { weight: 'bold', size: 10.5 },
                             formatter: function(val, ctx) {
                                 if (ctx.dataIndex === 2 || ctx.datasetIndex === 2) {
-                                    return val.toFixed(1) + '%';
+                                    return (val >= 0 ? '+' : '') + Number(val).toFixed(1) + '%';
                                 }
                                 return fmt(val);
                             }
@@ -845,18 +1279,18 @@
                     },
                     scales: {
                         x: {
-                            ticks: { color: '#ffffff', font: { weight: 'bold', size: 12 } },
+                            ticks: { color: tickColor, font: { weight: 'bold', size: 11 } },
                             grid: { display: false }
                         },
                         y: {
                             ticks: {
-                                color: '#8ca3cf',
+                                color: isLight ? '#475569' : '#8ca3cf',
                                 callback: function(value) {
-                                    if (value >= 1000) return (value / 1000) + 'K';
+                                    if (Math.abs(value) >= 1000) return (value / 1000).toFixed(0) + 'K';
                                     return value;
                                 }
                             },
-                            grid: { color: 'rgba(255, 255, 255, 0.08)' }
+                            grid: { color: gridColor }
                         }
                     }
                 }
@@ -874,10 +1308,11 @@
             })).sort((a, b) => b.y2025 - a.y2025);
 
             sortedMakers.forEach(item => {
+                const isToyota = item.maker.toUpperCase().includes('TOYOTA');
                 const row = document.createElement('div');
-                row.className = 'maker-row';
+                row.className = 'maker-row' + (isToyota ? ' toyota-row' : '');
                 row.innerHTML = `
-                    <div title="${item.maker}">${item.maker}</div>
+                    <div title="${item.maker}">${isToyota ? '★ ' : ''}${item.maker}</div>
                     <div>${fmt(item.y2025)}</div>
                     <div>${fmt(item.y2026)}</div>
                 `;
@@ -885,11 +1320,8 @@
             });
         }
 
-        function exportPowerBISpec() {
-            alert("Power BI Implementation Specification Exported! Check implementation_plan.md and Power BI DAX code in your workspace.");
-        }
-
-        async function logout() {
+        async function logout(event) {
+            if (event && event.preventDefault) event.preventDefault();
             try {
                 const response = await fetch('/logout', {
                     method: 'POST',
@@ -898,21 +1330,32 @@
                     }
                 });
                 const data = await response.json();
-                if (data.success) {
+                if (data && data.redirect) {
                     window.location.href = data.redirect;
+                    return;
                 }
             } catch (error) {
                 console.error('Logout error:', error);
-                window.location.href = '/login';
             }
+            window.location.href = '/login';
         }
 
-        document.getElementById('btnLogout').onclick = logout;
+        window.logout = logout;
 
-        window.onload = initUI;
+        function startDashboard() {
+            if (typeof initTheme === 'function') initTheme();
+            initUI();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startDashboard);
+        } else {
+            startDashboard();
+        }
     </script>
 </body>
 </html>
+
 
 
 

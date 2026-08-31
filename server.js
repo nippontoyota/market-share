@@ -26,6 +26,14 @@ app.use(helmet({
   }
 }));
 
+// Strictly disable caching for all responses to guarantee fresh browser execution
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 // Body parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -44,10 +52,10 @@ app.use(session({
   name: 'dashboard.sid'
 }));
 
-// Login rate limiting
+// Login rate limiting (30 attempts per 15 minutes window)
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts per window
+  max: 30, // 30 attempts per window
   message: 'Too many login attempts. Please try again later.',
   standardHeaders: true,
   legacyHeaders: false
@@ -94,8 +102,8 @@ app.post('/login', loginLimiter, async (req, res) => {
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
-  // Verify username
-  if (username !== validUsername) {
+  // Verify username (case-insensitive check)
+  if (username.trim().toLowerCase() !== validUsername.trim().toLowerCase()) {
     return res.status(401).json({ error: 'Invalid username or password' });
   }
 
@@ -115,21 +123,69 @@ app.post('/login', loginLimiter, async (req, res) => {
   }
 });
 
-// Handle logout
-app.post('/logout', (req, res) => {
+// Handle logout (both POST and GET supported)
+const handleLogout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error('Logout error:', err);
-      return res.status(500).json({ error: 'Logout failed' });
     }
-    res.clearCookie('dashboard.sid');
-    res.json({ success: true, redirect: '/login' });
+    res.clearCookie('dashboard.sid', { path: '/' });
+    if (req.method === 'POST') {
+      res.json({ success: true, redirect: '/login' });
+    } else {
+      res.redirect('/login');
+    }
   });
+};
+
+app.post('/logout', handleLogout);
+app.get('/logout', handleLogout);
+
+// Middleware to disable caching for live development & demo
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  next();
 });
 
 // Protect dashboard route
 app.get('/dashboard', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/index.html', requireAuth, (req, res) => {
+  res.redirect('/dashboard');
+});
+
+// Serve rto.css
+app.get('/rto.css', (req, res) => {
+  res.setHeader('Content-Type', 'text/css');
+  res.sendFile(path.join(__dirname, 'rto.css'));
+});
+
+// TEMP DEBUG: Test style injection (no auth required)
+app.get('/test-theme', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test-theme.html'));
+});
+
+// Serve rto_data.json securely for authenticated users
+app.get('/rto_data.json', requireAuth, (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.sendFile(path.join(__dirname, 'rto_data.json'));
+});
+
+// Protect RTO Selection routes
+app.get('/rto-selection', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'rto-selection.html'));
+});
+app.get('/rto-selection.html', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'rto-selection.html'));
+});
+
+// Protect RTO Detail routes
+app.get('/rto-detail', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'rto-detail.html'));
+});
+app.get('/rto-detail.html', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'rto-detail.html'));
 });
 
 // Serve root - redirect to login or dashboard
@@ -140,10 +196,6 @@ app.get('/', (req, res) => {
     res.redirect('/login');
   }
 });
-
-// Do NOT serve sensitive data files publicly
-// dashboard_data.json and RTO_2025_2026_Combined.csv are not served
-// They are only used as source data, not runtime dependencies
 
 // Start server
 app.listen(PORT, () => {

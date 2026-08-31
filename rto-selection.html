@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTO Cluster Selection — 2026 JAN-AUG</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/rto.css">
+    <script>
+        (function() {
+            var vars = {
+                '--bg-dark': '#120708',
+                '--bg-gradient': 'radial-gradient(circle at 80% 20%, #2a0a0d 0%, #120708 65%)',
+                '--card-bg': '#1c0b0e',
+                '--card-bg-glass': 'rgba(28,11,14,0.95)',
+                '--card-bg-subtle': '#16080a',
+                '--card-border': '#42181c',
+                '--card-border-glow': '#63242a',
+                '--text-main': '#ffffff',
+                '--text-muted': '#c9a5a9',
+                '--text-dim': '#9c7075',
+                '--accent-orange': '#f97316',
+                '--accent-orange-hover': '#ea580c',
+                '--accent-orange-glow': 'rgba(249,115,22,0.35)',
+                '--accent-blue': '#3b82f6',
+                '--accent-blue-hover': '#2563eb',
+                '--accent-green': '#10b981',
+                '--accent-yellow': '#f59e0b',
+                '--accent-red': '#ef4444',
+                '--banner-bg': 'linear-gradient(135deg,#5c0f13 0%,#240a12 100%)',
+                '--banner-border': '#7f1d1d',
+                '--accordion-head-bg': '#220e11',
+                '--accordion-head-hover': '#2e1418',
+                '--table-head-bg': 'rgba(255,255,255,0.05)',
+                '--table-border': 'rgba(255,255,255,0.07)',
+                '--table-row-hover': 'rgba(255,255,255,0.03)',
+                '--input-bg': 'rgba(0,0,0,0.5)'
+            };
+            function applyTheme() {
+                var theme = 'dark-red';
+                var root = document.documentElement;
+                root.setAttribute('data-theme', theme);
+                for (var k in vars) { root.style.setProperty(k, vars[k]); }
+                if (document.body) {
+                    document.body.setAttribute('data-theme', theme);
+                    document.body.style.backgroundColor = vars['--bg-dark'];
+                    document.body.style.backgroundImage = vars['--bg-gradient'];
+                    document.body.style.color = vars['--text-main'];
+                }
+                var s = document.getElementById('rto-theme-inject');
+                if (!s) { s = document.createElement('style'); s.id = 'rto-theme-inject'; (document.head || root).appendChild(s); }
+                s.textContent = 'body{background-color:' + vars['--bg-dark'] + '!important;background-image:' + vars['--bg-gradient'] + '!important;color:' + vars['--text-main'] + '!important}' +
+                    '.top-header{background:' + vars['--card-bg-glass'] + '!important;border-color:' + vars['--card-border'] + '!important}' +
+                    '.selection-card{background:' + vars['--card-bg-glass'] + '!important;border-color:' + vars['--card-border'] + '!important}' +
+                    '.card-title,.kpi-v,.cs-v{color:' + vars['--text-main'] + '!important}' +
+                    '.card-codes,.kpi-l,.cs-l,.subtitle,.text-muted{color:' + vars['--text-muted'] + '!important}' +
+                    '.card-kpis{background:' + vars['--input-bg'] + '!important;border-color:' + vars['--table-border'] + '!important}';
+                localStorage.setItem('rto_dashboard_theme', theme);
+            }
+            document.documentElement.setAttribute('data-theme', 'dark-red');
+            applyTheme();
+            window.changeTheme = function() { applyTheme(); };
+            window.initTheme = function() { applyTheme(); };
+        })();
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <!-- TOP HEADER -->
+    <div class="top-header">
+        <div>
+            <h1>📍 RTO Cluster Selection <span class="badge-tag">PAGE 3 OF 4</span> <span style="font-size: 11px; font-weight: 700; color: var(--accent-orange); background: rgba(255, 107, 0, 0.12); padding: 3px 8px; border-radius: 6px; margin-left: 4px; border: 1px solid rgba(255, 107, 0, 0.3);">2026 JAN–AUG</span></h1>
+            <div class="subtitle">Select a Main RTO Cluster below to explore full cluster & sub-RTO analysis (11 Main RTO Clusters)</div>
+        </div>
+        <div class="header-actions">
+            <a href="/dashboard" class="btn">&larr; Back to Dashboard</a>
+            <a href="/logout" id="btnLogout" class="btn btn-danger" onclick="logout(event)">Logout</a>
+        </div>
+    </div>
+
+    <!-- MAIN RTO CARDS GRID -->
+    <div id="rtoGrid" class="grid-cards">
+        <!-- Dynamically populated by JS from validated 2026 data -->
+    </div>
+</div>
+
+<script>
+    async function loadRtoSelection() {
+        if (typeof initTheme === 'function') initTheme();
+        try {
+            const res = await fetch('/rto_data.json');
+            if (res.status === 401 || res.redirected) {
+                window.location.href = '/login';
+                return;
+            }
+            const data = await res.json();
+            
+            const grid = document.getElementById('rtoGrid');
+            grid.innerHTML = '';
+
+            const keys = Object.keys(data).filter(k => k !== 'Trivandrum Royals' && k !== 'Other / Unmapped');
+
+            keys.sort((a, b) => {
+                if (a === 'Kazhakkottam & Enchakkal') return -1;
+                if (b === 'Kazhakkottam & Enchakkal') return 1;
+                return data[b].summary.tiv2026 - data[a].summary.tiv2026;
+            });
+
+            keys.forEach(key => {
+                const item = data[key];
+                const card = document.createElement('div');
+                card.className = 'selection-card';
+                card.setAttribute('data-search-text', `${item.name} ${item.subRtoCodes.join(' ')} ${item.subRtos.map(s => s.name).join(' ')}`.toLowerCase());
+                
+                const shareColor = item.summary.share2026 >= 10 ? 'var(--accent-green)' : (item.summary.share2026 >= 8 ? 'var(--accent-blue)' : 'var(--accent-yellow)');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
+                            <span>${item.name}</span>
+                            <span style="font-size: 10px; font-weight: 700; color: var(--accent-orange); background: var(--input-bg); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--table-border);">
+                                2026 JAN-AUG
+                            </span>
+                        </div>
+                        
+                        <div class="card-kpis">
+                            <div>
+                                <div class="kpi-v">${item.summary.tiv2026.toLocaleString()}</div>
+                                <div class="kpi-l">2026 TIV</div>
+                            </div>
+                            <div>
+                                <div class="kpi-v" style="color: var(--accent-blue);">${item.summary.toyota2026.toLocaleString()}</div>
+                                <div class="kpi-l">Toyota Units</div>
+                            </div>
+                            <div>
+                                <div class="kpi-v" style="color: ${shareColor};">${item.summary.share2026}%</div>
+                                <div class="kpi-l">Toyota Share</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card-actions-grid" onclick="event.stopPropagation();">
+                        <a href="/rto-detail.html?rto=${encodeURIComponent(key)}&view=cluster" class="btn-cluster-summary" title="View ${item.name} Cluster-Level Summary">
+                            📊 CLUSTER SUMMARY
+                        </a>
+                        <a href="/rto-detail.html?rto=${encodeURIComponent(key)}&view=subrto" class="btn-view-subrtos" title="View all ${item.subRtos.length} Sub-RTOs under ${item.name}">
+                            📍 VIEW SUB-RTOs (${item.subRtos.length})
+                        </a>
+                    </div>
+                `;
+
+                card.onclick = () => {
+                    window.location.href = `/rto-detail.html?rto=${encodeURIComponent(key)}&view=cluster`;
+                };
+
+                grid.appendChild(card);
+            });
+
+        } catch (err) {
+            console.error('Failed to load RTO selection:', err);
+        }
+    }
+
+    function filterClusters(query) {
+        const q = (query || '').trim().toLowerCase();
+        const cards = document.querySelectorAll('.selection-card');
+        cards.forEach(card => {
+            const text = card.getAttribute('data-search-text') || '';
+            if (text.includes(q)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    async function logout(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        try {
+            const res = await fetch('/logout', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+            const data = await res.json();
+            if (data && data.redirect) {
+                window.location.href = data.redirect;
+                return;
+            }
+        } catch (err) {
+            console.error('Logout error:', err);
+        }
+        window.location.href = '/login';
+    }
+
+    window.filterClusters = filterClusters;
+    window.logout = logout;
+
+    const btnLogout = document.getElementById('btnLogout');
+    if (btnLogout) btnLogout.onclick = logout;
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadRtoSelection);
+    } else {
+        loadRtoSelection();
+    }
+</script>
+
+</body>
+</html>

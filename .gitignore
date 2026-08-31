@@ -14,3 +14,11 @@ npm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# Backups & Scratch
+backup_final_ceo_fix/
+backup_pre_ceo_update/
+scratch/
+test-theme.html
+rto_data_before_aug28_integration.json
+Trivandrum_Royals_Full_Analysis-1.html

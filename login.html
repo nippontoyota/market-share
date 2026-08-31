@@ -10,16 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #070d1e;
-            --card-bg: #0d1733;
-            --card-border: #1e3a70;
-            --card-border-glow: #1e4f9c;
+            --bg-dark: #120708;
+            --card-bg: #1c0b0e;
+            --card-border: #42181c;
+            --card-border-glow: #63242a;
             --text-main: #ffffff;
-            --text-muted: #8ca3cf;
-            --accent-orange: #ff6b00;
-            --accent-orange-hover: #e05e00;
-            --accent-blue: #1e56d4;
-            --error-red: #ff4444;
+            --text-muted: #c9a5a9;
+            --accent-orange: #f97316;
+            --accent-orange-hover: #ea580c;
+            --accent-blue: #3b82f6;
+            --error-red: #ef4444;
         }
 
         * {
@@ -204,6 +204,48 @@
         </div>
     </div>
 
-    <script src="/login.js"></script>
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginButton = document.getElementById('loginButton');
+        const errorMessage = document.getElementById('errorMessage');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Disable button during request
+            loginButton.disabled = true;
+            loginButton.textContent = 'Logging in...';
+            errorMessage.classList.remove('show');
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    window.location.href = data.redirect || '/dashboard';
+                } else {
+                    errorMessage.textContent = data.error || 'Invalid username or password';
+                    errorMessage.classList.add('show');
+                    loginButton.disabled = false;
+                    loginButton.textContent = 'Login';
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Connection error. Please try again.';
+                errorMessage.classList.add('show');
+                loginButton.disabled = false;
+                loginButton.textContent = 'Login';
+            }
+        });
+    </script>
 </body>
 </html>
