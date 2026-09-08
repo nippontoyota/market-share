@@ -86,22 +86,22 @@ The application strictly enforces **two different data scopes** depending on the
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ PAGE 2: MAIN DASHBOARD (/dashboard -> index.html)                      │
-│ • Scope: 2025 FULL YEAR (12 Months) vs 2026 JAN-AUG (8 Months)         │
-│ • Total Registrations: 302,686 (144,524 in 2025 + 158,162 in 2026)     │
+│ • Scope: 2025 FULL YEAR (12 Months) vs 2026 JAN–SEP (Data Through Sep 7)│
+│ • Total Registrations: 327,136 (144,524 in 2025 + 182,612 in 2026)     │
 │ • Purpose: Macro-level year-over-year executive comparison             │
 └──────────────────────────────────┬─────────────────────────────────────┘
                                    │ [Click "RTO ANALYSIS →"]
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ PAGE 3: RTO SELECTION (/rto-selection.html)                            │
-│ • Scope: 2026 JAN–AUG ONLY (Strictly zero 2025 data)                   │
+│ • Scope: 2026 JAN–SEP ONLY (Data Through September 7, 2026)            │
 │ • Purpose: Select one of 11 Main RTO Clusters for 2026 operational view│
 └──────────────────────────────────┬─────────────────────────────────────┘
                                    │ [Click a Main RTO Card]
                                    ▼
 ┌────────────────────────────────────────────────────────────────────────┐
 │ PAGE 4: RTO FULL CLUSTER ANALYSIS (/rto-detail.html?rto=...)           │
-│ • Scope: 2026 JAN–AUG ONLY (Strictly zero 2025 data)                   │
+│ • Scope: 2026 JAN–SEP ONLY (Data Through September 7, 2026)            │
 │ • Purpose: Single scrollable deep dive showing Selected Main RTO       │
 │   Cluster Summary + ALL associated Sub-RTO cards                       │
 └────────────────────────────────────────────────────────────────────────┘
@@ -111,26 +111,15 @@ The application strictly enforces **two different data scopes** depending on the
 
 ## 5. Raw Data Schemas & Authoritative Sources
 
-### 1. `RTO_2025_2026_Combined.csv` (Primary Source)
-- **Total Records**: `52,012` raw rows.
-- **Filtered Records (`Check_Eligible === 'Required'`)**: `20,620` rows (`302,686` total registrations).
-- **2026 Jan–Aug 'Required' Records**: `13,360` rows (`158,162` total registrations).
-- **Columns**:
-  1. `Year` (e.g. `2025`, `2026`)
-  2. `Year_Label` (e.g. `2025`, `2026`)
-  3. `Month` (e.g. `JAN`, `FEB`, `MAR`, `APR`, `MAY`, `JUN`, `JUL`, `AUG`, `SEP`, `OCT`, `NOV`, `DEC`)
-  4. `RTO` (Raw string, e.g. `KL 01`, `KL 45`)
-  5. `RTO_clean` (Clean code, e.g. `KL1`, `KL45`)
-  6. `Mapped_Location` (Dealer Location Cluster, e.g. `Kazhakkottam & Enchakkal`, `Kollam`, `Kottayam`, etc.)
-  7. `Maker` (Car Manufacturer, e.g. `MARUTI SUZUKI INDIA LTD`, `TOYOTA KIRLOSKAR MOTOR PVT LTD`, etc.)
-  8. `Cluster` (e.g. `Cluster 1`, `Cluster 2`, `Cluster 3`, `Cluster 4`)
-  9. `Check_Eligible` (`Required` vs `Not Eligible`)
-  10. `Nos` (Number of registrations / integer volume)
-  11. `Month_Num` (Integer `1` to `12`)
+### 1. `VAHAN_KERALA_MASTER1.xlsm` (Primary Authoritative Source for 2026)
+- **Sheet**: `RTO_DATA` (1,726 data rows).
+- **Columns**: `RTO`, `NAME`, `MAKER`, `JAN`, `FEB`, `MAR`, `APR`, `MAY`, `JUN`, `JUL`, `AUG`, `SEP`.
+- **Scope**: All 86 Kerala Sub-RTOs (including `KL25` Punalur SRTO), reporting period through **September 7, 2026**.
+- **Approved Business Scope**: 32 Passenger Car (LMV) manufacturers.
+- **2026 Jan–Sep LMV Registrations**: `182,612` total industry registrations (`16,413` Toyota registrations, `9.0%` market share).
 
 ### 2. `RTO_MASTER.xlsm` (Sub-RTO Naming Master)
 - **Sheet**: `MASTER_DATA` (1,671 rows).
-- **Header**: `RTO`, `NAME`, `MAKER`, `JAN`, `FEB`, `MAR`, `APR`, `MAY`, `JUN`, `JUL`, `AUG`.
 - **Purpose**: Authoritative mapping of clean RTO codes (`KL1` to `KL86`) to full official RTO/SRTO station names.
 
 ---
@@ -148,25 +137,25 @@ Kerala has **86 unique RTO codes** (`KL01` to `KL86`), divided into:
 
 ---
 
-## 7. The 11 Main RTO Clusters (Audited Dataset)
+## 7. The 11 Main RTO Clusters (Audited Dataset — 2026 Jan–Sep through September 7)
 
-All figures below represent **2026 JAN–AUG (8 Months)**:
+All figures below represent **2026 JAN–SEP (Data through September 7, 2026)** under the approved 32 LMV car maker scope:
 
 | # | Main RTO Cluster | Sub-RTO Codes Included | 2026 TIV | Toyota Units | Toyota Share % | Sub-RTO Count |
 |---|---|---|---|---|---|---|
-| 1 | **Trivandrum Royals** *(Kazhakkottam & Enchakkal)* | `KL1`, `KL16`, `KL19`, `KL20`, `KL21`, `KL22`, `KL74`, `KL81` | **16,869** | **1,536** | **9.1%** | 8 |
-| 2 | **Kalamassery** | `KL7`, `KL40`, `KL41`, `KL42`, `KL63` | **13,232** | **1,825** | **13.8%** | 5 |
-| 3 | **Kottayam** | `KL5`, `KL33`, `KL34`, `KL35`, `KL36`, `KL67` | **11,839** | **1,027** | **8.7%** | 6 |
-| 4 | **Kollam** | `KL2`, `KL23`, `KL24`, `KL25`, `KL80`, `KL82` | **10,876** | **798** | **7.3%** | 6 |
-| 5 | **Trichur** | `KL8`, `KL46`, `KL48`, `KL75` | **9,232** | **710** | **7.7%** | 4 |
-| 6 | **Muvattupuzha** | `KL6`, `KL17`, `KL37`, `KL38`, `KL44`, `KL68`, `KL69` | **8,947** | **869** | **9.7%** | 7 |
-| 7 | **Kayamkulam** | `KL4`, `KL29`, `KL31`, `KL61`, `KL66` | **7,211** | **575** | **8.0%** | 5 |
-| 8 | **Nettoor** | `KL32`, `KL39`, `KL43` | **5,492** | **460** | **8.4%** | 3 |
-| 9 | **Irinjalakuda** | `KL45`, `KL47`, `KL64` | **4,927** | **580** | **11.8%** | 3 |
-| 10 | **Pathanamthitta** | `KL3`, `KL26`, `KL62`, `KL83` | **4,727** | **440** | **9.3%** | 4 |
-| 11 | **Thiruvalla** | `KL27`, `KL28`, `KL30` | **3,294** | **310** | **9.4%** | 3 |
-| — | **Other / Unmapped** | `KL9`, `KL10`–`KL15`, `KL18`, `KL49`–`KL60`, `KL65`, `KL70`–`KL73`, `KL76`–`KL79`, `KL84`–`KL86` | **61,516** | **6,527** | **10.6%** | 32 |
-| **Σ** | **TOTAL STATEWIDE** | **All 86 Sub-RTOs** | **158,162** | **15,658** | **9.9%** | **86** |
+| 1 | **Trivandrum Royals** *(Kazhakkottam & Enchakkal)* | `KL1`, `KL16`, `KL19`, `KL20`, `KL21`, `KL22`, `KL74`, `KL81` | **19,365** | **1,693** | **8.7%** | 8 |
+| 2 | **Kalamassery** | `KL7`, `KL40`, `KL41`, `KL42`, `KL63` | **14,977** | **2,012** | **13.4%** | 5 |
+| 3 | **Kottayam** | `KL5`, `KL33`, `KL34`, `KL35`, `KL36`, `KL67` | **13,546** | **1,135** | **8.4%** | 6 |
+| 4 | **Kollam** | `KL2`, `KL23`, `KL24`, `KL25`, `KL80`, `KL82` | **12,825** | **933** | **7.3%** | 6 |
+| 5 | **Trichur** | `KL8`, `KL46`, `KL48`, `KL75` | **10,580** | **794** | **7.5%** | 4 |
+| 6 | **Muvattupuzha** | `KL6`, `KL17`, `KL37`, `KL38`, `KL44`, `KL68`, `KL69` | **10,231** | **968** | **9.5%** | 7 |
+| 7 | **Kayamkulam** | `KL4`, `KL29`, `KL31`, `KL61`, `KL66` | **8,293** | **652** | **7.9%** | 5 |
+| 8 | **Nettoor** | `KL32`, `KL39`, `KL43` | **6,289** | **512** | **8.1%** | 3 |
+| 9 | **Irinjalakuda** | `KL45`, `KL47`, `KL64` | **5,681** | **648** | **11.4%** | 3 |
+| 10 | **Pathanamthitta** | `KL3`, `KL26`, `KL62`, `KL83` | **5,526** | **476** | **8.6%** | 4 |
+| 11 | **Thiruvalla** | `KL27`, `KL28`, `KL30` | **3,781** | **353** | **9.3%** | 3 |
+| — | **Other / Unmapped** | `KL9`, `KL10`–`KL15`, `KL18`, `KL49`–`KL60`, `KL65`, `KL70`–`KL73`, `KL76`–`KL79`, `KL84`–`KL86` | **71,518** | **6,237** | **8.7%** | 32 |
+| **Σ** | **TOTAL STATEWIDE** | **All 86 Sub-RTOs** | **182,612** | **16,413** | **9.0%** | **86** |
 
 ---
 

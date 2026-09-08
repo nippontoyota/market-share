@@ -3,14 +3,14 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 async function generateRtoData() {
-  console.log('--- RE-GENERATING 2026 JAN-AUG DATASET FROM MASTER_DATA_2026.XLSM FOR PAGES 3 & 4 ---');
+  console.log('--- RE-GENERATING 2026 JAN-SEP DATASET FROM VAHAN_KERALA_MASTER1.XLSM FOR PAGES 3 & 4 ---');
 
   const pythonScript = `
 import openpyxl
 import json
 import os
 
-file_2026 = r"MASTER_DATA_2026.xlsm"
+file_2026 = r"VAHAN_KERALA_MASTER1.xlsm"
 file_master = r"RTO_MASTER.xlsm"
 
 wb_master = openpyxl.load_workbook(file_master, data_only=True)
@@ -40,21 +40,36 @@ CLUSTER_MAPPING = {
     'KL27': 'Thiruvalla', 'KL28': 'Thiruvalla', 'KL30': 'Thiruvalla',
 }
 
+APPROVED_MAKERS = {
+    "AUDI AG", "AUTOMOBILI LAMBORGHINI S.P.A", "BMW INDIA PVT LTD", "BYD INDIA PRIVATE LIMITED",
+    "FORCE MOTORS LIMITED", "HINDUSTAN MOTORS LTD", "HONDA CARS INDIA LTD", "HYUNDAI MOTOR INDIA LTD",
+    "ISUZU MOTORS INDIA PVT LTD", "JAGUAR LAND ROVER INDIA LIMITED", "JSW MG MOTOR INDIA PVT LTD",
+    "KIA INDIA PRIVATE LIMITED", "MAHINDRA & MAHINDRA LIMITED", "MAHINDRA ELECTRIC AUTOMOBILE LTD",
+    "MARUTI SUZUKI INDIA LTD", "MARUTI UDYOG LTD", "MERCEDES -BENZ AG", "MERCEDES-BENZ INDIA PVT LTD",
+    "NISSAN MOTOR INDIA PVT LTD", "PORSCHE AG GERMANY", "RENAULT INDIA PVT LTD", "SKODA AUTO AS",
+    "SKODA AUTO VOLKSWAGEN INDIA PVT LTD", "STELLANTIS AUTOMOBILES INDIA PVT LTD", "STELLANTIS INDIA PVT LTD",
+    "TATA MOTORS PASSENGER VEHICLES LTD", "TATA PASSENGER ELECTRIC MOBILITY LTD", "TESLA INDIA MOTORS AND ENERGY PVT LTD",
+    "TOYOTA KIRLOSKAR MOTOR PVT LTD", "VINFAST AUTO INDIA PVT LTD", "VOLKSWAGEN AG", "VOLVO AUTO INDIA PVT LTD"
+}
+
 wb_2026 = openpyxl.load_workbook(file_2026, data_only=True)
-ws_2026 = wb_2026['MASTER_DATA_2026']
+ws_2026 = wb_2026['RTO_DATA']
 rows_2026 = list(ws_2026.iter_rows(values_only=True))
 
-header = rows_2026[0]
-months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG']
+months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP']
 q1_months = ['JAN', 'FEB', 'MAR']
 q2_months = ['APR', 'MAY', 'JUN']
 
 records = []
 for row in rows_2026[1:]:
+    if not row[0]:
+        continue
+    maker = str(row[2]).strip()
+    if maker not in APPROVED_MAKERS:
+        continue
     rto_raw = str(row[0]).strip()
     rto_clean = rto_raw.replace(' ', '').upper()
-    name = str(row[1]).strip()
-    maker = str(row[2]).strip()
+    name = str(row[1]).strip() if row[1] else ''
     loc = CLUSTER_MAPPING.get(rto_clean, 'Other / Unmapped')
     
     m_vals = {}
@@ -153,7 +168,7 @@ for loc in loc_keys:
             note_type = 'note-amber'
             
         full_name = rto_names.get(code, f"{code} RTO")
-        note_text = f"2026 Jan-Aug TIV: {sub_summary['tiv']:,} registrations. Top maker: {top_maker['maker']} ({top_maker['pct']}% share). Toyota rank: #{toyota_rank} with {sub_summary['toyota']:,} units ({sub_summary['share']}% market share). Q1 share was {sub_q1['share']}% vs Q2 share of {sub_q2['share']}%."
+        note_text = f"2026 Jan-Sep (Through Sep 7) TIV: {sub_summary['tiv']:,} registrations. Top maker: {top_maker['maker']} ({top_maker['pct']}% share). Toyota rank: #{toyota_rank} with {sub_summary['toyota']:,} units ({sub_summary['share']}% market share). Q1 share was {sub_q1['share']}% vs Q2 share of {sub_q2['share']}%."
         
         sub_rtos_processed.append({
             'code': code,
@@ -161,8 +176,8 @@ for loc in loc_keys:
             'tiv2026': sub_summary['tiv'],
             'toyota2026': sub_summary['toyota'],
             'share2026': sub_summary['share'],
-            'avgMonthlyLmv': round(sub_summary['tiv'] / 8),
-            'avgMonthlyToyota': round(sub_summary['toyota'] / 8, 1),
+            'avgMonthlyLmv': round(sub_summary['tiv'] / 8.23),
+            'avgMonthlyToyota': round(sub_summary['toyota'] / 8.23, 1),
             'monthly2026': sub_monthly,
             'q1': sub_q1,
             'q2': sub_q2,
@@ -174,20 +189,20 @@ for loc in loc_keys:
     toyota_main_obj = next((m for m in maker_rankings if 'TOYOTA' in m['maker'].upper()), None)
     toyota_main_rank = (maker_rankings.index(toyota_main_obj) + 1) if toyota_main_obj else 'N/A'
     
-    main_insight = f"{disp_name} cluster recorded {main_summary['tiv']:,} total industry registrations in 2026 Jan-Aug across {len(sub_codes)} sub-RTOs. Toyota ranks #{toyota_main_rank} overall with {main_summary['toyota']:,} units ({main_summary['share']}% market share). Q1 share stood at {q1_metrics['share']}% compared to {q2_metrics['share']}% in Q2."
+    main_insight = f"{disp_name} cluster recorded {main_summary['tiv']:,} total industry registrations in 2026 Jan-Sep (Through Sep 7) across {len(sub_codes)} sub-RTOs. Toyota ranks #{toyota_main_rank} overall with {main_summary['toyota']:,} units ({main_summary['share']}% market share). Q1 share stood at {q1_metrics['share']}% compared to {q2_metrics['share']}% in Q2."
     
     cluster_obj = {
         'id': loc,
         'name': disp_name,
         'alias': alias_name,
-        'scope': '2026 JAN–AUG ONLY',
+        'scope': '2026 JAN–SEP ONLY (DATA THROUGH SEP 7)',
         'subRtoCodes': sub_codes,
         'summary': {
             'tiv2026': main_summary['tiv'],
             'toyota2026': main_summary['toyota'],
             'share2026': main_summary['share'],
-            'avgMonthlyLmv': round(main_summary['tiv'] / 8),
-            'avgMonthlyToyota': round(main_summary['toyota'] / 8, 1)
+            'avgMonthlyLmv': round(main_summary['tiv'] / 8.23),
+            'avgMonthlyToyota': round(main_summary['toyota'] / 8.23, 1)
         },
         'monthly2026': monthly2026,
         'q1': q1_metrics,
@@ -216,7 +231,7 @@ print(json.dumps(processed_data))
     const processedData = JSON.parse(output.toString());
     
     fs.writeFileSync(path.join(__dirname, 'rto_data.json'), JSON.stringify(processedData, null, 2));
-    console.log('Successfully written rto_data.json with 2026 JAN-AUG data from MASTER_DATA_2026.xlsm!');
+    console.log('Successfully written rto_data.json with 2026 JAN-SEP data from VAHAN_KERALA_MASTER1.xlsm!');
   } catch (err) {
     console.error('Data generation failed:', err.message);
     process.exit(1);

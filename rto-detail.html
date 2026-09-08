@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cluster Analysis — 2026 JAN-AUG</title>
+    <title>Cluster Analysis — 2026 JAN-SEP</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -107,7 +107,7 @@
         <div class="cluster-banner">
             <div class="cb-top">
                 <div>
-                    <div class="cb-title" id="clusterTitle">Cluster Summary (2026 JAN-AUG)</div>
+                    <div class="cb-title" id="clusterTitle">Cluster Summary (2026 JAN-SEP - Through Sep 7)</div>
                     <div class="cb-sub" id="clusterSubRtos">Sub-RTOs: loading...</div>
                 </div>
                 <div class="cb-stats">
@@ -137,7 +137,7 @@
             <!-- RECONCILIATION VALIDATION STATUS -->
             <div id="reconciliationBanner" style="background: rgba(0, 230, 118, 0.12); border: 1px solid rgba(0, 230, 118, 0.35); padding: 9px 16px; border-radius: 8px; font-size: 11px; color: #22c55e; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
                 <span>✓ RECONCILED DATA: Main RTO Total matches sum of all Sub-RTO totals.</span>
-                <span id="reconciliationCount">Scope: 2026 JAN-AUG ONLY</span>
+                <span id="reconciliationCount">Scope: 2026 JAN-SEP ONLY (DATA THROUGH SEP 7)</span>
             </div>
 
             <!-- CLUSTER MONTHLY SUMMARY TABLE -->
@@ -163,7 +163,7 @@
             <!-- MONTHLY CHART -->
             <div class="analysis-section" style="margin-bottom: 0;">
                 <div class="section-header">
-                    <span>📈 2026 Monthly Registration Trend (Jan-Aug)</span>
+                    <span>📈 2026 Monthly Registration Trend (Jan-Sep)</span>
                 </div>
                 <div class="chart-box">
                     <canvas id="monthlyTrendChart"></canvas>
@@ -205,14 +205,14 @@
         <!-- MAKER RANKINGS SECTION -->
         <div class="analysis-section">
             <div class="section-header">
-                <span>🏆 Top Car Makers Performance — Selected Cluster (2026 Jan-Aug)</span>
+                <span>🏆 Top Car Makers Performance — Selected Cluster (2026 Jan-Sep)</span>
             </div>
             <div class="table-container">
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th class="text-left">Rank & Maker</th>
-                            <th>2026 Volume (Jan-Aug)</th>
+                            <th>2026 Volume (Jan-Sep)</th>
                             <th>Market Share %</th>
                         </tr>
                     </thead>
@@ -253,7 +253,7 @@
                         <span class="subrto-row-code" id="srCardCode" style="font-size: 16px; padding: 4px 12px;">KL7</span>
                         <span class="cb-title" id="srCardName">Ernakulam RTO</span>
                     </div>
-                    <div class="cb-sub" id="srCardCluster">Part of Kalamassery Cluster • Verified 2026 JAN-AUG Official Records</div>
+                    <div class="cb-sub" id="srCardCluster">Part of Kalamassery Cluster • Verified 2026 JAN-SEP Official Records</div>
                 </div>
                 <div class="cb-stats">
                     <div class="cs">
@@ -282,7 +282,7 @@
             <!-- Sub-RTO Scope Tag -->
             <div style="background: rgba(30, 86, 212, 0.12); border: 1px solid rgba(30, 86, 212, 0.35); padding: 8px 16px; border-radius: 8px; font-size: 11.5px; color: #93c5fd; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
                 <span>📍 INDIVIDUAL SUB-RTO ANALYSIS — Data below belongs exclusively to this selected Sub-RTO.</span>
-                <span id="srScopeTag" style="font-weight: 700; color: var(--accent-orange);">2026 JAN-AUG</span>
+                <span id="srScopeTag" style="font-weight: 700; color: var(--accent-orange);">2026 JAN-SEP</span>
             </div>
 
             <!-- 3-Column Granular Detail Grid -->
@@ -291,7 +291,7 @@
                 <div style="background: var(--card-bg-glass); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px;">
                     <div class="col-title" style="display: flex; justify-content: space-between; align-items: center;">
                         <span>2026 Monthly Registrations</span>
-                        <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">Jan-Aug</span>
+                        <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">Jan-Sep</span>
                     </div>
                     <div class="table-container" style="margin-bottom: 14px;">
                         <table class="data-table" style="font-size: 11.5px;">
@@ -426,7 +426,7 @@
             }
 
             // Populate Cluster Banner & KPIs
-            document.getElementById('clusterTitle').innerText = `${data.name} — Cluster Summary (2026 JAN-AUG)`;
+            document.getElementById('clusterTitle').innerText = `${data.name} — Cluster Summary (2026 JAN-SEP - Through Sep 7)`;
             document.getElementById('clusterSubRtos').innerText = `Sub-RTOs (${data.subRtos.length}): ` + data.subRtoCodes.join(' · ');
             const hintElem = document.getElementById('clusterSubRtoHint');
             if (hintElem) hintElem.innerText = `Explore ${data.subRtos.length} Sub-RTOs: ` + data.subRtoCodes.join(', ');
@@ -442,7 +442,7 @@
             const isReconciled = (sumSubTiv === data.summary.tiv2026);
             document.getElementById('reconciliationBanner').innerHTML = `
                 <span>${isReconciled ? '✓ RECONCILED DATA:' : '⚠️ RECONCILIATION DISCREPANCY:'} Main RTO 2026 TIV (${data.summary.tiv2026.toLocaleString()}) ${isReconciled ? '=' : '!='} Sum of ${data.subRtos.length} Sub-RTOs (${sumSubTiv.toLocaleString()})</span>
-                <span>Scope: 2026 JAN-AUG ONLY</span>
+                <span>Scope: 2026 JAN-SEP ONLY (DATA THROUGH SEP 7)</span>
             `;
 
             // Populate Cluster Monthly Table
@@ -606,7 +606,7 @@
         // Update Sub-RTO Banner & KPIs
         document.getElementById('srCardCode').innerText = sr.code;
         document.getElementById('srCardName').innerText = sr.name;
-        document.getElementById('srCardCluster').innerText = `Part of ${currentClusterData.name} Cluster • Official 2026 JAN-AUG Records`;
+        document.getElementById('srCardCluster').innerText = `Part of ${currentClusterData.name} Cluster • Official 2026 JAN-SEP Records`;
 
         document.getElementById('srStatTiv').innerText = sr.tiv2026.toLocaleString();
         document.getElementById('srStatToyota').innerText = sr.toyota2026.toLocaleString();
