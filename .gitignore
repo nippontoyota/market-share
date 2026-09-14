@@ -7,9 +7,15 @@
 # Node modules
 node_modules/
 
+# Python
+__pycache__/
+.pytest_cache/
+
 # Logs
 *.log
 npm-debug.log*
+logs/
+reports/
 
 # OS files
 .DS_Store
@@ -18,6 +24,8 @@ Thumbs.db
 # Backups & Scratch
 backup_final_ceo_fix/
 backup_pre_ceo_update/
+backups/vahan_auto/
+vahan_uploads/
 scratch/
 test-theme.html
 rto_data_before_aug28_integration.json

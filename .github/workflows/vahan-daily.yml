@@ -1,0 +1,81 @@
+name: Daily Vahan Dashboard Refresh
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 3 * * *"
+      timezone: "Asia/Kolkata"
+
+concurrency:
+  group: vahan-daily-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out the deployment branch
+        uses: actions/checkout@v4
+        with:
+          ref: master
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Python dependencies
+        run: python -m pip install -r automation/requirements.txt
+
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run automation tests
+        run: npm run test:automation
+
+      - name: Download and integrate Vahan data
+        env:
+          TZ: Asia/Kolkata
+        run: python automation/run_full_pipeline.py
+
+      - name: Validate the published manifest
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          manifest = json.loads(Path("vahan_uploads/latest_manifest.json").read_text(encoding="utf-8"))
+          expected = 86
+          if manifest.get("report_file_count") != expected or manifest.get("rto_count") != expected:
+              raise SystemExit(f"Invalid Vahan manifest: {manifest}")
+          print(json.dumps(manifest, indent=2))
+          PY
+
+      - name: Check generated data files
+        run: git diff --check
+
+      - name: Commit validated dashboard data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add VAHAN_KERALA_MASTER1.xlsm MASTER_DATA_2026.xlsm RTO_2025_2026_Combined.csv rto_data.json
+          if git diff --cached --quiet; then
+            echo "No dashboard data changes detected."
+          else
+            git commit -m "chore: refresh Vahan dashboard data"
+            git push origin HEAD:master
+          fi

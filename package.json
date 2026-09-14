@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "refresh:vahan": "python automation/run_full_pipeline.py",
+    "refresh:vahan:existing": "python automation/run_full_pipeline.py --skip-download",
+    "test:automation": "python -m pytest tests"
   },
   "keywords": [
     "dashboard",

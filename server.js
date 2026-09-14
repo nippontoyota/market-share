@@ -70,6 +70,11 @@ const requireAuth = (req, res, next) => {
   }
 };
 
+// Render health check endpoint; intentionally does not require authentication.
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 // Serve login page
 app.get('/login', (req, res) => {
   if (req.session.isAuthenticated) {

@@ -3,14 +3,17 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 async function generateRtoData() {
-  console.log('--- RE-GENERATING 2026 JAN-SEP DATASET FROM VAHAN_KERALA_MASTER1.XLSM FOR PAGES 3 & 4 ---');
+  console.log('--- RE-GENERATING 2026 DATASET FROM VAHAN MASTER WORKBOOK FOR PAGES 3 & 4 ---');
 
   const pythonScript = `
 import openpyxl
 import json
 import os
+import datetime
 
 file_2026 = r"VAHAN_KERALA_MASTER1.xlsm"
+if not os.path.exists(file_2026):
+    file_2026 = r"MASTER_DATA_2026.xlsm"
 file_master = r"RTO_MASTER.xlsm"
 
 wb_master = openpyxl.load_workbook(file_master, data_only=True)
@@ -53,28 +56,37 @@ APPROVED_MAKERS = {
 }
 
 wb_2026 = openpyxl.load_workbook(file_2026, data_only=True)
-ws_2026 = wb_2026['RTO_DATA']
+ws_2026 = wb_2026['RTO_DATA'] if 'RTO_DATA' in wb_2026.sheetnames else wb_2026[wb_2026.sheetnames[0]]
 rows_2026 = list(ws_2026.iter_rows(values_only=True))
 
-months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP']
-q1_months = ['JAN', 'FEB', 'MAR']
-q2_months = ['APR', 'MAY', 'JUN']
+MONTH_ORDER = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC']
+header = [str(c).strip().upper() if c is not None else '' for c in rows_2026[0]]
+col_index = {name: idx for idx, name in enumerate(header)}
+month_indices = [(month, col_index[month]) for month in MONTH_ORDER if month in col_index]
+months = [month for month, _ in month_indices]
+q1_months = [m for m in ['JAN', 'FEB', 'MAR'] if m in months]
+q2_months = [m for m in ['APR', 'MAY', 'JUN'] if m in months]
+month_span = f"JAN-{months[-1]}" if months else "NO MONTHS"
+scope_label = f"2026 {month_span} ONLY"
+data_through = os.environ.get('VAHAN_DATA_THROUGH', datetime.date.today().strftime('%b %d, %Y'))
+average_divisor = max(len(months), 1)
 
 records = []
 for row in rows_2026[1:]:
     if not row[0]:
         continue
-    maker = str(row[2]).strip()
+    maker = str(row[col_index.get('MAKER', 2)]).strip()
     if maker not in APPROVED_MAKERS:
         continue
-    rto_raw = str(row[0]).strip()
+    rto_raw = str(row[col_index.get('RTO', 0)]).strip()
     rto_clean = rto_raw.replace(' ', '').upper()
-    name = str(row[1]).strip() if row[1] else ''
+    name_idx = col_index.get('NAME', 1)
+    name = str(row[name_idx]).strip() if row[name_idx] else ''
     loc = CLUSTER_MAPPING.get(rto_clean, 'Other / Unmapped')
     
     m_vals = {}
-    for idx, m in enumerate(months):
-        m_vals[m] = int(row[3 + idx]) if row[3 + idx] is not None else 0
+    for m, idx in month_indices:
+        m_vals[m] = int(row[idx]) if row[idx] is not None else 0
         
     records.append({
         'rto': rto_clean,
@@ -168,7 +180,7 @@ for loc in loc_keys:
             note_type = 'note-amber'
             
         full_name = rto_names.get(code, f"{code} RTO")
-        note_text = f"2026 Jan-Sep (Through Sep 7) TIV: {sub_summary['tiv']:,} registrations. Top maker: {top_maker['maker']} ({top_maker['pct']}% share). Toyota rank: #{toyota_rank} with {sub_summary['toyota']:,} units ({sub_summary['share']}% market share). Q1 share was {sub_q1['share']}% vs Q2 share of {sub_q2['share']}%."
+        note_text = f"2026 {month_span} (Through {data_through}) TIV: {sub_summary['tiv']:,} registrations. Top maker: {top_maker['maker']} ({top_maker['pct']}% share). Toyota rank: #{toyota_rank} with {sub_summary['toyota']:,} units ({sub_summary['share']}% market share). Q1 share was {sub_q1['share']}% vs Q2 share of {sub_q2['share']}%."
         
         sub_rtos_processed.append({
             'code': code,
@@ -176,8 +188,8 @@ for loc in loc_keys:
             'tiv2026': sub_summary['tiv'],
             'toyota2026': sub_summary['toyota'],
             'share2026': sub_summary['share'],
-            'avgMonthlyLmv': round(sub_summary['tiv'] / 8.23),
-            'avgMonthlyToyota': round(sub_summary['toyota'] / 8.23, 1),
+            'avgMonthlyLmv': round(sub_summary['tiv'] / average_divisor),
+            'avgMonthlyToyota': round(sub_summary['toyota'] / average_divisor, 1),
             'monthly2026': sub_monthly,
             'q1': sub_q1,
             'q2': sub_q2,
@@ -189,20 +201,20 @@ for loc in loc_keys:
     toyota_main_obj = next((m for m in maker_rankings if 'TOYOTA' in m['maker'].upper()), None)
     toyota_main_rank = (maker_rankings.index(toyota_main_obj) + 1) if toyota_main_obj else 'N/A'
     
-    main_insight = f"{disp_name} cluster recorded {main_summary['tiv']:,} total industry registrations in 2026 Jan-Sep (Through Sep 7) across {len(sub_codes)} sub-RTOs. Toyota ranks #{toyota_main_rank} overall with {main_summary['toyota']:,} units ({main_summary['share']}% market share). Q1 share stood at {q1_metrics['share']}% compared to {q2_metrics['share']}% in Q2."
+    main_insight = f"{disp_name} cluster recorded {main_summary['tiv']:,} total industry registrations in 2026 {month_span} (Through {data_through}) across {len(sub_codes)} sub-RTOs. Toyota ranks #{toyota_main_rank} overall with {main_summary['toyota']:,} units ({main_summary['share']}% market share). Q1 share stood at {q1_metrics['share']}% compared to {q2_metrics['share']}% in Q2."
     
     cluster_obj = {
         'id': loc,
         'name': disp_name,
         'alias': alias_name,
-        'scope': '2026 JAN–SEP ONLY (DATA THROUGH SEP 7)',
+        'scope': scope_label,
         'subRtoCodes': sub_codes,
         'summary': {
             'tiv2026': main_summary['tiv'],
             'toyota2026': main_summary['toyota'],
             'share2026': main_summary['share'],
-            'avgMonthlyLmv': round(main_summary['tiv'] / 8.23),
-            'avgMonthlyToyota': round(main_summary['toyota'] / 8.23, 1)
+            'avgMonthlyLmv': round(main_summary['tiv'] / average_divisor),
+            'avgMonthlyToyota': round(main_summary['toyota'] / average_divisor, 1)
         },
         'monthly2026': monthly2026,
         'q1': q1_metrics,
@@ -231,7 +243,7 @@ print(json.dumps(processed_data))
     const processedData = JSON.parse(output.toString());
     
     fs.writeFileSync(path.join(__dirname, 'rto_data.json'), JSON.stringify(processedData, null, 2));
-    console.log('Successfully written rto_data.json with 2026 JAN-SEP data from VAHAN_KERALA_MASTER1.xlsm!');
+    console.log('Successfully written rto_data.json from Vahan master workbook!');
   } catch (err) {
     console.error('Data generation failed:', err.message);
     process.exit(1);
