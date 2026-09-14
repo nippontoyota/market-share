@@ -731,8 +731,8 @@
         <div class="header-left">
             <div class="header-title-wrap">
                 <h1>🚗 Executive Performance Dashboard</h1>
-                <span class="badge-scope">2025 FULL vs 2026 JAN–SEP (DATA THROUGH SEP 7)</span>
-                <span id="activePeriodBadge" class="badge-period">SEP 2025 vs SEP 2026 (THROUGH SEP 7)</span>
+                <span class="badge-scope">2025 JAN-SEP vs 2026 JAN-SEP (DATA THROUGH SEP 10)</span>
+                <span id="activePeriodBadge" class="badge-period">SEP 2025 vs SEP 2026 (THROUGH SEP 10)</span>
             </div>
             <div class="header-subtitle">Comparative Automotive Retail & Market Share Analytics • Kerala Regional Transport Offices</div>
         </div>
@@ -863,8 +863,8 @@
 
     <!-- COMPACT BOTTOM STATUS STRIP -->
     <div class="bottom-status-strip">
-        <span><strong>Data Source:</strong> 2025 Required Records vs 2026 Jan-Sep Verified Scope &nbsp;|&nbsp; Reconciled Kerala Total: 182,612 registrations (Data Through Sep 7)</span>
-        <span id="filterSummaryText">Showing: Kazhakkottam & Enchakkal · SEP (Through Sep 7)</span>
+        <span><strong>Data Source:</strong> 2025 Required Records vs 2026 Jan-Sep Verified Scope &nbsp;|&nbsp; Reconciled Kerala Total: 186,148 registrations (Data Through Sep 10)</span>
+        <span id="filterSummaryText">Showing: Kazhakkottam & Enchakkal · SEP (Through Sep 10)</span>
     </div>
 
     <!-- DASHBOARD LOGIC ENGINE -->
@@ -894,12 +894,12 @@
         // Dynamic Period Label Formatter
         function formatPeriodLabel(monthsSet) {
             if (monthsSet.size === 0 || monthsSet.size === 12) {
-                return '2025 FULL vs 2026 JAN–SEP (DATA THROUGH SEP 7)';
+                return '2025 JAN-SEP vs 2026 JAN-SEP (DATA THROUGH SEP 10)';
             }
             const sorted = allMonths.filter(m => monthsSet.has(m));
             if (sorted.length === 1) {
                 if (sorted[0] === 'SEP') {
-                    return 'SEP 2025 vs SEP 2026 (THROUGH SEP 7)';
+                    return 'SEP 2025 vs SEP 2026 (THROUGH SEP 10)';
                 }
                 return `${sorted[0]} 2025 vs ${sorted[0]} 2026`;
             }
@@ -916,16 +916,16 @@
                 }
             }
             if (isContiguous) {
-                const endTag = sorted[sorted.length - 1] === 'SEP' ? ' (THROUGH SEP 7)' : '';
+                const endTag = sorted[sorted.length - 1] === 'SEP' ? ' (THROUGH SEP 10)' : '';
                 return `${sorted[0]}–${sorted[sorted.length - 1]} 2025 vs ${sorted[0]}–${sorted[sorted.length - 1]} 2026${endTag}`;
             }
             return sorted.join(' + ') + ' 2025 vs ' + sorted.join(' + ') + ' 2026';
         }
 
         function formatShortPeriod(monthsSet) {
-            if (monthsSet.size === 0 || monthsSet.size === 12) return 'Jan-Sep (Sep 7)';
+            if (monthsSet.size === 0 || monthsSet.size === 12) return 'Jan-Sep';
             const sorted = allMonths.filter(m => monthsSet.has(m));
-            if (sorted.length === 1) return sorted[0] === 'SEP' ? 'Sep (Sep 7)' : sorted[0];
+            if (sorted.length === 1) return sorted[0] === 'SEP' ? 'Sep 10' : sorted[0];
             if (sorted.length === 2) return `${sorted[0]}+${sorted[1]}`;
             const indices = sorted.map(m => allMonths.indexOf(m));
             let isContiguous = true;
