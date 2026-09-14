@@ -48,7 +48,7 @@ Schedule_10_25.bat
 
 ## Daily GitHub Actions refresh
 
-The repository includes `.github/workflows/vahan-daily.yml`, which runs daily at 03:30 India Standard Time and can also be started manually from the GitHub Actions tab. It installs the automation dependencies, runs the test suite, downloads all 86 in-scope RTO reports, validates the generated dashboard data, and commits only the four tracked derived data files when they change.
+The repository includes `.github/workflows/vahan-daily.yml`, which runs daily at 09:00 India Standard Time and can also be started manually from the GitHub Actions tab. It installs the automation dependencies, runs the test suite, downloads all 86 in-scope RTO reports, validates the generated dashboard data, and commits only the four tracked derived data files when they change.
 
 For the automatic Render deployment to follow these refresh commits, the Render service must use this repository's `master` branch with Auto-Deploy set to `On Commit`. The workflow does not need a Render API key.
 
