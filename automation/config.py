@@ -15,7 +15,10 @@ FILTERS = {
 
 # Selectors mapped to fixed filters
 SELECTORS = {
-    "state_label": "label#j_idt36_label",
+    # VAHAN doesn't give the State dropdown a stable id (it's JSF-auto-numbered
+    # and shifts whenever the portal is redeployed), so anchor on the visible
+    # "State:" text instead of a hardcoded j_idtNN id.
+    "state_label": "xpath=//label[normalize-space()='State:']/following-sibling::div[contains(@class,'ui-selectonemenu')]//label",
     "state_items": "li[data-label='{}']",
 
     "rto_label": "label#selectedRto_label",
