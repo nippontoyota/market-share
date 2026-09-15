@@ -5,6 +5,7 @@ const session = require('express-session');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const https = require('https');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -73,6 +74,41 @@ const requireAuth = (req, res, next) => {
 // Render health check endpoint; intentionally does not require authentication.
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
+});
+
+app.get('/health/vahan', (req, res) => {
+  const startedAt = Date.now();
+  const url = new URL('https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml');
+  const probe = https.request({
+    hostname: url.hostname,
+    path: url.pathname,
+    method: 'GET',
+    timeout: 20000,
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36'
+    }
+  }, (probeRes) => {
+    probeRes.resume();
+    res.status(probeRes.statusCode >= 200 && probeRes.statusCode < 400 ? 200 : 502).json({
+      status: probeRes.statusCode >= 200 && probeRes.statusCode < 400 ? 'reachable' : 'unreachable',
+      statusCode: probeRes.statusCode,
+      elapsedMs: Date.now() - startedAt
+    });
+  });
+
+  probe.on('timeout', () => {
+    probe.destroy(new Error('Vahan probe timed out after 20000ms'));
+  });
+
+  probe.on('error', (error) => {
+    res.status(504).json({
+      status: 'unreachable',
+      error: error.message,
+      elapsedMs: Date.now() - startedAt
+    });
+  });
+
+  probe.end();
 });
 
 // Serve login page
