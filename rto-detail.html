@@ -356,6 +356,7 @@
     let subrtoChart = null;
     let currentClusterData = null;
     let currentSubRtos = [];
+    let currentMeta = { currentMonth: 'SEP', asOfDay: 10 };
     let activeView = 'cluster'; // 'cluster' or 'subrto'
     let activeSubRtoCode = null;
 
@@ -395,6 +396,8 @@
                 return;
             }
             const allData = await res.json();
+            currentMeta = allData._meta || currentMeta;
+            const meta = currentMeta;
             const data = allData[rtoKey] || allData['Kazhakkottam & Enchakkal'];
 
             if (!data) {
@@ -410,7 +413,7 @@
             const clusterSelector = document.getElementById('clusterSelector');
             if (clusterSelector) {
                 clusterSelector.innerHTML = '';
-                const allKeys = Object.keys(allData).filter(k => k !== 'Trivandrum Royals' && k !== 'Other / Unmapped');
+                const allKeys = Object.keys(allData).filter(k => k !== 'Trivandrum Royals' && k !== 'Other / Unmapped' && k !== '_meta');
                 allKeys.sort((a, b) => {
                     if (a === 'Kazhakkottam & Enchakkal') return -1;
                     if (b === 'Kazhakkottam & Enchakkal') return 1;
@@ -426,7 +429,7 @@
             }
 
             // Populate Cluster Banner & KPIs
-            document.getElementById('clusterTitle').innerText = `${data.name} — Cluster Summary (2026 JAN-SEP - Through Sep 10)`;
+            document.getElementById('clusterTitle').innerText = `${data.name} — Cluster Summary (2026 JAN-${meta.currentMonth} - Through ${meta.currentMonth} ${meta.asOfDay})`;
             document.getElementById('clusterSubRtos').innerText = `Sub-RTOs (${data.subRtos.length}): ` + data.subRtoCodes.join(' · ');
             const hintElem = document.getElementById('clusterSubRtoHint');
             if (hintElem) hintElem.innerText = `Explore ${data.subRtos.length} Sub-RTOs: ` + data.subRtoCodes.join(', ');
@@ -442,7 +445,7 @@
             const isReconciled = (sumSubTiv === data.summary.tiv2026);
             document.getElementById('reconciliationBanner').innerHTML = `
                 <span>${isReconciled ? '✓ RECONCILED DATA:' : '⚠️ RECONCILIATION DISCREPANCY:'} Main RTO 2026 TIV (${data.summary.tiv2026.toLocaleString()}) ${isReconciled ? '=' : '!='} Sum of ${data.subRtos.length} Sub-RTOs (${sumSubTiv.toLocaleString()})</span>
-                <span>Scope: 2026 JAN-SEP ONLY (DATA THROUGH SEP 10)</span>
+                <span>Scope: 2026 JAN-${meta.currentMonth} ONLY (DATA THROUGH ${meta.currentMonth} ${meta.asOfDay})</span>
             `;
 
             // Populate Cluster Monthly Table
@@ -565,7 +568,7 @@
             if (currentClusterData) {
                 document.getElementById('pageTitle').innerText = `🔴 ${currentClusterData.name} — Full Cluster Analysis`;
                 document.title = `${currentClusterData.name} — 2026 Cluster Summary`;
-                document.getElementById('pageSub').innerHTML = `<span class="badge-tag">PAGE 4 OF 4</span> &nbsp; ${currentClusterData.name} Cluster • 2026 JAN–AUG (8 Months Complete Analysis)`;
+                document.getElementById('pageSub').innerHTML = `<span class="badge-tag">PAGE 4 OF 4</span> &nbsp; ${currentClusterData.name} Cluster • 2026 JAN-${currentMeta.currentMonth} (Through ${currentMeta.currentMonth} ${currentMeta.asOfDay})`;
                 renderClusterTrendChart(currentClusterData.monthly2026);
             }
 
@@ -606,7 +609,9 @@
         // Update Sub-RTO Banner & KPIs
         document.getElementById('srCardCode').innerText = sr.code;
         document.getElementById('srCardName').innerText = sr.name;
-        document.getElementById('srCardCluster').innerText = `Part of ${currentClusterData.name} Cluster • Official 2026 JAN-SEP Records`;
+        document.getElementById('srCardCluster').innerText = `Part of ${currentClusterData.name} Cluster • Official 2026 JAN-${currentMeta.currentMonth} Records`;
+        const srScopeTag = document.getElementById('srScopeTag');
+        if (srScopeTag) srScopeTag.innerText = `2026 JAN-${currentMeta.currentMonth}`;
 
         document.getElementById('srStatTiv').innerText = sr.tiv2026.toLocaleString();
         document.getElementById('srStatToyota').innerText = sr.toyota2026.toLocaleString();
@@ -617,7 +622,7 @@
         // Update Page Titles
         document.getElementById('pageTitle').innerText = `📍 ${sr.code} (${sr.name}) — Sub-RTO Deep Dive`;
         document.title = `${sr.code} ${sr.name} — Sub-RTO Analysis`;
-        document.getElementById('pageSub').innerHTML = `<span class="badge-tag">PAGE 4 OF 4</span> &nbsp; ${currentClusterData.name} Cluster • ${sr.code} Individual Performance (2026 JAN-SEP)`;
+        document.getElementById('pageSub').innerHTML = `<span class="badge-tag">PAGE 4 OF 4</span> &nbsp; ${currentClusterData.name} Cluster • ${sr.code} Individual Performance (2026 JAN-${currentMeta.currentMonth})`;
 
         // Col 1: Monthly Breakdown Table
         const srMonthlyBody = document.getElementById('srMonthlyTableBody');

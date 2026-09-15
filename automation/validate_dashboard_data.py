@@ -35,6 +35,8 @@ def collect_json_rto_codes(data):
         raise RuntimeError("rto_data.json must contain at least one dashboard cluster.")
 
     for cluster_name, cluster in data.items():
+        if cluster_name == "_meta":
+            continue
         if not isinstance(cluster, dict):
             raise RuntimeError(f"Cluster {cluster_name!r} is not a JSON object.")
         sub_rtos = cluster.get("subRtoCodes")

@@ -440,11 +440,14 @@ def copy_raw_reports(report_files, dashboard_dir, run_date):
     return destination_dir
 
 
-def run_dashboard_generator(dashboard_dir):
+def run_dashboard_generator(dashboard_dir, as_of_day=None):
     generator = Path(dashboard_dir) / "generate_rto_data.js"
     if not generator.exists():
         return
-    subprocess.run(["node", str(generator)], cwd=dashboard_dir, check=True)
+    env = dict(os.environ)
+    if as_of_day is not None:
+        env["VAHAN_ASOF_DAY"] = str(int(as_of_day))
+    subprocess.run(["node", str(generator)], cwd=dashboard_dir, check=True, env=env)
 
 
 def validate_generated_dashboard(dashboard_dir, expected_rto_count=config.EXPECTED_RTO_COUNT):
@@ -480,7 +483,9 @@ def validate_generated_dashboard(dashboard_dir, expected_rto_count=config.EXPECT
         raise RuntimeError("Generated rto_data.json does not contain dashboard clusters.")
 
     rto_codes = set()
-    for cluster in data.values():
+    for cluster_name, cluster in data.items():
+        if cluster_name == "_meta":
+            continue
         if not isinstance(cluster, dict):
             raise RuntimeError("Generated rto_data.json contains an invalid cluster.")
         rto_codes.update(cluster.get("subRtoCodes", []))
@@ -539,6 +544,15 @@ def integrate(reports_dir=None, dashboard_dir=None, run_generator=True):
     print(f"Integrating reports from {reports_dir}")
     print(f"Target dashboard project: {dashboard_dir}")
 
+    # One canonical "as of" day for the whole site, taken from the reports
+    # folder name (the day Vahan was actually scraped), not each script's own
+    # wall clock — so index.html and rto_data.json can never show two
+    # different dates from the same refresh.
+    try:
+        as_of_day = datetime.strptime(run_date, "%Y-%m-%d").day
+    except ValueError:
+        as_of_day = datetime.now().day
+
     name_map = read_name_map(dashboard_dir)
     raw_rows, report_files = load_reports(reports_dir, name_map)
     rows = aggregate_rows(raw_rows)
@@ -578,11 +592,11 @@ def integrate(reports_dir=None, dashboard_dir=None, run_generator=True):
         update_index_html(
             staging_dir / "index.html",
             staging_dir / "RTO_2025_2026_Combined.csv",
-            as_of_day=datetime.now().day,
+            as_of_day=as_of_day,
         )
 
         if run_generator:
-            run_dashboard_generator(staging_dir)
+            run_dashboard_generator(staging_dir, as_of_day=as_of_day)
         else:
             shutil.copy2(dashboard_dir / "rto_data.json", staging_dir / "rto_data.json")
 

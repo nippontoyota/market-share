@@ -73,7 +73,7 @@
     <!-- TOP HEADER -->
     <div class="top-header">
         <div>
-            <h1>📍 RTO Cluster Selection <span class="badge-tag">PAGE 3 OF 4</span> <span style="font-size: 11px; font-weight: 700; color: var(--accent-orange); background: rgba(255, 107, 0, 0.12); padding: 3px 8px; border-radius: 6px; margin-left: 4px; border: 1px solid rgba(255, 107, 0, 0.3);">2026 JAN-SEP (DATA THROUGH SEP 10)</span></h1>
+            <h1>📍 RTO Cluster Selection <span class="badge-tag">PAGE 3 OF 4</span> <span id="scopeBadge" style="font-size: 11px; font-weight: 700; color: var(--accent-orange); background: rgba(255, 107, 0, 0.12); padding: 3px 8px; border-radius: 6px; margin-left: 4px; border: 1px solid rgba(255, 107, 0, 0.3);">2026 JAN-SEP (DATA THROUGH SEP 10)</span></h1>
             <div class="subtitle">Select a Main RTO Cluster below to explore full cluster & sub-RTO analysis (11 Main RTO Clusters)</div>
         </div>
         <div class="header-actions">
@@ -98,11 +98,17 @@
                 return;
             }
             const data = await res.json();
-            
+            const meta = data._meta || { currentMonth: 'SEP', asOfDay: 10 };
+
+            const scopeBadge = document.getElementById('scopeBadge');
+            if (scopeBadge) {
+                scopeBadge.innerText = `2026 JAN-${meta.currentMonth} (DATA THROUGH ${meta.currentMonth} ${meta.asOfDay})`;
+            }
+
             const grid = document.getElementById('rtoGrid');
             grid.innerHTML = '';
 
-            const keys = Object.keys(data).filter(k => k !== 'Trivandrum Royals' && k !== 'Other / Unmapped');
+            const keys = Object.keys(data).filter(k => k !== 'Trivandrum Royals' && k !== 'Other / Unmapped' && k !== '_meta');
 
             keys.sort((a, b) => {
                 if (a === 'Kazhakkottam & Enchakkal') return -1;
@@ -123,7 +129,7 @@
                         <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 14px;">
                             <span>${item.name}</span>
                             <span style="font-size: 10px; font-weight: 700; color: var(--accent-orange); background: var(--input-bg); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--table-border);">
-                                2026 JAN-SEP
+                                2026 JAN-${meta.currentMonth}
                             </span>
                         </div>
                         

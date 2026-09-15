@@ -229,6 +229,14 @@ for loc in loc_keys:
 if 'Kazhakkottam & Enchakkal' in processed_data:
     processed_data['Trivandrum Royals'] = processed_data['Kazhakkottam & Enchakkal']
 
+processed_data['_meta'] = {
+    'currentMonth': months[-1] if months else 'JAN',
+    # Same day-of-month the rest of the site was refreshed with, passed in
+    # by the pipeline so this never drifts from index.html's own value.
+    'asOfDay': int(os.environ.get('VAHAN_ASOF_DAY', datetime.date.today().day)),
+    'monthSpan': month_span,
+}
+
 print(json.dumps(processed_data))
 `;
 

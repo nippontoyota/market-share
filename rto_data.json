@@ -20246,5 +20246,10 @@
         "noteText": "2026 JAN-SEP (Through Sep 15, 2026) TIV: 1,573 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #3 with 115 units (7.3% market share). Q1 share was 8.2% vs Q2 share of 7.2%."
       }
     ]
+  },
+  "_meta": {
+    "currentMonth": "SEP",
+    "asOfDay": 15,
+    "monthSpan": "JAN-SEP"
   }
 }
