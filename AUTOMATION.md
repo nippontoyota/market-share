@@ -50,9 +50,11 @@ Schedule_10_25.bat
 
 ## Daily GitHub Actions refresh
 
-The repository includes `.github/workflows/vahan-daily.yml`, which runs daily at 09:00 India Standard Time and can also be started manually from the GitHub Actions tab. It installs the automation dependencies, runs the test suite, downloads all 86 in-scope RTO reports, validates the generated dashboard data, and commits only the tracked derived data files when they change. The job timeout is capped at 45 minutes so an upstream Vahan outage cannot run indefinitely.
+The repository includes `.github/workflows/vahan-daily.yml`, which runs daily at 09:00 India Standard Time and can also be started manually from the GitHub Actions tab. On scheduled/manual runs, it first checks whether the Vahan portal is reachable from the free GitHub-hosted runner. If it is reachable, it installs the automation dependencies, runs the test suite, downloads all 86 in-scope RTO reports, validates the generated dashboard data, and commits only the tracked derived data files when they change. The job timeout is capped at 45 minutes so an upstream Vahan outage cannot run indefinitely.
 
 On normal pushes, the same workflow skips the live Vahan scrape and Playwright browser install, then validates the committed production dashboard snapshot. This keeps push validation inexpensive while the daily refresh remains automatic.
+
+If the Vahan portal is not reachable from GitHub's free hosted runner, the workflow skips dependency installation, browser installation, and the expensive scrape, then validates the last committed production snapshot instead. Production stays on the last known-good data and the workflow avoids burning the full timeout.
 
 For the automatic Render deployment to follow these refresh commits, the Render service must use this repository's `master` branch with Auto-Deploy set to `On Commit`. The workflow does not need a Render API key.
 

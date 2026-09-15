@@ -8,6 +8,7 @@ AUTOMATION_DIR = PROJECT_DIR / "automation"
 sys.path.insert(0, str(AUTOMATION_DIR))
 
 import download_reports
+import check_vahan_connectivity
 
 
 class FlakyPage:
@@ -56,3 +57,17 @@ def test_validate_rto_list_requires_every_in_scope_rto_once():
     assert download_reports.validate_rto_list(complete)
     assert not download_reports.validate_rto_list(missing)
     assert not download_reports.validate_rto_list(duplicate)
+
+
+def test_check_vahan_connectivity_reports_unreachable(monkeypatch):
+    def raise_timeout(*args, **kwargs):
+        raise TimeoutError("timed out")
+
+    monkeypatch.setattr(check_vahan_connectivity.request, "urlopen", raise_timeout)
+    monkeypatch.setattr(check_vahan_connectivity.time, "sleep", lambda _: None)
+
+    result = check_vahan_connectivity.check_url(attempts=2, timeout=1)
+
+    assert result["reachable"] is False
+    assert result["attempt"] == 2
+    assert len(result["errors"]) == 2
