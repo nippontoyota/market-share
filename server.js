@@ -21,7 +21,12 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:"],
-      connectSrc: ["'self'"]
+      // The production dashboard talks only to the operator's local updater.
+      // Keep this limited to loopback; the updater itself binds to 127.0.0.1.
+      connectSrc: ["'self'", "http://127.0.0.1:4786", "http://localhost:4786"],
+      // The updater is intentionally plain HTTP on loopback. Do not rewrite
+      // that local request to HTTPS, where the helper does not listen.
+      upgradeInsecureRequests: null
     }
   }
 }));
