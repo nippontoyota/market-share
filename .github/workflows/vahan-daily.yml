@@ -2,9 +2,19 @@ name: Daily Vahan Dashboard Refresh
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - "MASTER_DATA_2026.xlsm"
+      - "RTO_2025_2026_Combined.csv"
+      - "rto_data.json"
+      - "VAHAN_KERALA_MASTER1.xlsm"
+      - "automation/**"
+      - "tests/**"
+      - ".github/workflows/vahan-daily.yml"
   schedule:
-    - cron: "0 9 * * *"
-      timezone: "Asia/Kolkata"
+    - cron: "30 3 * * *"
 
 concurrency:
   group: vahan-daily-refresh
@@ -42,33 +52,37 @@ jobs:
         run: python -m pip install -r automation/requirements.txt
 
       - name: Install Playwright Chromium
+        if: github.event_name != 'push'
         run: python -m playwright install --with-deps chromium
 
       - name: Run automation tests
         run: npm run test:automation
 
+      - name: Compile automation scripts
+        run: python -m py_compile automation/config.py automation/download_reports.py automation/dashboard_integration.py automation/run_full_pipeline.py automation/validate_dashboard_data.py
+
+      - name: Check dashboard generator syntax
+        run: node --check generate_rto_data.js
+
       - name: Download and integrate Vahan data
+        if: github.event_name != 'push'
         env:
           TZ: Asia/Kolkata
         run: python automation/run_full_pipeline.py
 
-      - name: Validate the published manifest
+      - name: Validate production dashboard data
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          manifest = json.loads(Path("vahan_uploads/latest_manifest.json").read_text(encoding="utf-8"))
-          expected = 86
-          if manifest.get("report_file_count") != expected or manifest.get("rto_count") != expected:
-              raise SystemExit(f"Invalid Vahan manifest: {manifest}")
-          print(json.dumps(manifest, indent=2))
-          PY
+          if [ "${{ github.event_name }}" = "push" ]; then
+            python automation/validate_dashboard_data.py
+          else
+            python automation/validate_dashboard_data.py --require-vahan-workbook
+          fi
 
       - name: Check generated data files
         run: git diff --check
 
       - name: Commit validated dashboard data
+        if: github.event_name != 'push'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

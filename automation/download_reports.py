@@ -43,18 +43,31 @@ async def wait_for_overlay(page):
     except:
         pass
 
-async def goto_with_retries(page, url, logger, attempts=3):
+async def goto_with_retries(page, url, logger, attempts=5):
     last_error = None
     for attempt in range(1, attempts + 1):
         try:
-            await page.goto(url, wait_until="networkidle")
+            response = await page.goto(
+                url,
+                wait_until="domcontentloaded",
+                timeout=config.TIMEOUTS["navigation"],
+            )
+            if response and not response.ok:
+                raise RuntimeError(f"HTTP {response.status} while loading {url}")
+            try:
+                await page.wait_for_load_state(
+                    "networkidle",
+                    timeout=config.TIMEOUTS["network_idle_after_navigation"],
+                )
+            except Exception as idle_error:
+                logger.warning(f"Continuing after network-idle wait failed: {str(idle_error)}")
             return
         except Exception as e:
             last_error = e
             if attempt == attempts:
                 break
             logger.warning(f"Navigation attempt {attempt} failed: {str(e)}")
-            await asyncio.sleep(5 * attempt)
+            await asyncio.sleep(min(20 * attempt, 60))
     raise last_error
 
 async def safe_select(page, label_selector, item_selector, expected_value=None):
@@ -140,10 +153,18 @@ async def main():
     logger.info(f"Starting Vahan report download for {date_str}")
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(
+            headless=True,
+            args=[
+                "--disable-dev-shm-usage",
+                "--no-sandbox",
+            ],
+        )
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
-            accept_downloads=True
+            accept_downloads=True,
+            timezone_id="Asia/Kolkata",
+            locale="en-IN",
         )
         page = await context.new_page()
         page.set_default_timeout(config.TIMEOUTS["global_timeout"])

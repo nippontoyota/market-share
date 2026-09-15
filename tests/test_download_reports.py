@@ -14,10 +14,16 @@ class FlakyPage:
     def __init__(self):
         self.calls = 0
 
-    async def goto(self, url, wait_until):
+    async def goto(self, url, wait_until, timeout=None):
         self.calls += 1
         if self.calls == 1:
             raise RuntimeError("connection reset")
+        response = Mock()
+        response.ok = True
+        return response
+
+    async def wait_for_load_state(self, state, timeout=None):
+        return None
 
 
 def test_goto_with_retries_recovers_after_transient_failure(monkeypatch):

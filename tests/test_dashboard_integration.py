@@ -13,6 +13,7 @@ sys.path.insert(0, str(AUTOMATION_DIR))
 
 import dashboard_integration as integration
 import run_full_pipeline
+from validate_dashboard_data import validate_dashboard_snapshot
 
 
 def make_xlsx_report(path, rows):
@@ -277,3 +278,32 @@ def test_integration_updates_temp_dashboard_copy_and_runs_generator(tmp_path):
     data = json.loads((dashboard / "rto_data.json").read_text(encoding="utf-8"))
     assert "Kollam" in data
     assert data["Kollam"]["summary"]["tiv2026"] > 0
+
+
+def test_validate_dashboard_snapshot_rejects_missing_rto_in_json(tmp_path):
+    for name in [
+        "MASTER_DATA_2026.xlsm",
+        "RTO_MASTER.xlsm",
+    ]:
+        shutil.copy2(PROJECT_DIR / name, tmp_path / name)
+
+    shutil.copy2(PROJECT_DIR / "RTO_2025_2026_Combined.csv", tmp_path / "RTO_2025_2026_Combined.csv")
+    (tmp_path / "rto_data.json").write_text(
+        json.dumps({"Kollam": {"subRtoCodes": [f"KL{i}" for i in range(1, 86)]}}),
+        encoding="utf-8",
+    )
+
+    try:
+        validate_dashboard_snapshot(tmp_path)
+    except RuntimeError as exc:
+        assert "rto_data.json RTO coverage mismatch" in str(exc)
+        assert "KL86" in str(exc)
+    else:
+        raise AssertionError("Expected incomplete JSON RTO coverage to fail")
+
+
+def test_validate_dashboard_snapshot_accepts_current_committed_data():
+    summary = validate_dashboard_snapshot(PROJECT_DIR)
+
+    assert summary["rto_count"] == 86
+    assert summary["cluster_count"] >= 1

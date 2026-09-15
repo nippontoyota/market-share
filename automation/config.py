@@ -53,6 +53,8 @@ EXPECTED_RTO_COUNT = 86
 # Timeouts & Delays
 TIMEOUTS = {
     "global_timeout": 90000,
+    "navigation": 60000,
+    "network_idle_after_navigation": 15000,
     "table_load": 45000,
     "between_iterations": 2, # polite delay in seconds
 }
