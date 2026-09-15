@@ -9,6 +9,7 @@ on:
       - "MASTER_DATA_2026.xlsm"
       - "RTO_2025_2026_Combined.csv"
       - "rto_data.json"
+      - "index.html"
       - "VAHAN_KERALA_MASTER1.xlsm"
       - "automation/**"
       - "tests/**"
@@ -116,7 +117,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add VAHAN_KERALA_MASTER1.xlsm MASTER_DATA_2026.xlsm RTO_2025_2026_Combined.csv rto_data.json
+          git add VAHAN_KERALA_MASTER1.xlsm MASTER_DATA_2026.xlsm RTO_2025_2026_Combined.csv rto_data.json index.html
           if git diff --cached --quiet; then
             echo "No dashboard data changes detected."
           else

@@ -359,6 +359,79 @@ def write_combined_csv(rows, csv_path, months):
         writer.writerows(new_rows)
 
 
+def build_index_records(csv_path):
+    records = []
+    with Path(csv_path).open(newline="", encoding="utf-8-sig") as handle:
+        reader = csv.DictReader(handle)
+        for row in reader:
+            if row.get("Check_Eligible") != "Required":
+                continue
+            records.append({
+                "Year": int(row["Year"]),
+                "Year_Label": row["Year_Label"],
+                "Month": row["Month"],
+                "Mapped_Location": row["Mapped_Location"],
+                "Maker": row["Maker"],
+                "Nos": int(row["Nos"] or 0),
+            })
+    return records
+
+
+def extract_index_records(html_path):
+    html = Path(html_path).read_text(encoding="utf-8")
+    match = re.search(r"const rawRecords = (\[.*?\]);", html, re.S)
+    if not match:
+        raise RuntimeError("Could not find the rawRecords dataset inside index.html.")
+    return json.loads(match.group(1))
+
+
+def _html_safe_json(records):
+    text = json.dumps(records, ensure_ascii=False, separators=(",", ":"))
+    return (
+        text.replace("&", "\\u0026")
+        .replace("<", "\\u003c")
+        .replace(">", "\\u003e")
+        .replace(" ", "\\u2028")
+        .replace(" ", "\\u2029")
+    )
+
+
+def update_index_html(html_path, csv_path, as_of_day):
+    """Refresh the dataset baked into index.html so the main dashboard page
+    (which reads `rawRecords` client-side, not rto_data.json) reflects the
+    latest Vahan pull instead of whatever day the page was last generated on.
+
+    The "current, still-filling-up" month, its totals, and every derived
+    label are computed client-side in index.html's own JS from `rawRecords`
+    (see `currentPartialMonth`), so this only needs to update the raw dataset
+    plus the one thing the data itself can't reveal: which day-of-month the
+    Vahan pull was current through.
+    """
+    records = build_index_records(csv_path)
+    if not records:
+        raise RuntimeError("No 'Required' rows found while rebuilding index.html dataset.")
+
+    html = Path(html_path).read_text(encoding="utf-8")
+
+    new_blob = f"const rawRecords = {_html_safe_json(records)};"
+    updated, count = re.subn(
+        r"const rawRecords = \[.*?\];", lambda _match: new_blob, html, count=1, flags=re.S
+    )
+    if count != 1:
+        raise RuntimeError("Could not locate the rawRecords dataset inside index.html.")
+
+    updated, day_count = re.subn(
+        r"const CURRENT_ASOF_DAY = \d+;",
+        lambda _match: f"const CURRENT_ASOF_DAY = {int(as_of_day)};",
+        updated,
+        count=1,
+    )
+    if day_count != 1:
+        raise RuntimeError("Could not locate CURRENT_ASOF_DAY inside index.html.")
+
+    Path(html_path).write_text(updated, encoding="utf-8")
+
+
 def copy_raw_reports(report_files, dashboard_dir, run_date):
     destination_dir = Path(dashboard_dir) / "vahan_uploads" / run_date
     destination_dir.mkdir(parents=True, exist_ok=True)
@@ -381,10 +454,22 @@ def validate_generated_dashboard(dashboard_dir, expected_rto_count=config.EXPECT
         "MASTER_DATA_2026.xlsm",
         "RTO_2025_2026_Combined.csv",
         "rto_data.json",
+        "index.html",
     ]
     missing = [name for name in required_files if not (dashboard_dir / name).is_file()]
     if missing:
         raise RuntimeError(f"Generated dashboard files are missing: {', '.join(missing)}")
+
+    csv_2026_total = sum(
+        r["Nos"] for r in build_index_records(dashboard_dir / "RTO_2025_2026_Combined.csv") if r["Year"] == 2026
+    )
+    html_records = extract_index_records(dashboard_dir / "index.html")
+    html_2026_total = sum(r["Nos"] for r in html_records if r["Year"] == 2026)
+    if html_2026_total != csv_2026_total:
+        raise RuntimeError(
+            "index.html's embedded dataset is out of sync with RTO_2025_2026_Combined.csv "
+            f"(index.html 2026 total={html_2026_total}, CSV 2026 total={csv_2026_total})."
+        )
 
     try:
         data = json.loads((dashboard_dir / "rto_data.json").read_text(encoding="utf-8"))
@@ -476,6 +561,7 @@ def integrate(reports_dir=None, dashboard_dir=None, run_generator=True):
         "MASTER_DATA_2026.xlsm",
         "RTO_2025_2026_Combined.csv",
         "rto_data.json",
+        "index.html",
     ]
 
     with tempfile.TemporaryDirectory(prefix="vahan_staging_") as temp_dir:
@@ -487,6 +573,13 @@ def integrate(reports_dir=None, dashboard_dir=None, run_generator=True):
         write_workbook(rows, staging_dir / "MASTER_DATA_2026.xlsm", "MASTER_DATA_2026", months)
         shutil.copy2(dashboard_dir / "RTO_2025_2026_Combined.csv", staging_dir / "RTO_2025_2026_Combined.csv")
         write_combined_csv(rows, staging_dir / "RTO_2025_2026_Combined.csv", months)
+
+        shutil.copy2(dashboard_dir / "index.html", staging_dir / "index.html")
+        update_index_html(
+            staging_dir / "index.html",
+            staging_dir / "RTO_2025_2026_Combined.csv",
+            as_of_day=datetime.now().day,
+        )
 
         if run_generator:
             run_dashboard_generator(staging_dir)

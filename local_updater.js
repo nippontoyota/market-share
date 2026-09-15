@@ -181,7 +181,7 @@ async function publishValidatedData() {
   currentRun.message = 'Committing dashboard data';
   addHistory({ type: 'state', state: runState() });
 
-  await runCommand('git', ['add', '--', 'VAHAN_KERALA_MASTER1.xlsm', 'MASTER_DATA_2026.xlsm', 'RTO_2025_2026_Combined.csv', 'rto_data.json']);
+  await runCommand('git', ['add', '--', 'VAHAN_KERALA_MASTER1.xlsm', 'MASTER_DATA_2026.xlsm', 'RTO_2025_2026_Combined.csv', 'rto_data.json', 'index.html']);
 
   const diff = spawn('git', ['diff', '--cached', '--quiet'], {
     cwd: PROJECT_DIR,

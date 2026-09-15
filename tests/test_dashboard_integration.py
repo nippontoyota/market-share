@@ -147,6 +147,8 @@ def test_validate_generated_dashboard_requires_all_rtos(tmp_path):
     ]:
         (tmp_path / name).write_bytes(b"test")
 
+    (tmp_path / "index.html").write_text("const rawRecords = [];", encoding="utf-8")
+
     (tmp_path / "rto_data.json").write_text(
         json.dumps({"Kollam": {"subRtoCodes": [f"KL{i}" for i in range(1, 86)]}}),
         encoding="utf-8",
@@ -174,6 +176,10 @@ def test_integrate_preserves_existing_files_when_generation_fails(tmp_path):
         encoding="utf-8",
     )
     (dashboard / "rto_data.json").write_text("old-json", encoding="utf-8")
+    (dashboard / "index.html").write_text(
+        "const rawRecords = []; const CURRENT_ASOF_DAY = 1;",
+        encoding="utf-8",
+    )
 
     for number in range(1, 87):
         make_xlsx_report(
@@ -183,7 +189,7 @@ def test_integrate_preserves_existing_files_when_generation_fails(tmp_path):
 
     original = {
         name: (dashboard / name).read_bytes()
-        for name in ["MASTER_DATA_2026.xlsm", "RTO_2025_2026_Combined.csv", "rto_data.json"]
+        for name in ["MASTER_DATA_2026.xlsm", "RTO_2025_2026_Combined.csv", "rto_data.json", "index.html"]
     }
 
     with patch.object(integration, "run_dashboard_generator", side_effect=RuntimeError("generator failed")):
@@ -247,6 +253,7 @@ def test_integration_updates_temp_dashboard_copy_and_runs_generator(tmp_path):
         "RTO_2025_2026_Combined.csv",
         "generate_rto_data.js",
         "package.json",
+        "index.html",
     ]:
         shutil.copy2(PROJECT_DIR / name, dashboard / name)
 
@@ -270,10 +277,13 @@ def test_integration_updates_temp_dashboard_copy_and_runs_generator(tmp_path):
     assert (dashboard / "rto_data.json").exists()
     assert (dashboard / "vahan_uploads" / "2026-09-14").exists()
 
+    html_records = integration.extract_index_records(dashboard / "index.html")
+    assert any(r["Year"] == 2026 for r in html_records)
+
     manifest = json.loads((dashboard / "vahan_uploads" / "latest_manifest.json").read_text(encoding="utf-8"))
     assert manifest["report_file_count"] == 86
     assert manifest["rto_count"] == 86
-    assert manifest["row_count"] == 1684
+    assert manifest["row_count"] == 1810
 
     data = json.loads((dashboard / "rto_data.json").read_text(encoding="utf-8"))
     assert "Kollam" in data
@@ -284,6 +294,7 @@ def test_validate_dashboard_snapshot_rejects_missing_rto_in_json(tmp_path):
     for name in [
         "MASTER_DATA_2026.xlsm",
         "RTO_MASTER.xlsm",
+        "index.html",
     ]:
         shutil.copy2(PROJECT_DIR / name, tmp_path / name)
 
