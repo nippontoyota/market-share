@@ -26,6 +26,27 @@ npm run refresh:vahan
 
 This downloads the Vahan RTO reports, stores the raw files under `reports/YYYY-MM-DD/`, updates the dashboard data files, and regenerates `rto_data.json`.
 
+## Local button updater
+
+The production dashboard can trigger a refresh through a local helper on the operator's computer. This is the zero-recurring-cost path that works when hosted services cannot reach the Vahan portal.
+
+One-time setup on the operator machine:
+
+```bash
+git clone https://github.com/Nippon-Mis/performance-dashboard.git
+cd performance-dashboard
+Start_Updater.bat
+```
+
+Daily/manual use:
+
+1. Run `Start_Updater.bat`.
+2. Open `https://performance-dashboard-kvj8.onrender.com/`.
+3. Click `Update data`, then `Start update`.
+4. Keep the updater terminal open until the dashboard says the data was published.
+
+The helper listens only on `127.0.0.1:4786`. It accepts browser calls from the production dashboard, runs the existing Python/Playwright Vahan pipeline locally, validates all 86 RTOs, commits the refreshed data files, and pushes `master` so Render can auto-deploy. This does not run any paid server, database, queue, or scheduler.
+
 Use the latest existing report folder without downloading again:
 
 ```bash
@@ -36,16 +57,6 @@ Use a specific report folder:
 
 ```bash
 python automation/run_full_pipeline.py --skip-download --reports-dir reports/YYYY-MM-DD
-```
-
-## Optional local schedule
-
-GitHub Actions is the production schedule. These Windows scripts are only a local fallback for manual/internal use and are not required for the daily production refresh.
-
-On Windows, run this once to create monthly scheduled tasks for the 10th and 25th at 09:00:
-
-```bat
-Schedule_10_25.bat
 ```
 
 ## Daily GitHub Actions refresh

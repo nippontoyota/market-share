@@ -307,6 +307,19 @@
             border-color: var(--card-border-glow);
         }
 
+        .btn-update-top {
+            background: linear-gradient(135deg, #00c853 0%, #009624 100%);
+            border: 1px solid rgba(0, 230, 118, 0.7);
+            color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 230, 118, 0.18);
+        }
+
+        .btn-update-top:hover {
+            background: linear-gradient(135deg, #00e676 0%, #00a832 100%);
+            box-shadow: 0 4px 16px rgba(0, 230, 118, 0.35);
+            transform: translateY(-1px);
+        }
+
         .btn-orange-top {
             background: linear-gradient(135deg, #ff6b00 0%, #e05e00 100%);
             border: 1px solid #ff7b1a;
@@ -329,6 +342,122 @@
         .btn-danger-top:hover {
             background: rgba(255, 68, 68, 0.15);
             border-color: var(--accent-red);
+        }
+
+        .updater-panel {
+            display: none;
+            position: fixed;
+            top: 72px;
+            right: 16px;
+            width: min(520px, calc(100vw - 32px));
+            max-height: calc(100vh - 96px);
+            z-index: 50;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border-glow);
+            border-radius: 12px;
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+            padding: 14px;
+            color: var(--text-main);
+        }
+
+        .updater-panel.open {
+            display: block;
+        }
+
+        .updater-panel-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 12px;
+        }
+
+        .updater-panel-title {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
+        }
+
+        .updater-muted {
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.45;
+            margin-top: 4px;
+        }
+
+        .updater-status {
+            border: 1px solid var(--card-border);
+            background: var(--card-bg-subtle);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .updater-progress-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .updater-progress-track {
+            height: 9px;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .updater-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00c853, #f5b000);
+            transition: width 0.25s ease;
+        }
+
+        .updater-log {
+            height: 180px;
+            overflow: auto;
+            border: 1px solid var(--card-border);
+            background: rgba(0, 0, 0, 0.18);
+            border-radius: 10px;
+            padding: 9px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 10.5px;
+            line-height: 1.45;
+            color: var(--text-muted);
+            white-space: pre-wrap;
+        }
+
+        .updater-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-updater {
+            border: 0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: #ffffff;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn-updater-primary {
+            background: #00a832;
+        }
+
+        .btn-updater-danger {
+            background: #d93025;
+        }
+
+        .btn-updater-secondary {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
         }
 
         /* 3-COLUMN DASHBOARD GRID */
@@ -737,6 +866,9 @@
             <div class="header-subtitle">Comparative Automotive Retail & Market Share Analytics • Kerala Regional Transport Offices</div>
         </div>
         <div class="header-actions">
+            <button class="btn-top btn-update-top" id="btnVahanUpdate" title="Run Vahan update from this computer">
+                Update data
+            </button>
             <button class="btn-top btn-reset-top" id="btnResetFilters" title="Reset all locations, makers, and months">
                 🔄 Clear All Filters
             </button>
@@ -746,6 +878,35 @@
             <a href="/logout" id="btnLogout" class="btn-top btn-danger-top" onclick="logout(event)">
                 Logout
             </a>
+        </div>
+    </div>
+
+    <div class="updater-panel" id="updaterPanel" aria-hidden="true">
+        <div class="updater-panel-header">
+            <div>
+                <div class="updater-panel-title">Vahan data update</div>
+                <div class="updater-muted" id="updaterHelperStatus">
+                    Start <code>Start_Updater.bat</code> from the repo first, then click Start update.
+                </div>
+            </div>
+            <button class="btn-updater btn-updater-secondary" id="btnCloseUpdater" type="button">Close</button>
+        </div>
+        <div class="updater-status">
+            <div id="updaterMessage">Waiting for local updater...</div>
+            <div class="updater-progress-row">
+                <div class="updater-progress-track">
+                    <div class="updater-progress-bar" id="updaterProgressBar"></div>
+                </div>
+                <div id="updaterProgressText">0%</div>
+            </div>
+        </div>
+        <div class="updater-log" id="updaterLog">No update started yet.</div>
+        <div class="updater-actions">
+            <button class="btn-updater btn-updater-primary" id="btnStartVahanUpdate" type="button">Start update</button>
+            <button class="btn-updater btn-updater-danger" id="btnCancelVahanUpdate" type="button">Cancel update</button>
+        </div>
+        <div class="updater-muted">
+            This runs on this computer, validates all 86 RTOs, pushes the data to GitHub, then Render auto-deploys it.
         </div>
     </div>
 
@@ -1341,6 +1502,131 @@
             });
         }
 
+        const updaterEndpoint = 'http://127.0.0.1:4786';
+        let updaterEvents = null;
+
+        function appendUpdaterLog(line) {
+            const logEl = document.getElementById('updaterLog');
+            if (!logEl) return;
+            if (logEl.textContent === 'No update started yet.') {
+                logEl.textContent = '';
+            }
+            const time = new Date().toLocaleTimeString('en-IN', { hour12: false });
+            logEl.textContent += `[${time}] ${line}\n`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function setUpdaterState(state) {
+            if (!state) return;
+            const messageEl = document.getElementById('updaterMessage');
+            const progressBar = document.getElementById('updaterProgressBar');
+            const progressText = document.getElementById('updaterProgressText');
+            const startBtn = document.getElementById('btnStartVahanUpdate');
+            const cancelBtn = document.getElementById('btnCancelVahanUpdate');
+
+            const progress = Math.max(0, Math.min(100, Number(state.progress || 0)));
+            if (messageEl) messageEl.textContent = state.message || 'Updater is ready.';
+            if (progressBar) progressBar.style.width = `${progress}%`;
+            if (progressText) progressText.textContent = `${Math.round(progress)}%`;
+            if (startBtn) startBtn.disabled = Boolean(state.running);
+            if (cancelBtn) cancelBtn.disabled = !state.running;
+        }
+
+        async function checkUpdater() {
+            const statusEl = document.getElementById('updaterHelperStatus');
+            try {
+                const response = await fetch(`${updaterEndpoint}/health`, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`Updater returned ${response.status}`);
+                const data = await response.json();
+                if (statusEl) statusEl.textContent = 'Local updater is running. You can start the update.';
+                setUpdaterState(data.state);
+                return true;
+            } catch (error) {
+                if (statusEl) {
+                    statusEl.textContent = 'Local updater is not running. Run Start_Updater.bat from the repo, keep that terminal open, then try again.';
+                }
+                setUpdaterState({ running: false, progress: 0, message: 'Waiting for Start_Updater.bat on this computer.' });
+                return false;
+            }
+        }
+
+        function connectUpdaterEvents() {
+            if (updaterEvents) updaterEvents.close();
+            updaterEvents = new EventSource(`${updaterEndpoint}/events`);
+            updaterEvents.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.state) setUpdaterState(data.state);
+                if (data.line) appendUpdaterLog(data.line);
+                if (data.error) appendUpdaterLog(`ERROR: ${data.error}`);
+            };
+            updaterEvents.onerror = () => {
+                appendUpdaterLog('Lost connection to local updater. Check the Start_Updater.bat terminal.');
+                if (updaterEvents) updaterEvents.close();
+                updaterEvents = null;
+            };
+        }
+
+        async function startVahanUpdate() {
+            if (!(await checkUpdater())) return;
+            connectUpdaterEvents();
+            appendUpdaterLog('Starting Vahan update from this computer...');
+            try {
+                const response = await fetch(`${updaterEndpoint}/start`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: '{}',
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || `Updater returned ${response.status}`);
+                setUpdaterState(data.state);
+            } catch (error) {
+                appendUpdaterLog(`ERROR: ${error.message}`);
+            }
+        }
+
+        async function cancelVahanUpdate() {
+            try {
+                const response = await fetch(`${updaterEndpoint}/cancel`, { method: 'POST' });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || `Updater returned ${response.status}`);
+                setUpdaterState(data.state);
+                appendUpdaterLog('Cancel requested.');
+            } catch (error) {
+                appendUpdaterLog(`ERROR: ${error.message}`);
+            }
+        }
+
+        function openUpdaterPanel() {
+            const panel = document.getElementById('updaterPanel');
+            if (panel) {
+                panel.classList.add('open');
+                panel.setAttribute('aria-hidden', 'false');
+            }
+            checkUpdater();
+        }
+
+        function closeUpdaterPanel() {
+            const panel = document.getElementById('updaterPanel');
+            if (panel) {
+                panel.classList.remove('open');
+                panel.setAttribute('aria-hidden', 'true');
+            }
+        }
+
+        function initUpdaterControls() {
+            const openBtn = document.getElementById('btnVahanUpdate');
+            const closeBtn = document.getElementById('btnCloseUpdater');
+            const startBtn = document.getElementById('btnStartVahanUpdate');
+            const cancelBtn = document.getElementById('btnCancelVahanUpdate');
+            if (openBtn) openBtn.onclick = openUpdaterPanel;
+            if (closeBtn) closeBtn.onclick = closeUpdaterPanel;
+            if (startBtn) startBtn.onclick = startVahanUpdate;
+            if (cancelBtn) {
+                cancelBtn.onclick = cancelVahanUpdate;
+                cancelBtn.disabled = true;
+            }
+        }
+
         async function logout(event) {
             if (event && event.preventDefault) event.preventDefault();
             try {
@@ -1366,6 +1652,7 @@
         function startDashboard() {
             if (typeof initTheme === 'function') initTheme();
             initUI();
+            initUpdaterControls();
         }
 
         if (document.readyState === 'loading') {

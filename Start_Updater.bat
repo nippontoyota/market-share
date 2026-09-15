@@ -1,0 +1,57 @@
+@echo off
+cd /d "%~dp0"
+echo Starting Nippon Vahan dashboard updater...
+echo.
+where git >nul 2>nul || (
+  echo Git is required. Install Git, then run this file again.
+  pause
+  exit /b 1
+)
+where node >nul 2>nul || (
+  echo Node.js is required. Install Node.js 20, then run this file again.
+  pause
+  exit /b 1
+)
+where python >nul 2>nul || (
+  echo Python 3.11 is required. Install Python, then run this file again.
+  pause
+  exit /b 1
+)
+echo Updating this repo to the latest GitHub version...
+git pull --ff-only origin master
+if errorlevel 1 (
+  echo Git pull failed. Make sure this folder is the GitHub repo and has no local uncommitted edits.
+  pause
+  exit /b 1
+)
+if not exist node_modules (
+  echo Installing dashboard helper packages...
+  npm install
+  if errorlevel 1 (
+    echo npm install failed.
+    pause
+    exit /b 1
+  )
+)
+echo Installing Python automation packages...
+python -m pip install -r automation\requirements.txt
+if errorlevel 1 (
+  echo Python package install failed.
+  pause
+  exit /b 1
+)
+echo Installing Playwright browser...
+python -m playwright install chromium
+if errorlevel 1 (
+  echo Playwright browser install failed.
+  pause
+  exit /b 1
+)
+echo.
+echo Updater is ready.
+echo Keep this window open, then open:
+echo https://performance-dashboard-kvj8.onrender.com/
+echo and click Update data.
+echo.
+node local_updater.js
+pause
