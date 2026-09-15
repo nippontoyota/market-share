@@ -2,6 +2,11 @@
 cd /d "%~dp0"
 echo Starting Nippon Vahan dashboard updater...
 echo.
+echo Clearing any previous updater on port 4786...
+for /f "tokens=5" %%P in ('netstat -ano ^| findstr /R /C:":4786 .*LISTENING"') do (
+  echo Stopping updater process %%P...
+  taskkill /PID %%P /T /F >nul 2>nul
+)
 where git >nul 2>nul || (
   echo Git is required. Install Git, then run this file again.
   pause
@@ -26,7 +31,7 @@ if errorlevel 1 (
 )
 if not exist node_modules (
   echo Installing dashboard helper packages...
-  npm install
+  call npm install
   if errorlevel 1 (
     echo npm install failed.
     pause
