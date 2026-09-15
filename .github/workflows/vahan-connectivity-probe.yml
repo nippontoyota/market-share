@@ -1,0 +1,33 @@
+name: Vahan Connectivity Probe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Probe Vahan from Ubuntu
+        run: |
+          curl --location --head --connect-timeout 10 --max-time 20 --retry 1 --retry-delay 5 \
+            --user-agent "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" \
+            "https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml"
+
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 2
+    steps:
+      - name: Probe Vahan from Windows
+        shell: pwsh
+        run: |
+          $headers = @{
+            "User-Agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+          }
+          $response = Invoke-WebRequest `
+            -Uri "https://vahan.parivahan.gov.in/vahan4dashboard/vahan/view/reportview.xhtml" `
+            -Headers $headers `
+            -Method Head `
+            -TimeoutSec 20 `
+            -MaximumRedirection 5
+          Write-Host "StatusCode=$($response.StatusCode)"
