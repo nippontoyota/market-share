@@ -93,6 +93,43 @@ async def safe_select(page, label_selector, item_selector, expected_value=None):
     await wait_for_overlay(page)
     await asyncio.sleep(1) # Extra buffer for JS execution
 
+async def ensure_filter_sidebar_open(page):
+    toggler = page.locator(config.SELECTORS["sidebar_toggler"])
+    classes = await toggler.get_attribute("class") or ""
+    if "ui-layout-toggler-closed" not in classes:
+        return
+    await toggler.click(force=True)
+    await asyncio.sleep(1)
+
+async def ensure_vehicle_filter_checked(page, label_text):
+    """Tick a Vehicle Category/Class checkbox by its visible label. Always
+    re-resolves the checkbox id fresh (never cache it) since these ids
+    re-index whenever the RTO selection changes."""
+    label = page.locator(config.SELECTORS["vehicle_filter_label"].format(label_text))
+    checkbox_id = await label.get_attribute("for")
+    if await page.locator(f'input[id="{checkbox_id}"]').is_checked():
+        return
+    await wait_for_overlay(page)
+    await label.click(force=True)
+    await page.wait_for_load_state("networkidle")
+    await wait_for_overlay(page)
+    await asyncio.sleep(1)
+
+async def apply_vehicle_filters(page):
+    await ensure_filter_sidebar_open(page)
+    for label_text in config.VEHICLE_FILTER_LABELS:
+        await ensure_vehicle_filter_checked(page, label_text)
+
+    # The bottom sidebar Refresh applies the checked filters to the
+    # already-built Maker x Month table without resetting them (unlike the
+    # top Refresh, which rebuilds the table but drops the filter state).
+    await wait_for_overlay(page)
+    await page.locator(config.SELECTORS["sidebar_refresh_btn"]).last.click(force=True)
+    await page.wait_for_load_state("networkidle")
+    await wait_for_overlay(page)
+    await page.wait_for_selector(config.SELECTORS["table_row"], timeout=config.TIMEOUTS["table_load"])
+    await asyncio.sleep(2)
+
 def extract_rto_code(rto):
     match = re.search(r"\bKL\s*0*(\d{1,2})\b", rto.upper())
     if match:
@@ -115,14 +152,10 @@ async def process_rto(page, rto, output_dir, logger):
     # 1. Select RTO
     await safe_select(page, config.SELECTORS["rto_label"], config.SELECTORS["rto_item_specific"].format(rto))
 
-    # 2. Click Refresh
-    await wait_for_overlay(page)
-    await page.locator(config.SELECTORS["refresh_btn"]).first.click(force=True)
-
-    # 3. Wait for data to reload
-    await page.wait_for_load_state("networkidle")
-    await wait_for_overlay(page)
-    await page.wait_for_selector(config.SELECTORS["table_row"], timeout=config.TIMEOUTS["table_load"])
+    # 2. Re-apply the cars-only vehicle filters (selecting an RTO re-indexes
+    # the checkbox ids and can uncheck one or both) and refresh via the
+    # sidebar button so the filters actually take effect for this RTO.
+    await apply_vehicle_filters(page)
     await asyncio.sleep(2) # Give PrimeFaces time to rebind Export button
 
     # 4. Click Export & capture download
@@ -180,6 +213,20 @@ async def main():
             await safe_select(page, config.SELECTORS["xaxis_label"], config.SELECTORS["xaxis_item"].format(config.FILTERS["X-Axis"]), config.FILTERS["X-Axis"])
             await safe_select(page, config.SELECTORS["yeartype_label"], config.SELECTORS["yeartype_item"].format(config.FILTERS["Year Type"]), config.FILTERS["Year Type"])
             await safe_select(page, config.SELECTORS["year_label"], config.SELECTORS["year_item"].format(config.FILTERS["Year"]), config.FILTERS["Year"])
+
+            # Build the Maker x Month table once via the top Refresh (this
+            # button drops any filter state, so it must run BEFORE the
+            # vehicle filters are checked -- see apply_vehicle_filters).
+            logger.info("Building base Maker x Month report...")
+            await wait_for_overlay(page)
+            await page.locator(config.SELECTORS["refresh_btn"]).first.click(force=True)
+            await page.wait_for_load_state("networkidle")
+            await wait_for_overlay(page)
+            await page.wait_for_selector(config.SELECTORS["table_row"], timeout=config.TIMEOUTS["table_load"])
+            await asyncio.sleep(2)
+
+            logger.info("Restricting to cars only (Vehicle Category=LMV, Vehicle Class=Motor Car)...")
+            await apply_vehicle_filters(page)
 
             logger.info("Waiting for RTO list to populate...")
             await page.wait_for_function('document.querySelectorAll("ul#selectedRto_items li").length > 1')

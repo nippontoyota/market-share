@@ -13,6 +13,16 @@ FILTERS = {
     "Year": "2026"
 }
 
+# Vahan's maker/month report defaults to every vehicle type a maker
+# registers (taxis/"Motor Cab", buses, goods carriers, etc.), not just
+# private cars. Ticking Vehicle Category=LIGHT MOTOR VEHICLE and Vehicle
+# Class=MOTOR CAR restricts it to cars only, matching what the dealer
+# checks manually on Vahan's own site. Verified end-to-end (checkbox
+# state -> submitted request -> exported file) against a live Vahan
+# session: Kerala-wide Toyota Sep 2026 = 654 (matches Vahan's own UI)
+# vs 739 unfiltered.
+VEHICLE_FILTER_LABELS = ["LIGHT MOTOR VEHICLE", "MOTOR CAR"]
+
 # Selectors mapped to fixed filters
 SELECTORS = {
     # VAHAN doesn't give the State dropdown a stable id (it's JSF-auto-numbered
@@ -36,6 +46,26 @@ SELECTORS = {
 
     "year_label": "label#selectedYear_label",
     "year_item": "ul#selectedYear_items li[data-label='{}']",
+
+    # The left filter sidebar (Vehicle Category/Class checkboxes) is a
+    # collapsible pane that loads closed (display:none) until this is clicked.
+    "sidebar_toggler": "#filterLayout-toggler",
+
+    # Vehicle Category/Class checkbox ids (VhCatg:N, VhClass:N) are NOT
+    # stable -- they re-index every time the RTO selection changes -- so
+    # always anchor on the visible label text, never cache the id/for.
+    "vehicle_filter_label": "xpath=//label[@for and normalize-space()='{}']",
+
+    # This report has TWO independent "Refresh" buttons and they are not
+    # interchangeable. The top one (near State/Y-Axis/X-Axis) rebuilds the
+    # Maker x Month table from scratch but silently discards the Vehicle
+    # Category/Class selection. The bottom one, inside the filter sidebar
+    # below the Norms list, updates that same table in place using the
+    # currently-checked category/class filters WITHOUT resetting them.
+    # Verified sequence: click top once to build the table, THEN check the
+    # vehicle filters, THEN use the bottom one (here and on every
+    # subsequent RTO change) to actually apply them.
+    "sidebar_refresh_btn": "xpath=//div[@id='filterLayout']//button[normalize-space()='Refresh']",
 
     "refresh_btn": "button:has-text('Refresh')",
     "export_btn": "a:has(img[src*='csv.png'])",
