@@ -8,6 +8,31 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const DEV_USERNAME = 'Admin';
+const DEV_PASSWORD_HASH = '$2a$10$X0H0G35m9j6P5ltQbzjcqeVnOz0f73Cs1vuWdMUIOjcIO/ENtb5bC';
+const isProduction = process.env.NODE_ENV === 'production';
+
+function getDashboardCredentials() {
+  const configuredUsername = process.env.DASHBOARD_USERNAME;
+  const configuredPasswordHash = process.env.DASHBOARD_PASSWORD_HASH;
+  const hasPlaceholderHash = configuredPasswordHash && configuredPasswordHash.includes('your-bcrypt-hash-here');
+
+  if (configuredUsername && configuredPasswordHash && !hasPlaceholderHash) {
+    return {
+      username: configuredUsername,
+      passwordHash: configuredPasswordHash,
+    };
+  }
+
+  if (!isProduction) {
+    return {
+      username: configuredUsername || DEV_USERNAME,
+      passwordHash: DEV_PASSWORD_HASH,
+    };
+  }
+
+  return null;
+}
 
 // Trust proxy for Render (HTTPS)
 app.set('trust proxy', 1);
@@ -50,7 +75,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
     sameSite: 'lax',
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   },
@@ -103,23 +128,21 @@ app.post('/login', loginLimiter, async (req, res) => {
     return res.status(400).json({ error: 'Username and password are required' });
   }
 
-  // Get credentials from environment
-  const validUsername = process.env.DASHBOARD_USERNAME;
-  const validPasswordHash = process.env.DASHBOARD_PASSWORD_HASH;
+  const credentials = getDashboardCredentials();
 
-  if (!validUsername || !validPasswordHash) {
+  if (!credentials) {
     console.error('Server configuration error: Missing credentials in environment');
     return res.status(500).json({ error: 'Server configuration error' });
   }
 
   // Verify username (case-insensitive check)
-  if (username.trim().toLowerCase() !== validUsername.trim().toLowerCase()) {
+  if (username.trim().toLowerCase() !== credentials.username.trim().toLowerCase()) {
     return res.status(401).json({ error: 'Invalid username or password' });
   }
 
   // Verify password
   try {
-    const passwordMatch = await bcrypt.compare(password, validPasswordHash);
+    const passwordMatch = await bcrypt.compare(password, credentials.passwordHash);
     if (passwordMatch) {
       req.session.isAuthenticated = true;
       req.session.username = username;
