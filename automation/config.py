@@ -13,14 +13,6 @@ FILTERS = {
     "Year": "2026"
 }
 
-# Vahan's maker/month report defaults to every vehicle type a maker registers
-# (buses, goods carriers, etc.), not just cars. The dashboard is about cars,
-# so both of these checkboxes must be ticked before exporting each RTO's
-# report: Vehicle Category = LIGHT MOTOR VEHICLE and Vehicle Class = MOTOR
-# CAR. Without them, every maker's totals (Toyota included) are inflated
-# with non-car registrations.
-VEHICLE_FILTER_LABELS = ["LIGHT MOTOR VEHICLE", "MOTOR CAR"]
-
 # Selectors mapped to fixed filters
 SELECTORS = {
     # VAHAN doesn't give the State dropdown a stable id (it's JSF-auto-numbered
@@ -44,11 +36,6 @@ SELECTORS = {
 
     "year_label": "label#selectedYear_label",
     "year_item": "ul#selectedYear_items li[data-label='{}']",
-
-    # Vehicle Category / Vehicle Class checkboxes are rendered with stable
-    # ids (VhCatg:N, VhClass:N) but the N shifts if Vahan reorders the list,
-    # so anchor on the visible label text instead, same as the State select.
-    "vehicle_filter_label": "xpath=//label[normalize-space()='{}']",
 
     "refresh_btn": "button:has-text('Refresh')",
     "export_btn": "a:has(img[src*='csv.png'])",
