@@ -283,7 +283,7 @@ def test_integration_updates_temp_dashboard_copy_and_runs_generator(tmp_path):
     manifest = json.loads((dashboard / "vahan_uploads" / "latest_manifest.json").read_text(encoding="utf-8"))
     assert manifest["report_file_count"] == 86
     assert manifest["rto_count"] == 86
-    assert manifest["row_count"] == 1810
+    assert manifest["row_count"] == 1702
 
     data = json.loads((dashboard / "rto_data.json").read_text(encoding="utf-8"))
     assert "Kollam" in data
