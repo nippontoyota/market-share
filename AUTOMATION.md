@@ -33,8 +33,8 @@ The production dashboard can trigger a refresh through a local helper on the ope
 One-time setup on the operator machine:
 
 ```bash
-git clone https://github.com/Nippon-Mis/performance-dashboard.git
-cd performance-dashboard
+git clone https://github.com/nippontoyota/market-share.git
+cd market-share
 Start_Updater.bat
 ```
 
@@ -67,7 +67,7 @@ On normal pushes, the same workflow skips the live Vahan scrape and Playwright b
 
 If the Vahan portal is not reachable from GitHub's free hosted runner, the workflow skips dependency installation, browser installation, and the expensive scrape, then validates the last committed production snapshot instead. Production stays on the last known-good data and the workflow avoids burning the full timeout.
 
-For the automatic Render deployment to follow these refresh commits, the Render service must use this repository's `master` branch with Auto-Deploy set to `On Commit`. The workflow does not need a Render API key.
+For the automatic Render deployment to follow these refresh commits, the Render service must use `https://github.com/nippontoyota/market-share.git` on the `master` branch with Auto-Deploy set to `On Commit`. The workflow does not need a Render API key.
 
 Configure Render's health check path as `/health`. It returns HTTP 200 without requiring dashboard credentials.
 

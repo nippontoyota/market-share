@@ -21,7 +21,7 @@ Raw reports, logs, backups, and manifests remain ignored local/workflow artifact
 
 ## Deployment contract
 
-Render must be connected to `Nippon-Mis/performance-dashboard`, the intended deployment branch must be `master`, and Auto-Deploy must be set to `On Commit`. The workflow does not change Render settings or push code outside the repository.
+Render must be connected to `nippontoyota/market-share`, the intended deployment branch must be `master`, and Auto-Deploy must be set to `On Commit`. The workflow does not change Render settings or push code outside the repository.
 
 ## Operational contract
 
