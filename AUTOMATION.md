@@ -45,7 +45,7 @@ Daily/manual use:
 3. Click `Update data`, then `Start update`.
 4. Keep the updater terminal open until the dashboard says the data was published.
 
-The helper listens only on `127.0.0.1:4786`. It accepts browser calls from the production dashboard, runs the existing Python/Playwright Vahan pipeline locally, validates all 86 RTOs, commits the refreshed data files, and pushes `master` so Render can auto-deploy. This does not run any paid server, database, queue, or scheduler.
+The helper listens only on `127.0.0.1:3099`. It accepts browser calls from the production dashboard, runs the existing Python/Playwright Vahan pipeline locally, validates all 86 RTOs, commits the refreshed data files, and pushes `master` so Render can auto-deploy. This does not run any paid server, database, queue, or scheduler.
 
 Use the latest existing report folder without downloading again:
 

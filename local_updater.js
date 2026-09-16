@@ -2,7 +2,7 @@ const express = require('express');
 const { spawn } = require('child_process');
 
 const app = express();
-const PORT = Number(process.env.UPDATER_PORT || 4786);
+const PORT = Number(process.env.UPDATER_PORT || 3099);
 const PROJECT_DIR = __dirname;
 const TEST_MODE = process.env.UPDATER_TEST_MODE === '1';
 const ALLOWED_ORIGINS = new Set([
