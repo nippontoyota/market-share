@@ -93,6 +93,20 @@ async def safe_select(page, label_selector, item_selector, expected_value=None):
     await wait_for_overlay(page)
     await asyncio.sleep(1) # Extra buffer for JS execution
 
+async def ensure_vehicle_filter_checked(page, label_text):
+    """Tick a Vehicle Category/Class checkbox by its visible label, unless
+    it's already checked. Changing Y-Axis/X-Axis re-renders this panel and
+    clears it, so this must run after those selects, not before."""
+    label = page.locator(config.SELECTORS["vehicle_filter_label"].format(label_text))
+    checkbox_id = await label.get_attribute("for")
+    if await page.locator(f'input[id="{checkbox_id}"]').is_checked():
+        return
+    await wait_for_overlay(page)
+    await label.click(force=True)
+    await page.wait_for_load_state("networkidle")
+    await wait_for_overlay(page)
+    await asyncio.sleep(1)
+
 def extract_rto_code(rto):
     match = re.search(r"\bKL\s*0*(\d{1,2})\b", rto.upper())
     if match:
@@ -180,6 +194,10 @@ async def main():
             await safe_select(page, config.SELECTORS["xaxis_label"], config.SELECTORS["xaxis_item"].format(config.FILTERS["X-Axis"]), config.FILTERS["X-Axis"])
             await safe_select(page, config.SELECTORS["yeartype_label"], config.SELECTORS["yeartype_item"].format(config.FILTERS["Year Type"]), config.FILTERS["Year Type"])
             await safe_select(page, config.SELECTORS["year_label"], config.SELECTORS["year_item"].format(config.FILTERS["Year"]), config.FILTERS["Year"])
+
+            logger.info("Restricting to cars only (Vehicle Category=LMV, Vehicle Class=Motor Car)...")
+            for label_text in config.VEHICLE_FILTER_LABELS:
+                await ensure_vehicle_filter_checked(page, label_text)
 
             logger.info("Waiting for RTO list to populate...")
             await page.wait_for_function('document.querySelectorAll("ul#selectedRto_items li").length > 1')
