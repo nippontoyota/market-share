@@ -46,11 +46,38 @@ if errorlevel 1 (
   exit /b 1
 )
 echo Installing Playwright browser...
+set PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=300000
+set PLAYWRIGHT_INSTALL_ATTEMPT=0
+:install_playwright_browser
+set /a PLAYWRIGHT_INSTALL_ATTEMPT+=1
+echo Playwright browser install attempt %PLAYWRIGHT_INSTALL_ATTEMPT% of 3...
 python -m playwright install chromium
 if errorlevel 1 (
-  echo Playwright browser install failed.
-  pause
-  exit /b 1
+  if %PLAYWRIGHT_INSTALL_ATTEMPT% LSS 3 (
+    echo Playwright browser download failed or timed out. Retrying in 10 seconds...
+    timeout /t 10 /nobreak >nul
+    goto install_playwright_browser
+  )
+  echo Playwright browser install failed after 3 attempts.
+  echo Checking for installed Chrome or Edge as a fallback...
+  if exist "%ProgramFiles%\Google\Chrome\Application\chrome.exe" (
+    set PLAYWRIGHT_BROWSER_CHANNEL=chrome
+    echo Using installed Google Chrome for the updater.
+  ) else if exist "%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe" (
+    set PLAYWRIGHT_BROWSER_CHANNEL=chrome
+    echo Using installed Google Chrome for the updater.
+  ) else if exist "%ProgramFiles%\Microsoft\Edge\Application\msedge.exe" (
+    set PLAYWRIGHT_BROWSER_CHANNEL=msedge
+    echo Using installed Microsoft Edge for the updater.
+  ) else if exist "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" (
+    set PLAYWRIGHT_BROWSER_CHANNEL=msedge
+    echo Using installed Microsoft Edge for the updater.
+  ) else (
+    echo No installed Chrome or Edge fallback was found.
+    echo Check the internet connection, VPN/proxy, or firewall access to https://cdn.playwright.dev/
+    pause
+    exit /b 1
+  )
 )
 echo.
 echo Updater is ready.

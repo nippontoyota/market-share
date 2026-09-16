@@ -186,13 +186,19 @@ async def main():
     logger.info(f"Starting Vahan report download for {date_str}")
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(
-            headless=True,
-            args=[
+        launch_options = {
+            "headless": True,
+            "args": [
                 "--disable-dev-shm-usage",
                 "--no-sandbox",
             ],
-        )
+        }
+        browser_channel = os.environ.get("PLAYWRIGHT_BROWSER_CHANNEL")
+        if browser_channel:
+            logger.info(f"Using installed browser channel: {browser_channel}")
+            launch_options["channel"] = browser_channel
+
+        browser = await p.chromium.launch(**launch_options)
         context = await browser.new_context(
             user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
             accept_downloads=True,
