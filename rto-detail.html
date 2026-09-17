@@ -131,6 +131,14 @@
                         <div class="cs-v" style="color: var(--accent-blue);" id="statAvgToyota">0</div>
                         <div class="cs-l">Avg Toyota / Month</div>
                     </div>
+                    <div class="cs" style="border-left: 1px solid var(--card-border); padding-left: 15px; margin-left: 5px;">
+                        <input type="number" id="customTivInput" placeholder="Enter TIV" style="background: var(--input-bg); border: 1px solid var(--card-border); color: white; border-radius: 4px; padding: 4px 8px; width: 100px; font-size: 14px; font-weight: 600; margin-bottom: 4px;">
+                        <div class="cs-l">Custom Total TIV</div>
+                    </div>
+                    <div class="cs">
+                        <div class="cs-v" style="color: var(--accent-green);" id="customMarketShareResult">-</div>
+                        <div class="cs-l">Market Share (New Def.)</div>
+                    </div>
                 </div>
             </div>
 
@@ -275,6 +283,14 @@
                     <div class="cs">
                         <div class="cs-v" style="color: var(--accent-blue);" id="srStatAvgToyota">0</div>
                         <div class="cs-l">Avg Toyota / Mo</div>
+                    </div>
+                    <div class="cs" style="border-left: 1px solid var(--card-border); padding-left: 15px; margin-left: 5px;">
+                        <input type="number" id="srCustomTivInput" placeholder="Enter TIV" style="background: var(--input-bg); border: 1px solid var(--card-border); color: white; border-radius: 4px; padding: 4px 8px; width: 100px; font-size: 14px; font-weight: 600; margin-bottom: 4px;">
+                        <div class="cs-l">Custom Total TIV</div>
+                    </div>
+                    <div class="cs">
+                        <div class="cs-v" style="color: var(--accent-green);" id="srCustomMarketShareResult">-</div>
+                        <div class="cs-l">Market Share (New Def.)</div>
                     </div>
                 </div>
             </div>
@@ -891,5 +907,56 @@
     }
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Hide Back button if accessed via specific direct link (e.g., from Stock Blocking App)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('rto')) {
+        const backBtn = document.querySelector('.header-actions a[href="/dashboard"]');
+        if (backBtn) {
+            backBtn.style.display = 'none'; // Lock the user into this view
+        }
+    }
+
+    // 2. Interactive "What-If" Market Share Calculator for Cluster View
+    const clusterInput = document.getElementById('customTivInput');
+    const clusterResult = document.getElementById('customMarketShareResult');
+    
+    if (clusterInput && clusterResult) {
+        clusterInput.addEventListener('input', (e) => {
+            const newTiv = parseFloat(e.target.value);
+            // Grab the actual Toyota volume from the existing DOM element
+            const toyotaUnitsText = document.getElementById('statToyota').innerText.replace(/,/g, '');
+            const toyotaUnits = parseFloat(toyotaUnitsText);
+            
+            if (newTiv && newTiv > 0 && !isNaN(toyotaUnits)) {
+                const newShare = ((toyotaUnits / newTiv) * 100).toFixed(1);
+                clusterResult.innerText = newShare + '%';
+            } else {
+                clusterResult.innerText = '-';
+            }
+        });
+    }
+
+    // 3. Interactive "What-If" Market Share Calculator for Sub-RTO View
+    const srInput = document.getElementById('srCustomTivInput');
+    const srResult = document.getElementById('srCustomMarketShareResult');
+    
+    if (srInput && srResult) {
+        srInput.addEventListener('input', (e) => {
+            const newTiv = parseFloat(e.target.value);
+            const toyotaUnitsText = document.getElementById('srStatToyota').innerText.replace(/,/g, '');
+            const toyotaUnits = parseFloat(toyotaUnitsText);
+            
+            if (newTiv && newTiv > 0 && !isNaN(toyotaUnits)) {
+                const newShare = ((toyotaUnits / newTiv) * 100).toFixed(1);
+                srResult.innerText = newShare + '%';
+            } else {
+                srResult.innerText = '-';
+            }
+        });
+    }
+});
+</script>
 </body>
 </html>
