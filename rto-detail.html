@@ -99,6 +99,20 @@
         </div>
     </div>
 
+    <!-- VIEW TOGGLE TABS -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button id="btnViewCluster" class="btn active" onclick="switchView('cluster')" style="flex: 1; padding: 12px; font-weight: 700; text-align: center; justify-content: center; background: var(--card-bg-glass); border: 1px solid var(--card-border);">📊 Cluster Overview (Overall)</button>
+        <button id="btnViewSubrto" class="btn" onclick="switchView('subrto')" style="flex: 1; padding: 12px; font-weight: 700; text-align: center; justify-content: center; background: var(--card-bg-glass); border: 1px solid var(--card-border);">📍 Sub-RTO Deep Dive (Granular)</button>
+    </div>
+    <style>
+        #btnViewCluster.active, #btnViewSubrto.active {
+            background: rgba(59, 130, 246, 0.2) !important;
+            color: #60a5fa !important;
+            border-color: #3b82f6 !important;
+        }
+    </style>
+
+
     <!-- ============================================================
          VIEW A: CLUSTER SUMMARY SECTION (Strictly Cluster Level)
          ============================================================ -->
