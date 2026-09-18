@@ -989,3 +989,13 @@ table.data-table td:first-child, table.data-table td.text-left {
         width: 100%;
     }
 }
+
+/* Remove number input spin buttons */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
