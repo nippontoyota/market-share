@@ -124,46 +124,70 @@
                     <div class="cb-title" id="clusterTitle">Cluster Summary (2026 JAN-SEP - Through Sep 10)</div>
                     <div class="cb-sub" id="clusterSubRtos">Sub-RTOs: loading...</div>
                 </div>
-                <div class="cb-stats">
+                                <div class="cb-stats">
+                    <!-- 1. Cluster TIV MTD -->
                     <div class="cs">
-                        <div class="cs-v" id="statTiv">0</div>
-                        <div class="cs-l">Cluster TIV (2026)</div>
+                        <div class="cs-v" id="statTivMtd">0</div>
+                        <div class="cs-l">Cluster TIV MTD</div>
                     </div>
+                    <!-- 2. AVG TIV Monthly -->
                     <div class="cs">
                         <div class="cs-v" id="statAvgLmv">0</div>
                         <div class="cs-l">Avg TIV / Month</div>
                     </div>
-                    <div class="cs">
-                        <div class="cs-v" style="color: var(--accent-blue);" id="statAvgToyota">0</div>
-                        <div class="cs-l">Avg Toyota / Month</div>
-                    </div>
-                    <div class="cs">
-                        <div class="cs-v" style="color: var(--accent-yellow);" id="staticYtdTally">-</div>
-                        <div class="cs-l">YTD Nippon Tally</div>
-                    </div>
+                    <!-- 3. NIPPON TALLY MTD (Square Input) -->
                     <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center;">
-                        <input type="number" id="customTivInput" placeholder="0" style="background: transparent; border: none; border-bottom: 2px dashed rgba(255,255,255,0.4); color: white; border-radius: 0; padding: 0; width: 80px; font-size: 28px; font-weight: 900; margin-bottom: 6px; text-align: center; outline: none;">
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">NIPPON TALLY</div>
+                        <input type="number" id="customTivInputMtd" placeholder="0" style="background: transparent; border: none; border-bottom: 2px dashed rgba(255,255,255,0.4); color: white; border-radius: 0; padding: 0; width: 80px; font-size: 28px; font-weight: 900; margin-bottom: 6px; text-align: center; outline: none;">
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">NIPPON TALLY<br>MTD</div>
                     </div>
+                    <!-- 4. NIPPON MARKET SHARE (MTD Square) -->
                     <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center;">
-                        <div class="cs-v" style="color: var(--accent-green); font-size: 28px; font-weight: 900;" id="customMarketShareResult">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Market Share<br>(New Def.)</div>
+                        <div class="cs-v" style="color: var(--accent-green); font-size: 28px; font-weight: 900;" id="customMarketShareResultMtd">-</div>
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Market Share<br>(MTD)</div>
                     </div>
+                    <!-- 5. TARGET MARKET SHARE (Square) -->
                     <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center;">
                         <div class="cs-v" style="color: var(--accent-purple); font-size: 28px; font-weight: 900;" id="staticTargetMarketShare">-</div>
                         <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Target MS</div>
                     </div>
-                                        <div class="cs">
-                        <div class="cs-v" style="color: var(--accent-orange);" id="expectedNumberResult">-</div>
-                        <div class="cs-l">Expected Number <div style="font-size: 10px; opacity: 0.8; margin-top: 2px; color: var(--accent-orange);" id="expectedPerMonthResult">(No. per month: -)</div></div>
-                    </div>
+                    <!-- 6. GAP (Pill) -->
                     <div style="background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(220,38,38,0.2) 100%); border: 1px solid rgba(249, 115, 22, 0.5); border-radius: 8px; padding: 6px 14px; margin-left: 8px; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2); display: flex; align-items: center; gap: 10px;">
-                        <div style="color: #fdba74; font-weight: 800; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">TARGET NO. :</div>
-                        <div style="color: #fff; font-size: 24px; font-weight: 900; text-shadow: 0 2px 5px rgba(249,115,22,0.8);" id="customTargetGapResult">-</div>
+                        <div style="color: #fdba74; font-weight: 800; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">GAP (MTD):</div>
+                        <div style="color: #fff; font-size: 24px; font-weight: 900; text-shadow: 0 2px 5px rgba(249,115,22,0.8);" id="customTargetGapResultMtd">-</div>
                     </div>
                 </div>
-            </div>
 
+                <!-- NEW YTD SUMMARY TABLE -->
+                <div style="margin-top: 15px; margin-bottom: 20px; background: var(--card-bg-glass); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px;">
+                    <div class="col-title" style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Year-To-Date (YTD) Summary</span>
+                        <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">2026 JAN-SEP</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table" style="font-size: 12px;">
+                            <thead>
+                                <tr>
+                                    <th>Cluster TIV YTD</th>
+                                    <th>AVG TIV Monthly</th>
+                                    <th>NIPPON TALLY YTD</th>
+                                    <th>Nippon Market Share YTD</th>
+                                    <th>Target Market Share</th>
+                                    <th>GAP YTD</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="tableTivYtd" style="font-weight: 700;">-</td>
+                                    <td id="tableAvgTivYtd" style="font-weight: 700;">-</td>
+                                    <td id="tableNipponYtd" style="font-weight: 700; color: var(--accent-yellow);">-</td>
+                                    <td id="tableMsYtd" style="font-weight: 700; color: var(--accent-green);">-</td>
+                                    <td id="tableTargetMsYtd" style="font-weight: 700; color: var(--accent-purple);">-</td>
+                                    <td id="tableGapYtd" style="font-weight: 700; color: var(--accent-orange);">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             <!-- RECONCILIATION VALIDATION STATUS -->
             <div id="reconciliationBanner" style="background: rgba(0, 230, 118, 0.12); border: 1px solid rgba(0, 230, 118, 0.35); padding: 9px 16px; border-radius: 8px; font-size: 11px; color: #22c55e; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
                 <span>✓ RECONCILED DATA: Main RTO Total matches sum of all Sub-RTO totals.</span>
@@ -464,15 +488,37 @@
             const hintElem = document.getElementById('clusterSubRtoHint');
             if (hintElem) hintElem.innerText = `Explore ${data.subRtos.length} Sub-RTOs: ` + data.subRtoCodes.join(', ');
 
-            document.getElementById('statTiv').innerText = data.summary.tiv2026.toLocaleString();
-            document.getElementById('statAvgLmv').innerText = data.summary.avgMonthlyLmv.toLocaleString();
-            document.getElementById('statAvgToyota').innerText = data.summary.avgMonthlyToyota.toLocaleString();
-            const targetMS = { 'Kollam': '9%', 'Pathanamthitta': '13%', 'Kottayam': '10%', 'Muvattupuzha': '9%', 'Thiruvalla': '14%', 'Trichur': '11%', 'Kayamkulam': '8%', 'Irinjalakuda': '13%', 'Kalamassery': '11%', 'Nettoor': '14%', 'Kazhakkottam & Enchakkal': '11%', 'Trivandrum Royals': '11%' };
+            const mtdData = data.monthly2026.find(m => m.month === 'SEP') || { tiv: 0 };
             const tmsElem = document.getElementById('staticTargetMarketShare');
-            if (tmsElem) tmsElem.innerText = targetMS[data.name] || '-';
+            
+            if (document.getElementById('statTivMtd')) {
+                document.getElementById('statTivMtd').innerText = mtdData.tiv.toLocaleString();
+            }
+            if (document.getElementById('statAvgLmv')) {
+                document.getElementById('statAvgLmv').innerText = data.summary.avgMonthlyLmv.toLocaleString();
+            }
+            
+            const targetMS = { 'Kollam': '9%', 'Pathanamthitta': '13%', 'Kottayam': '10%', 'Muvattupuzha': '9%', 'Thiruvalla': '14%', 'Trichur': '11%', 'Kayamkulam': '8%', 'Irinjalakuda': '13%', 'Kalamassery': '11%', 'Nettoor': '14%', 'Kazhakkottam & Enchakkal': '11%', 'Trivandrum Royals': '11%' };
+            const targetMsStr = targetMS[data.name] || '11%';
+            const targetMsNum = parseFloat(targetMsStr.replace('%', '')) / 100;
+            
+            if (tmsElem) tmsElem.innerText = targetMsStr;
+            
             const ytdTally = { 'Kollam': '766', 'Pathanamthitta': '533', 'Kottayam': '960', 'Muvattupuzha': '639', 'Thiruvalla': '396', 'Trichur': '861', 'Kayamkulam': '433', 'Irinjalakuda': '531', 'Kalamassery': '1,203', 'Nettoor': '671', 'Kazhakkottam & Enchakkal': '1,440', 'Trivandrum Royals': '1,440' };
-            const ytdElem = document.getElementById('staticYtdTally');
-            if (ytdElem) ytdElem.innerText = ytdTally[data.name] || '-';
+            const ytdNum = parseFloat((ytdTally[data.name] || '0').replace(/,/g, ''));
+            const clusterTivYtd = data.summary.tiv2026;
+            
+            // Populate YTD Table
+            if (document.getElementById('tableTivYtd')) {
+                document.getElementById('tableTivYtd').innerText = clusterTivYtd.toLocaleString();
+                document.getElementById('tableAvgTivYtd').innerText = data.summary.avgMonthlyLmv.toLocaleString();
+                document.getElementById('tableNipponYtd').innerText = ytdNum.toLocaleString();
+                document.getElementById('tableMsYtd').innerText = ((ytdNum / clusterTivYtd) * 100).toFixed(1) + '%';
+                document.getElementById('tableTargetMsYtd').innerText = targetMsStr;
+                
+                const ytdGap = Math.round(clusterTivYtd * targetMsNum) - ytdNum;
+                document.getElementById('tableGapYtd').innerText = ytdGap.toLocaleString();
+            }
 
 
 
@@ -936,66 +982,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-        // 2. Interactive "What-If" Market Share Calculator for Cluster View
-    const clusterInput = document.getElementById('customTivInput');
-    const clusterResult = document.getElementById('customMarketShareResult');
-    const targetGapResult = document.getElementById('customTargetGapResult');
-    
-    const branchTargets = {
-        'Kollam': 674,
-        'Pathanamthitta': 424,
-        'Kottayam': 819,
-        'Muvattupuzha': 549,
-        'Thiruvalla': 308,
-        'Trichur': 736,
-        'Kayamkulam': 390,
-        'Irinjalakuda': 419,
-        'Kalamassery': 1043,
-        'Nettoor': 554,
-        'Kazhakkottam & Enchakkal': 1212,
-        'Trivandrum Royals': 1212
-    };
+        // 2. Interactive "What-If" Market Share Calculator for Cluster View (MTD)
+    const clusterInputMtd = document.getElementById('customTivInputMtd');
+    const clusterResultMtd = document.getElementById('customMarketShareResultMtd');
+    const targetGapResultMtd = document.getElementById('customTargetGapResultMtd');
 
-    if (clusterInput && clusterResult) {
-        clusterInput.addEventListener('input', (e) => {
-            const customNipponTally = parseFloat(e.target.value);
-            const tivText = document.getElementById('statTiv').innerText.replace(/,/g, '');
-            const tiv = parseFloat(tivText);
+    function calculateClusterStatsMtd() {
+        if (!currentClusterData || !clusterInputMtd) return;
+        
+        const extraSales = parseFloat(clusterInputMtd.value) || 0;
+        const mtdData = currentClusterData.monthly2026.find(m => m.month === 'SEP') || { tiv: 0 };
+        const tivMtd = mtdData.tiv;
+        
+        const targetMS = { 'Kollam': '9%', 'Pathanamthitta': '13%', 'Kottayam': '10%', 'Muvattupuzha': '9%', 'Thiruvalla': '14%', 'Trichur': '11%', 'Kayamkulam': '8%', 'Irinjalakuda': '13%', 'Kalamassery': '11%', 'Nettoor': '14%', 'Kazhakkottam & Enchakkal': '11%', 'Trivandrum Royals': '11%' };
+        const targetMsStr = targetMS[currentClusterData.name] || '11%';
+        const targetMsNum = parseFloat(targetMsStr.replace('%', '')) / 100;
+        
+        if (tivMtd > 0) {
+            const newShare = ((extraSales / tivMtd) * 100).toFixed(1);
+            clusterResultMtd.innerText = newShare + '%';
             
-            if (!isNaN(customNipponTally) && customNipponTally >= 0 && tiv > 0) {
-                const newShare = ((customNipponTally / tiv) * 100).toFixed(1);
-                clusterResult.innerText = newShare + '%';
-                
-                if (targetGapResult && currentClusterData && currentClusterData.name) {
-                    const target = branchTargets[currentClusterData.name] || branchTargets[getQueryParam('rto')] || 0;
-                    if (target > 0) {
-                        const gap = target - customNipponTally;
-                        targetGapResult.innerText = gap.toLocaleString();
-                        const expectedElem = document.getElementById('expectedNumberResult');
-                        if (expectedElem) {
-                            const expectedVal = customNipponTally - target;
-                            expectedElem.innerText = expectedVal.toLocaleString();
-                            const perMonthElem = document.getElementById('expectedPerMonthResult');
-                            if (perMonthElem) {
-                                const perMonth = expectedVal / 3.5;
-                                perMonthElem.innerText = '(No. per month: ' + perMonth.toFixed(1) + ')';
-                            }
-                        }
+            const targetNoMtd = Math.round(tivMtd * targetMsNum);
+            const gap = targetNoMtd - extraSales;
+            targetGapResultMtd.innerText = gap.toLocaleString();
+        } else {
+            clusterResultMtd.innerText = '-';
+            targetGapResultMtd.innerText = '-';
+        }
+    }
 
-                    } else {
-                        targetGapResult.innerText = '-';
-                    }
-                }
-            } else {
-                clusterResult.innerText = '-';
-                if (targetGapResult) targetGapResult.innerText = '-';
-                const expectedElem = document.getElementById('expectedNumberResult');
-                if (expectedElem) expectedElem.innerText = '-';
-                const perMonthElem = document.getElementById('expectedPerMonthResult');
-                if (perMonthElem) perMonthElem.innerText = '(No. per month: -)';
-
-            }
-        });
+    if (clusterInputMtd) {
+        clusterInputMtd.addEventListener('input', calculateClusterStatsMtd);
+        window.triggerClusterCalculation = calculateClusterStatsMtd;
     }
 
 
