@@ -147,7 +147,7 @@
                     </div>
                     <div class="cs">
                         <div class="cs-v" style="color: var(--accent-orange);" id="expectedNumberResult">-</div>
-                        <div class="cs-l">Expected Number</div>
+                        <div class="cs-l">Expected Number <div style="font-size: 10px; opacity: 0.8; margin-top: 2px; color: var(--accent-orange);" id="expectedPerMonthResult">(No. per month: -)</div></div>
                     </div>
                     <div class="cs">
                         <div class="cs-v" style="color: var(--accent-green);" id="customMarketShareResult">-</div>
@@ -975,6 +975,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (expectedElem) {
                             const expectedVal = customNipponTally - target;
                             expectedElem.innerText = expectedVal.toLocaleString();
+                            const perMonthElem = document.getElementById('expectedPerMonthResult');
+                            if (perMonthElem) {
+                                const perMonth = expectedVal / 3.5;
+                                perMonthElem.innerText = '(No. per month: ' + perMonth.toFixed(1) + ')';
+                            }
                         }
 
                     } else {
@@ -986,6 +991,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (targetGapResult) targetGapResult.innerText = '-';
                 const expectedElem = document.getElementById('expectedNumberResult');
                 if (expectedElem) expectedElem.innerText = '-';
+                const perMonthElem = document.getElementById('expectedPerMonthResult');
+                if (perMonthElem) perMonthElem.innerText = '(No. per month: -)';
 
             }
         });
