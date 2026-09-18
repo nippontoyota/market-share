@@ -164,31 +164,29 @@
                     <span>Year-To-Date (YTD) Summary</span>
                     <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">2026 JAN-SEP</span>
                 </div>
-                <div class="cb-stats" style="margin-top: 0;">
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; height: 130px; min-width: 170px;">
-                        <div class="cs-v" id="tableTivYtd">-</div>
-                        <div class="cs-l">Cluster TIV YTD</div>
-                    </div>
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; height: 130px; min-width: 170px;">
-                        <div class="cs-v" id="tableAvgTivYtd">-</div>
-                        <div class="cs-l">Avg TIV / Month</div>
-                    </div>
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center; background: rgba(253, 224, 71, 0.05);">
-                        <div class="cs-v" style="color: var(--accent-yellow); font-size: 32px; font-weight: 900;" id="tableNipponYtd">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">NIPPON TALLY<br>YTD</div>
-                    </div>
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center;">
-                        <div class="cs-v" style="color: var(--accent-green); font-size: 32px; font-weight: 900;" id="tableMsYtd">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Market Share<br>(YTD)</div>
-                    </div>
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center;">
-                        <div class="cs-v" style="color: var(--accent-purple); font-size: 32px; font-weight: 900;" id="tableTargetMsYtd">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Target MS</div>
-                    </div>
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center; background: rgba(249,115,22,0.05);">
-                        <div class="cs-v" style="color: var(--accent-orange); font-size: 32px; font-weight: 900;" id="tableGapYtd">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px; color: var(--accent-orange);">GAP (YTD)</div>
-                    </div>
+                <div class="table-container">
+                    <table class="data-table" style="font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th>Cluster TIV YTD</th>
+                                <th>AVG TIV Monthly</th>
+                                <th>NIPPON TALLY YTD</th>
+                                <th>Nippon Market Share YTD</th>
+                                <th>Target Market Share</th>
+                                <th>GAP YTD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td id="tableTivYtd" style="font-weight: 800;">-</td>
+                                <td id="tableAvgTivYtd" style="font-weight: 800;">-</td>
+                                <td id="tableNipponYtd" style="font-weight: 900; color: var(--accent-yellow); font-size: 14px;">-</td>
+                                <td id="tableMsYtd" style="font-weight: 900; color: var(--accent-green); font-size: 14px;">-</td>
+                                <td id="tableTargetMsYtd" style="font-weight: 900; color: var(--accent-purple); font-size: 14px;">-</td>
+                                <td id="tableGapYtd" style="font-weight: 900; color: var(--accent-orange); font-size: 14px;">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
