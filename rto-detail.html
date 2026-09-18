@@ -153,6 +153,10 @@
                         <div class="cs-v" style="color: var(--accent-green);" id="customMarketShareResult">-</div>
                         <div class="cs-l">Market Share (New Def.)</div>
                     </div>
+                    <div class="cs">
+                        <div class="cs-v" style="color: var(--accent-orange);" id="customTargetGapResult">-</div>
+                        <div class="cs-l">Target Gap</div>
+                    </div>
                 </div>
             </div>
 
@@ -932,10 +936,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. Interactive "What-If" Market Share Calculator for Cluster View
+        // 2. Interactive "What-If" Market Share Calculator for Cluster View
     const clusterInput = document.getElementById('customTivInput');
     const clusterResult = document.getElementById('customMarketShareResult');
+    const targetGapResult = document.getElementById('customTargetGapResult');
     
+    const branchTargets = {
+        'Kollam': 674,
+        'Pathanamthitta': 424,
+        'Kottayam': 819,
+        'Muvattupuzha': 549,
+        'Thiruvalla': 308,
+        'Trichur': 736,
+        'Kayamkulam': 390,
+        'Irinjalakuda': 419,
+        'Kalamassery': 1043,
+        'Nettoor': 554,
+        'Kazhakkottam & Enchakkal': 1212,
+        'Trivandrum Royals': 1212
+    };
+
     if (clusterInput && clusterResult) {
         clusterInput.addEventListener('input', (e) => {
             const customNipponTally = parseFloat(e.target.value);
@@ -945,11 +965,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isNaN(customNipponTally) && customNipponTally >= 0 && tiv > 0) {
                 const newShare = ((customNipponTally / tiv) * 100).toFixed(1);
                 clusterResult.innerText = newShare + '%';
+                
+                if (targetGapResult && currentClusterData && currentClusterData.name) {
+                    const target = branchTargets[currentClusterData.name] || branchTargets[getQueryParam('rto')] || 0;
+                    if (target > 0) {
+                        const gap = target - customNipponTally;
+                        targetGapResult.innerText = gap.toLocaleString();
+                    } else {
+                        targetGapResult.innerText = '-';
+                    }
+                }
             } else {
                 clusterResult.innerText = '-';
+                if (targetGapResult) targetGapResult.innerText = '-';
             }
         });
     }
+
 
     // 3. Interactive "What-If" Market Share Calculator for Sub-RTO View
     const srInput = document.getElementById('srCustomTivInput');
