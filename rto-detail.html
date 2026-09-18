@@ -146,6 +146,10 @@
                         <div class="cs-l">NIPPON TALLY</div>
                     </div>
                     <div class="cs">
+                        <div class="cs-v" style="color: var(--accent-orange);" id="expectedNumberResult">-</div>
+                        <div class="cs-l">Expected Number</div>
+                    </div>
+                    <div class="cs">
                         <div class="cs-v" style="color: var(--accent-green);" id="customMarketShareResult">-</div>
                         <div class="cs-l">Market Share (New Def.)</div>
                     </div>
@@ -967,6 +971,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (target > 0) {
                         const gap = target - customNipponTally;
                         targetGapResult.innerText = gap.toLocaleString();
+                        const expectedElem = document.getElementById('expectedNumberResult');
+                        if (expectedElem) {
+                            const expectedVal = customNipponTally - target;
+                            expectedElem.innerText = expectedVal.toLocaleString();
+                        }
+
                     } else {
                         targetGapResult.innerText = '-';
                     }
@@ -974,6 +984,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 clusterResult.innerText = '-';
                 if (targetGapResult) targetGapResult.innerText = '-';
+                const expectedElem = document.getElementById('expectedNumberResult');
+                if (expectedElem) expectedElem.innerText = '-';
+
             }
         });
     }
