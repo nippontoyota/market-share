@@ -299,6 +299,7 @@ body {
     display: flex;
     gap: 14px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .cs {
