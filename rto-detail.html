@@ -457,8 +457,6 @@
             if (hintElem) hintElem.innerText = `Explore ${data.subRtos.length} Sub-RTOs: ` + data.subRtoCodes.join(', ');
 
             document.getElementById('statTiv').innerText = data.summary.tiv2026.toLocaleString();
-            document.getElementById('statToyota').innerText = data.summary.toyota2026.toLocaleString();
-            document.getElementById('statShare').innerText = data.summary.share2026 + '%';
             document.getElementById('statAvgLmv').innerText = data.summary.avgMonthlyLmv.toLocaleString();
             document.getElementById('statAvgToyota').innerText = data.summary.avgMonthlyToyota.toLocaleString();
             const targetMS = { 'Kollam': '9%', 'Pathanamthitta': '13%', 'Kottayam': '10%', 'Muvattupuzha': '9%', 'Thiruvalla': '14%', 'Trichur': '11%', 'Kayamkulam': '8%', 'Irinjalakuda': '13%', 'Kalamassery': '11%', 'Nettoor': '14%', 'Kazhakkottam & Enchakkal': '11%', 'Trivandrum Royals': '11%' };
@@ -640,9 +638,7 @@
         if (srScopeTag) srScopeTag.innerText = `2026 JAN-${currentMeta.currentMonth}`;
 
         document.getElementById('srStatTiv').innerText = sr.tiv2026.toLocaleString();
-        document.getElementById('srStatToyota').innerText = sr.toyota2026.toLocaleString();
-        document.getElementById('srStatShare').innerText = sr.share2026 + '%';
-        document.getElementById('srStatAvgLmv').innerText = sr.avgMonthlyLmv.toLocaleString();
+                        document.getElementById('srStatAvgLmv').innerText = sr.avgMonthlyLmv.toLocaleString();
         document.getElementById('srStatAvgToyota').innerText = sr.avgMonthlyToyota.toLocaleString();
 
         // Update Page Titles
