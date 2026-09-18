@@ -137,6 +137,10 @@
                         <div class="cs-v" style="color: var(--accent-blue);" id="statAvgToyota">0</div>
                         <div class="cs-l">Avg Toyota / Month</div>
                     </div>
+                    <div class="cs">
+                        <div class="cs-v" style="color: var(--accent-yellow);" id="staticYtdTally">-</div>
+                        <div class="cs-l">YTD Nippon Tally</div>
+                    </div>
                     <div class="cs" style="border-left: 1px solid var(--card-border); padding-left: 15px; margin-left: 5px;">
                         <input type="number" id="customTivInput" placeholder="0" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 6px; padding: 0 4px; width: 90px; font-size: 22px; font-weight: 800; margin-bottom: 4px; text-align: center; outline: none;">
                         <div class="cs-l">NIPPON TALLY</div>
@@ -462,6 +466,10 @@
             const targetMS = { 'Kollam': '9%', 'Pathanamthitta': '13%', 'Kottayam': '10%', 'Muvattupuzha': '9%', 'Thiruvalla': '14%', 'Trichur': '11%', 'Kayamkulam': '8%', 'Irinjalakuda': '13%', 'Kalamassery': '11%', 'Nettoor': '14%', 'Kazhakkottam & Enchakkal': '11%', 'Trivandrum Royals': '11%' };
             const tmsElem = document.getElementById('staticTargetMarketShare');
             if (tmsElem) tmsElem.innerText = targetMS[data.name] || '-';
+            const ytdTally = { 'Kollam': '766', 'Pathanamthitta': '533', 'Kottayam': '960', 'Muvattupuzha': '639', 'Thiruvalla': '396', 'Trichur': '861', 'Kayamkulam': '433', 'Irinjalakuda': '531', 'Kalamassery': '1,203', 'Nettoor': '671', 'Kazhakkottam & Enchakkal': '1,440', 'Trivandrum Royals': '1,440' };
+            const ytdElem = document.getElementById('staticYtdTally');
+            if (ytdElem) ytdElem.innerText = ytdTally[data.name] || '-';
+
 
 
             // Reconciliation check verification
