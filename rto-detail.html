@@ -153,6 +153,10 @@
                         <div class="cs-v" style="color: var(--accent-green);" id="customMarketShareResult">-</div>
                         <div class="cs-l">Market Share (New Def.)</div>
                     </div>
+                    <div class="cs">
+                        <div class="cs-v" style="color: var(--accent-purple);" id="staticTargetMarketShare">-</div>
+                        <div class="cs-l">Target MS</div>
+                    </div>
                     <div style="background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(220,38,38,0.2) 100%); border: 1px solid rgba(249, 115, 22, 0.5); border-radius: 12px; padding: 10px 24px; margin-left: auto; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.25); display: flex; align-items: center; justify-content: center; gap: 15px;">
                         <div style="color: #fdba74; font-weight: 800; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;">TARGET GAP :</div>
                         <div style="color: #fff; font-size: 32px; font-weight: 900; text-shadow: 0 2px 10px rgba(249,115,22,0.8);" id="customTargetGapResult">-</div>
@@ -473,6 +477,10 @@
             document.getElementById('statShare').innerText = data.summary.share2026 + '%';
             document.getElementById('statAvgLmv').innerText = data.summary.avgMonthlyLmv.toLocaleString();
             document.getElementById('statAvgToyota').innerText = data.summary.avgMonthlyToyota.toLocaleString();
+            const targetMS = { 'Kollam': '9%', 'Pathanamthitta': '13%', 'Kottayam': '10%', 'Muvattupuzha': '9%', 'Thiruvalla': '14%', 'Trichur': '11%', 'Kayamkulam': '8%', 'Irinjalakuda': '13%', 'Kalamassery': '11%', 'Nettoor': '14%', 'Kazhakkottam & Enchakkal': '11%', 'Trivandrum Royals': '11%' };
+            const tmsElem = document.getElementById('staticTargetMarketShare');
+            if (tmsElem) tmsElem.innerText = targetMS[data.name] || '-';
+
 
             // Reconciliation check verification
             const sumSubTiv = data.subRtos.reduce((sum, s) => sum + s.tiv2026, 0);
