@@ -1002,6 +1002,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetMsStr = targetMS[currentClusterData.name] || '11%';
         const targetMsNum = parseFloat(targetMsStr.replace('%', '')) / 100;
         
+        // 1. Calculate & Update MTD Row
         if (tivMtd > 0) {
             const newShare = ((extraSales / tivMtd) * 100).toFixed(1);
             clusterResultMtd.innerText = newShare + '%';
@@ -1012,6 +1013,23 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             clusterResultMtd.innerText = '-';
             targetGapResultMtd.innerText = '-';
+        }
+        
+        // 2. Dynamically Calculate & Update YTD Table based on MTD input
+        const ytdTallyDict = { 'Kollam': 766, 'Pathanamthitta': 533, 'Kottayam': 960, 'Muvattupuzha': 639, 'Thiruvalla': 396, 'Trichur': 861, 'Kayamkulam': 433, 'Irinjalakuda': 531, 'Kalamassery': 1203, 'Nettoor': 671, 'Kazhakkottam & Enchakkal': 1440, 'Trivandrum Royals': 1440 };
+        const baselineYtd = ytdTallyDict[currentClusterData.name] || 0;
+        const clusterTivYtd = currentClusterData.summary.tiv2026;
+        
+        if (clusterTivYtd > 0 && document.getElementById('tableNipponYtd')) {
+            const newTotalYtd = baselineYtd + extraSales;
+            document.getElementById('tableNipponYtd').innerText = newTotalYtd.toLocaleString();
+            
+            const newShareYtd = ((newTotalYtd / clusterTivYtd) * 100).toFixed(1);
+            document.getElementById('tableMsYtd').innerText = newShareYtd + '%';
+            
+            const targetNoYtd = Math.round(clusterTivYtd * targetMsNum);
+            const gapYtd = targetNoYtd - newTotalYtd;
+            document.getElementById('tableGapYtd').innerText = gapYtd.toLocaleString();
         }
     }
 
