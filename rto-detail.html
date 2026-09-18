@@ -124,37 +124,40 @@
                     <div class="cb-title" id="clusterTitle">Cluster Summary (2026 JAN-SEP - Through Sep 10)</div>
                     <div class="cb-sub" id="clusterSubRtos">Sub-RTOs: loading...</div>
                 </div>
-                                <div class="cb-stats">
+                                <div class="cb-stats" style="justify-content: center; gap: 14px;">
                     <!-- 1. Cluster TIV MTD -->
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; height: 130px; min-width: 170px;">
+                    <div class="cs" style="flex: 1; min-width: 150px;">
                         <div class="cs-v" id="statTivMtd">0</div>
                         <div class="cs-l">Cluster TIV MTD</div>
                     </div>
                     <!-- 2. AVG TIV Monthly -->
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; height: 130px; min-width: 170px;">
+                    <div class="cs" style="flex: 1; min-width: 150px;">
                         <div class="cs-v" id="statAvgLmv">0</div>
                         <div class="cs-l">Avg TIV / Month</div>
                     </div>
-                    <!-- 3. NIPPON TALLY MTD (Square Input) -->
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center;">
-                        <input type="number" id="customTivInputMtd" placeholder="0" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 8px; padding: 2px; width: 90px; margin: 0 auto; font-size: 32px; font-weight: 900; margin-bottom: 6px; text-align: center; outline: none; transition: 0.2s;" onfocus="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='rgba(255,255,255,0.5)';" onblur="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.2)';">
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">NIPPON TALLY<br>MTD</div>
+                    <!-- 3. NIPPON TALLY MTD (Input) -->
+                    <div class="cs" style="flex: 1; min-width: 150px;">
+                        <div class="cs-v">
+                            <input type="number" id="customTivInputMtd" placeholder="0" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 6px; padding: 0 4px; width: 80px; font-size: 22px; font-weight: 800; text-align: right; outline: none; transition: 0.2s;" onfocus="this.style.background='rgba(255,255,255,0.15)'; this.style.borderColor='rgba(255,255,255,0.5)';" onblur="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.2)';">
+                        </div>
+                        <div class="cs-l">NIPPON TALLY MTD</div>
                     </div>
-                    <!-- 4. NIPPON MARKET SHARE (MTD Square) -->
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center;">
-                        <div class="cs-v" style="color: var(--accent-green); font-size: 32px; font-weight: 900;" id="customMarketShareResultMtd">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Market Share<br>(MTD)</div>
+                    <!-- 4. NIPPON MARKET SHARE (MTD) -->
+                    <div class="cs" style="flex: 1; min-width: 150px;">
+                        <div class="cs-v" style="color: var(--accent-green);" id="customMarketShareResultMtd">-</div>
+                        <div class="cs-l">Market Share (MTD)</div>
                     </div>
-                    <!-- 5. TARGET MARKET SHARE (Square) -->
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center;">
-                        <div class="cs-v" style="color: var(--accent-purple); font-size: 32px; font-weight: 900;" id="staticTargetMarketShare">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Target MS</div>
+                    <!-- 5. TARGET MARKET SHARE -->
+                    <div class="cs" style="flex: 1; min-width: 150px;">
+                        <div class="cs-v" style="color: var(--accent-purple);" id="staticTargetMarketShare">-</div>
+                        <div class="cs-l">Target MS</div>
                     </div>
                     <!-- 6. GAP (Box) -->
-                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 130px; min-width: 130px; height: 130px; padding: 5px; text-align: center; background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.3);">
-                        <div class="cs-v" style="color: #fdba74; font-size: 32px; font-weight: 900;" id="customTargetGapResultMtd">-</div>
-                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px; color: #fdba74;">GAP (MTD)</div>
+                    <div class="cs" style="flex: 1; min-width: 150px; background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.3);">
+                        <div class="cs-v" style="color: #fdba74;" id="customTargetGapResultMtd">-</div>
+                        <div class="cs-l" style="color: #fdba74;">GAP (MTD)</div>
                     </div>
+                </div>
                 </div>
             </div>
 
