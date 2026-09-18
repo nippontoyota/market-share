@@ -137,7 +137,7 @@
                     </div>
                     <!-- 3. NIPPON TALLY MTD (Square Input) -->
                     <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center;">
-                        <input type="number" id="customTivInputMtd" placeholder="0" style="background: transparent; border: none; border-bottom: 2px dashed rgba(255,255,255,0.4); color: white; border-radius: 0; padding: 0; width: 80px; font-size: 28px; font-weight: 900; margin-bottom: 6px; text-align: center; outline: none;">
+                        <input type="number" id="customTivInputMtd" placeholder="0" style="background: transparent; border: none; border-bottom: 2px dashed rgba(255,255,255,0.4); color: white; border-radius: 0; padding: 0; width: 70px; margin: 0 auto; font-size: 28px; font-weight: 900; margin-bottom: 6px; text-align: center; outline: none;">
                         <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">NIPPON TALLY<br>MTD</div>
                     </div>
                     <!-- 4. NIPPON MARKET SHARE (MTD Square) -->
@@ -150,44 +150,48 @@
                         <div class="cs-v" style="color: var(--accent-purple); font-size: 28px; font-weight: 900;" id="staticTargetMarketShare">-</div>
                         <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Target MS</div>
                     </div>
-                    <!-- 6. GAP (Pill) -->
-                    <div style="background: linear-gradient(135deg, rgba(249,115,22,0.2) 0%, rgba(220,38,38,0.2) 100%); border: 1px solid rgba(249, 115, 22, 0.5); border-radius: 8px; padding: 6px 14px; margin-left: 8px; box-shadow: 0 4px 10px rgba(249, 115, 22, 0.2); display: flex; align-items: center; gap: 10px;">
-                        <div style="color: #fdba74; font-weight: 800; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;">GAP (MTD):</div>
-                        <div style="color: #fff; font-size: 24px; font-weight: 900; text-shadow: 0 2px 5px rgba(249,115,22,0.8);" id="customTargetGapResultMtd">-</div>
+                    <!-- 6. GAP (Box) -->
+                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center; background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.3);">
+                        <div class="cs-v" style="color: #fdba74; font-size: 28px; font-weight: 900;" id="customTargetGapResultMtd">-</div>
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px; color: #fdba74;">GAP (MTD)</div>
                     </div>
                 </div>
+            </div>
 
-                <!-- NEW YTD SUMMARY TABLE -->
-                <div style="margin-top: 15px; margin-bottom: 20px; background: var(--card-bg-glass); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px;">
-                    <div class="col-title" style="display: flex; justify-content: space-between; align-items: center;">
-                        <span>Year-To-Date (YTD) Summary</span>
-                        <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">2026 JAN-SEP</span>
+            <!-- NEW YTD SUMMARY BOXES -->
+            <div class="analysis-section" style="padding: 16px; margin-bottom: 20px;">
+                <div class="col-title" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span>Year-To-Date (YTD) Summary</span>
+                    <span style="font-size: 10px; color: var(--accent-orange); font-weight: 700;">2026 JAN-SEP</span>
+                </div>
+                <div class="cb-stats" style="margin-top: 0;">
+                    <div class="cs">
+                        <div class="cs-v" id="tableTivYtd">-</div>
+                        <div class="cs-l">Cluster TIV YTD</div>
                     </div>
-                    <div class="table-container">
-                        <table class="data-table" style="font-size: 12px;">
-                            <thead>
-                                <tr>
-                                    <th>Cluster TIV YTD</th>
-                                    <th>AVG TIV Monthly</th>
-                                    <th>NIPPON TALLY YTD</th>
-                                    <th>Nippon Market Share YTD</th>
-                                    <th>Target Market Share</th>
-                                    <th>GAP YTD</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td id="tableTivYtd" style="font-weight: 700;">-</td>
-                                    <td id="tableAvgTivYtd" style="font-weight: 700;">-</td>
-                                    <td id="tableNipponYtd" style="font-weight: 700; color: var(--accent-yellow);">-</td>
-                                    <td id="tableMsYtd" style="font-weight: 700; color: var(--accent-green);">-</td>
-                                    <td id="tableTargetMsYtd" style="font-weight: 700; color: var(--accent-purple);">-</td>
-                                    <td id="tableGapYtd" style="font-weight: 700; color: var(--accent-orange);">-</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="cs">
+                        <div class="cs-v" id="tableAvgTivYtd">-</div>
+                        <div class="cs-l">Avg TIV / Month</div>
+                    </div>
+                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center; background: rgba(253, 224, 71, 0.05);">
+                        <div class="cs-v" style="color: var(--accent-yellow); font-size: 28px; font-weight: 900;" id="tableNipponYtd">-</div>
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">NIPPON TALLY<br>YTD</div>
+                    </div>
+                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center;">
+                        <div class="cs-v" style="color: var(--accent-green); font-size: 28px; font-weight: 900;" id="tableMsYtd">-</div>
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Market Share<br>(YTD)</div>
+                    </div>
+                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center;">
+                        <div class="cs-v" style="color: var(--accent-purple); font-size: 28px; font-weight: 900;" id="tableTargetMsYtd">-</div>
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px;">Target MS</div>
+                    </div>
+                    <div class="cs" style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100px; min-width: 100px; height: 100px; padding: 5px; text-align: center; background: rgba(249,115,22,0.05);">
+                        <div class="cs-v" style="color: var(--accent-orange); font-size: 28px; font-weight: 900;" id="tableGapYtd">-</div>
+                        <div class="cs-l" style="text-align: center; line-height: 1.2; margin-top: 5px; color: var(--accent-orange);">GAP (YTD)</div>
                     </div>
                 </div>
+            </div>
+
             <!-- RECONCILIATION VALIDATION STATUS -->
             <div id="reconciliationBanner" style="background: rgba(0, 230, 118, 0.12); border: 1px solid rgba(0, 230, 118, 0.35); padding: 9px 16px; border-radius: 8px; font-size: 11px; color: #22c55e; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between;">
                 <span>✓ RECONCILED DATA: Main RTO Total matches sum of all Sub-RTO totals.</span>
@@ -526,8 +530,7 @@
             const sumSubTiv = data.subRtos.reduce((sum, s) => sum + s.tiv2026, 0);
             const isReconciled = (sumSubTiv === data.summary.tiv2026);
             document.getElementById('reconciliationBanner').innerHTML = `
-                <span>${isReconciled ? '✓ RECONCILED DATA:' : '⚠️ RECONCILIATION DISCREPANCY:'} Main RTO 2026 TIV (${data.summary.tiv2026.toLocaleString()}) ${isReconciled ? '=' : '!='} Sum of ${data.subRtos.length} Sub-RTOs (${sumSubTiv.toLocaleString()})</span>
-                <span>Scope: 2026 JAN-${meta.currentMonth} ONLY (DATA THROUGH ${meta.currentMonth} ${meta.asOfDay})</span>
+                <span>${isReconciled ? '✓ RECONCILED DATA:' : '⚠️ RECONCILIATION DISCREPANCY:'} Main RTO 2026 TIV (${data.summary.tiv2026.toLocaleString()}) ${isReconciled ? '=' : '!='} Sum of ${data.subRtos.length} Sub-RTOs (${sumSubTiv.toLocaleString()})</span><br><span style="margin-top: 4px; display: inline-block;">Scope: 2026 JAN-${meta.currentMonth} ONLY (DATA THROUGH ${meta.currentMonth} ${meta.asOfDay})</span>
             `;
 
             // Populate Cluster Monthly Table
