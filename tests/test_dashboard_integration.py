@@ -277,8 +277,8 @@ def test_integration_updates_temp_dashboard_copy_and_runs_generator(tmp_path):
     assert (dashboard / "rto_data.json").exists()
     assert (dashboard / "vahan_uploads" / "2026-09-14").exists()
 
-    html_records = integration.extract_index_records(dashboard / "index.html")
-    assert any(r["Year"] == 2026 for r in html_records)
+    html = (dashboard / "index.html").read_text(encoding="utf-8")
+    assert "const CURRENT_ASOF_DAY = 14;" in html
 
     manifest = json.loads((dashboard / "vahan_uploads" / "latest_manifest.json").read_text(encoding="utf-8"))
     assert manifest["report_file_count"] == 86
@@ -318,3 +318,25 @@ def test_validate_dashboard_snapshot_accepts_current_committed_data():
 
     assert summary["rto_count"] == 86
     assert summary["cluster_count"] >= 1
+
+
+def test_supabase_configured_true_when_env_var_set(tmp_path, monkeypatch):
+    monkeypatch.setenv("SUPABASE_DB_URL", "postgresql://example")
+    assert integration.supabase_configured(tmp_path) is True
+
+
+def test_supabase_configured_false_with_no_env_var_or_env_file(tmp_path, monkeypatch):
+    monkeypatch.delenv("SUPABASE_DB_URL", raising=False)
+    assert integration.supabase_configured(tmp_path) is False
+
+
+def test_supabase_configured_true_when_dot_env_file_has_url(tmp_path, monkeypatch):
+    monkeypatch.delenv("SUPABASE_DB_URL", raising=False)
+    (tmp_path / ".env").write_text("SUPABASE_DB_URL=postgresql://example\n", encoding="utf-8")
+    assert integration.supabase_configured(tmp_path) is True
+
+
+def test_supabase_configured_false_when_dot_env_key_is_blank(tmp_path, monkeypatch):
+    monkeypatch.delenv("SUPABASE_DB_URL", raising=False)
+    (tmp_path / ".env").write_text("SUPABASE_DB_URL=\nOTHER=1\n", encoding="utf-8")
+    assert integration.supabase_configured(tmp_path) is False

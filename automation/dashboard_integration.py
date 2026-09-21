@@ -359,77 +359,65 @@ def write_combined_csv(rows, csv_path, months):
         writer.writerows(new_rows)
 
 
-def build_index_records(csv_path):
-    records = []
-    with Path(csv_path).open(newline="", encoding="utf-8-sig") as handle:
-        reader = csv.DictReader(handle)
-        for row in reader:
-            if row.get("Check_Eligible") != "Required":
-                continue
-            records.append({
-                "Year": int(row["Year"]),
-                "Year_Label": row["Year_Label"],
-                "Month": row["Month"],
-                "Mapped_Location": row["Mapped_Location"],
-                "Maker": row["Maker"],
-                "Nos": int(row["Nos"] or 0),
-            })
-    return records
+def update_index_html(html_path, as_of_day):
+    """Update the one thing index.html still needs from each refresh: which
+    day-of-month the Vahan pull was current through.
 
-
-def extract_index_records(html_path):
-    html = Path(html_path).read_text(encoding="utf-8")
-    match = re.search(r"const rawRecords = (\[.*?\]);", html, re.S)
-    if not match:
-        raise RuntimeError("Could not find the rawRecords dataset inside index.html.")
-    return json.loads(match.group(1))
-
-
-def _html_safe_json(records):
-    text = json.dumps(records, ensure_ascii=False, separators=(",", ":"))
-    return (
-        text.replace("&", "\\u0026")
-        .replace("<", "\\u003c")
-        .replace(">", "\\u003e")
-        .replace(" ", "\\u2028")
-        .replace(" ", "\\u2029")
-    )
-
-
-def update_index_html(html_path, csv_path, as_of_day):
-    """Refresh the dataset baked into index.html so the main dashboard page
-    (which reads `rawRecords` client-side, not rto_data.json) reflects the
-    latest Vahan pull instead of whatever day the page was last generated on.
-
-    The "current, still-filling-up" month, its totals, and every derived
-    label are computed client-side in index.html's own JS from `rawRecords`
-    (see `currentPartialMonth`), so this only needs to update the raw dataset
-    plus the one thing the data itself can't reveal: which day-of-month the
-    Vahan pull was current through.
+    index.html no longer embeds the dataset itself (rawRecords is fetched
+    client-side from the Supabase-backed API worker at load time -- see
+    RECORDS_API_URL in index.html and sync_supabase() below, which is what
+    actually keeps that API data current). The "current, still-filling-up"
+    month and every totals/label derived from it are computed client-side
+    from whatever the API returns, so this function only needs to patch the
+    CURRENT_ASOF_DAY constant.
     """
-    records = build_index_records(csv_path)
-    if not records:
-        raise RuntimeError("No 'Required' rows found while rebuilding index.html dataset.")
-
     html = Path(html_path).read_text(encoding="utf-8")
-
-    new_blob = f"const rawRecords = {_html_safe_json(records)};"
-    updated, count = re.subn(
-        r"const rawRecords = \[.*?\];", lambda _match: new_blob, html, count=1, flags=re.S
-    )
-    if count != 1:
-        raise RuntimeError("Could not locate the rawRecords dataset inside index.html.")
 
     updated, day_count = re.subn(
         r"const CURRENT_ASOF_DAY = \d+;",
         lambda _match: f"const CURRENT_ASOF_DAY = {int(as_of_day)};",
-        updated,
+        html,
         count=1,
     )
     if day_count != 1:
         raise RuntimeError("Could not locate CURRENT_ASOF_DAY inside index.html.")
 
     Path(html_path).write_text(updated, encoding="utf-8")
+
+
+def supabase_configured(dashboard_dir):
+    """Whether this machine is set up to sync registrations to Supabase --
+    either via a real env var (e.g. a CI secret) or a local .env file (the
+    operator machine, via Start_Updater.bat). Absence just means "skip",
+    not an error: not every environment running this pipeline (e.g. the
+    GitHub Actions daily refresh, today) has Supabase credentials.
+    """
+    if os.environ.get("SUPABASE_DB_URL"):
+        return True
+    env_path = Path(dashboard_dir) / ".env"
+    if not env_path.exists():
+        return False
+    for line in env_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+        line = line.strip()
+        if line.startswith("SUPABASE_DB_URL=") and line != "SUPABASE_DB_URL=":
+            return True
+    return False
+
+
+def sync_supabase(dashboard_dir, csv_path):
+    """Upsert the freshly-generated CSV into Supabase so the live dashboard
+    (which now reads from Supabase via the API worker, not an embedded blob)
+    reflects this refresh. Raises on failure -- called before publishing, so
+    a broken sync blocks publish instead of leaving Supabase stale.
+    """
+    loader = Path(dashboard_dir) / "automation" / "db" / "load_registrations.js"
+    if not loader.exists():
+        raise FileNotFoundError(f"Supabase loader script not found: {loader}")
+    subprocess.run(
+        ["node", str(loader), str(Path(csv_path).resolve())],
+        cwd=str(dashboard_dir),
+        check=True,
+    )
 
 
 def copy_raw_reports(report_files, dashboard_dir, run_date):
@@ -463,16 +451,6 @@ def validate_generated_dashboard(dashboard_dir, expected_rto_count=config.EXPECT
     if missing:
         raise RuntimeError(f"Generated dashboard files are missing: {', '.join(missing)}")
 
-    csv_2026_total = sum(
-        r["Nos"] for r in build_index_records(dashboard_dir / "RTO_2025_2026_Combined.csv") if r["Year"] == 2026
-    )
-    html_records = extract_index_records(dashboard_dir / "index.html")
-    html_2026_total = sum(r["Nos"] for r in html_records if r["Year"] == 2026)
-    if html_2026_total != csv_2026_total:
-        raise RuntimeError(
-            "index.html's embedded dataset is out of sync with RTO_2025_2026_Combined.csv "
-            f"(index.html 2026 total={html_2026_total}, CSV 2026 total={csv_2026_total})."
-        )
 
     try:
         data = json.loads((dashboard_dir / "rto_data.json").read_text(encoding="utf-8"))
@@ -589,11 +567,7 @@ def integrate(reports_dir=None, dashboard_dir=None, run_generator=True):
         write_combined_csv(rows, staging_dir / "RTO_2025_2026_Combined.csv", months)
 
         shutil.copy2(dashboard_dir / "index.html", staging_dir / "index.html")
-        update_index_html(
-            staging_dir / "index.html",
-            staging_dir / "RTO_2025_2026_Combined.csv",
-            as_of_day=as_of_day,
-        )
+        update_index_html(staging_dir / "index.html", as_of_day=as_of_day)
 
         if run_generator:
             run_dashboard_generator(staging_dir, as_of_day=as_of_day)
@@ -601,6 +575,12 @@ def integrate(reports_dir=None, dashboard_dir=None, run_generator=True):
             shutil.copy2(dashboard_dir / "rto_data.json", staging_dir / "rto_data.json")
 
         validate_generated_dashboard(staging_dir)
+
+        if supabase_configured(dashboard_dir):
+            sync_supabase(dashboard_dir, staging_dir / "RTO_2025_2026_Combined.csv")
+            print("Synced registrations to Supabase.")
+        else:
+            print("SUPABASE_DB_URL not configured -- skipping Supabase sync (local dashboard files still updated).")
 
         backup_dir = backup_files(dashboard_dir, files_to_publish)
         print(f"Backed up existing dashboard files to {backup_dir}")

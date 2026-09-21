@@ -1,0 +1,8 @@
+name = "market-share-api"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Set these via the Cloudflare dashboard (Worker -> Settings -> Variables and
+# Secrets) or `wrangler secret put <name>` — never commit real values here.
+#   SUPABASE_URL               = https://ziypoxapyytysanjhkel.supabase.co  (plaintext var)
+#   SUPABASE_SERVICE_ROLE_KEY  = sb_secret_...                              (secret)

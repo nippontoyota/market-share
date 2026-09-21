@@ -5,7 +5,6 @@ import re
 from pathlib import Path
 
 import config
-from dashboard_integration import build_index_records, extract_index_records
 
 
 REQUIRED_PRODUCTION_FILES = [
@@ -95,18 +94,6 @@ def validate_dashboard_snapshot(
         raise RuntimeError(
             "RTO_2025_2026_Combined.csv RTO coverage mismatch. "
             f"Missing: {missing_codes}. Extra: {extra_codes}."
-        )
-
-    csv_2026_total = sum(
-        r["Nos"] for r in build_index_records(dashboard_dir / "RTO_2025_2026_Combined.csv") if r["Year"] == 2026
-    )
-    html_2026_total = sum(
-        r["Nos"] for r in extract_index_records(dashboard_dir / "index.html") if r["Year"] == 2026
-    )
-    if html_2026_total != csv_2026_total:
-        raise RuntimeError(
-            "index.html's embedded dataset is out of sync with RTO_2025_2026_Combined.csv "
-            f"(index.html 2026 total={html_2026_total}, CSV 2026 total={csv_2026_total})."
         )
 
     return {
