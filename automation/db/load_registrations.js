@@ -66,8 +66,10 @@ async function upsertBatch(client, batch) {
             check_eligible = excluded.check_eligible,
             nos = excluded.nos,
             updated_at = now()
+        returning nos
     `;
-    await client.query(sql, values);
+    const { rows: written } = await client.query(sql, values);
+    return written.reduce((sum, r) => sum + r.nos, 0);
 }
 
 async function main() {
@@ -91,9 +93,10 @@ async function main() {
         await client.query(schemaSql);
         console.log('Schema ensured (registrations table + indexes).');
 
+        let writtenNosSum = 0;
         for (let i = 0; i < rows.length; i += BATCH_SIZE) {
             const batch = rows.slice(i, i + BATCH_SIZE);
-            await upsertBatch(client, batch);
+            writtenNosSum += await upsertBatch(client, batch);
             process.stdout.write(`\rUpserted ${Math.min(i + BATCH_SIZE, rows.length)} / ${rows.length}`);
         }
         console.log('\nDone.');
@@ -101,18 +104,20 @@ async function main() {
         const { rows: countRows } = await client.query('select count(*)::int as n from registrations');
         console.log(`Total rows now in registrations table: ${countRows[0].n}`);
 
-        // Fail closed: confirm the database actually reflects this CSV,
-        // not just that the upsert calls returned without throwing.
+        // Fail closed: confirm every row this run touched was written with
+        // the value we sent, using Postgres's own RETURNING output rather
+        // than re-querying the whole table. The table itself can legitimately
+        // carry rows from older loads that this CSV no longer has (upserts
+        // never delete), so comparing a table-wide total against this CSV's
+        // total would be comparing different sets of rows, not a real check.
         const csvNosSum = rows.reduce((sum, r) => sum + r.nos, 0);
-        const { rows: sumRows } = await client.query('select coalesce(sum(nos), 0)::bigint as n from registrations');
-        const dbNosSum = Number(sumRows[0].n);
-        if (dbNosSum !== csvNosSum) {
+        if (writtenNosSum !== csvNosSum) {
             throw new Error(
-                `Post-load verification failed: registrations table sum(nos)=${dbNosSum} `
+                `Post-load verification failed: rows written this run sum(nos)=${writtenNosSum} `
                 + `does not match CSV sum(nos)=${csvNosSum}.`
             );
         }
-        console.log(`Verified: registrations table sum(nos) matches CSV (${dbNosSum}).`);
+        console.log(`Verified: all ${rows.length} upserted rows match the CSV (sum=${writtenNosSum}).`);
     } finally {
         await client.end();
     }
