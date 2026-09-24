@@ -46,9 +46,15 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:"],
-      // The production dashboard talks only to the operator's local updater.
-      // Keep this limited to loopback; the updater itself binds to 127.0.0.1.
-      connectSrc: ["'self'", "http://127.0.0.1:3099", "http://localhost:3099"],
+      // The dashboard talks to the operator's local updater (loopback) and
+      // to the Supabase-backed API worker that serves the registrations
+      // dataset (see RECORDS_API_URL in index.html).
+      connectSrc: [
+        "'self'",
+        "http://127.0.0.1:3099",
+        "http://localhost:3099",
+        "https://market-share-api.bharath-c.workers.dev"
+      ],
       // The updater is intentionally plain HTTP on loopback. Do not rewrite
       // that local request to HTTPS, where the helper does not listen.
       upgradeInsecureRequests: null

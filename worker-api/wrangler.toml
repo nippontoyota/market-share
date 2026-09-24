@@ -2,7 +2,10 @@ name = "market-share-api"
 main = "src/index.js"
 compatibility_date = "2025-01-01"
 
-# Set these via the Cloudflare dashboard (Worker -> Settings -> Variables and
-# Secrets) or `wrangler secret put <name>` — never commit real values here.
-#   SUPABASE_URL               = https://ziypoxapyytysanjhkel.supabase.co  (plaintext var)
-#   SUPABASE_SERVICE_ROLE_KEY  = sb_secret_...                              (secret)
+# Plaintext, safe to commit -- it's just the project's public REST API base URL.
+[vars]
+SUPABASE_URL = "https://ziypoxapyytysanjhkel.supabase.co"
+
+# SUPABASE_SERVICE_ROLE_KEY is set separately as an encrypted secret via:
+#   npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+# (never put its real value in this file)
