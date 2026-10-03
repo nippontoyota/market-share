@@ -39,10 +39,12 @@ app.set('trust proxy', 1);
 
 // Security middleware
 app.use(helmet({
+  frameguard: false,
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com"],
+      frameAncestors: ["'self'", "http://localhost:5173"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com", "https://cdn.tailwindcss.com"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:"],
@@ -53,7 +55,8 @@ app.use(helmet({
         "'self'",
         "http://127.0.0.1:3099",
         "http://localhost:3099",
-        "https://market-share-api.bharath-c.workers.dev"
+        "https://market-share-api.bharath-c.workers.dev",
+        "http://localhost:4000"
       ],
       // The updater is intentionally plain HTTP on loopback. Do not rewrite
       // that local request to HTTPS, where the helper does not listen.
@@ -184,6 +187,27 @@ app.get('/logout', handleLogout);
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   next();
+});
+
+
+// Unified SSO Route for CEO and Branch Managers
+app.get('/api/sso', (req, res) => {
+  const validTokens = ['nippon-ceo-token-2026', 'nippon-branch-token-2026'];
+  if (validTokens.includes(req.query.token)) {
+    req.session.isAuthenticated = true;
+    req.session.save(() => {
+      let target = req.query.redirect || '/ceo-dashboard';
+      if (!target.startsWith('/')) target = '/' + target;
+      res.redirect(target);
+    });
+  } else {
+    res.status(401).send('Unauthorized SSO');
+  }
+});
+
+// Serve CEO Dashboard
+app.get('/ceo-dashboard', requireAuth, (req, res) => {
+  res.sendFile(path.join(__dirname, 'ceo-dashboard.html'));
 });
 
 // Protect dashboard route

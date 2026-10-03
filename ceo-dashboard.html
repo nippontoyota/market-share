@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO Market Share Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zinc: { 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 800: '#27272a', 900: '#18181b', 950: '#09090b' },
+                        emerald: { 400: '#34d399', 500: '#10b981' },
+                        rose: { 400: '#fb7185', 500: '#f43f5e' },
+                        blue: { 400: '#60a5fa' }
+                    },
+                    fontFamily: {
+                        headline: ['Inter', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        label: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #120708; color: white; margin: 0; padding: 1.5rem; font-family: 'Inter', sans-serif; }
+        .collapse-content { display: none; }
+        .collapse-content.open { display: table-row-group; }
+        .chevron { transition: transform 0.2s; font-size: 1.25rem; }
+        .chevron.open { transform: rotate(90deg); }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    </style>
+</head>
+<body class="bg-[#120708]">
+
+    <div class="bg-zinc-950 rounded-lg border border-zinc-800 overflow-hidden shadow-xl">
+        <table id="data-table" class="w-full text-sm font-body">
+            <thead class="bg-zinc-900 border-b border-zinc-800">
+                <tr>
+                    <th class="px-6 py-4 text-left font-label font-bold text-xs uppercase tracking-widest text-zinc-400">Location</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">EXPECTED</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-rose-400">GAP</th>
+                </tr>
+            </thead>
+            <tbody id="table-body" class="divide-y divide-zinc-800/50">
+                <tr><td colspan="7" class="text-center py-10 text-zinc-500">Loading live data...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const CLUSTER_SKELETON = [
+            { cluster: 'Cochin Cluster (Biju)', branches: [
+                { name: 'Kalamassery', dataKey: 'Kalamassery', targetPct: 11 },
+                { name: 'Nettoor', dataKey: 'Nettoor', targetPct: 14 },
+                { name: 'Kayamkulam', dataKey: 'Kayamkulam', targetPct: 8 }
+            ]},
+            { cluster: 'Trivandrum Cluster (Praveen)', branches: [
+                { name: 'Kazhakoottam & Enjakkal', dataKey: 'Kazhakkottam & Enchakkal', targetPct: 11 },
+                { name: 'Kollam', dataKey: 'Kollam', targetPct: 9 }
+            ]},
+            { cluster: 'Thrissur Cluster (Vinod)', branches: [
+                { name: 'Trichur', dataKey: 'Trichur', targetPct: 11 },
+                { name: 'Irinjalakuda', dataKey: 'Irinjalakuda', targetPct: 13 },
+                { name: 'Muvattupuzha', dataKey: 'Muvattupuzha', targetPct: 9 }
+            ]},
+            { cluster: 'Kottayam Cluster (Nirmal)', branches: [
+                { name: 'Kottayam', dataKey: 'Kottayam', targetPct: 10 },
+                { name: 'Pathanamthitta', dataKey: 'Pathanamthitta', targetPct: 13 },
+                { name: 'Thiruvalla', dataKey: 'Thiruvalla', targetPct: 14 }
+            ]}
+        ];
+
+        let rtoData = null;
+        let mtdTallies = null;
+        const expandedState = {};
+
+        async function init() {
+            try {
+                // Fetch Data concurrently from RTO JSON and Live Backend
+                const [rtoRes, tallyRes] = await Promise.all([
+                    fetch('/rto_data.json'),
+                    fetch('http://localhost:4000/public/mtd-tally?t=' + new Date().getTime())
+                ]);
+                
+                if (!rtoRes.ok || !tallyRes.ok) throw new Error("Failed to fetch data");
+                
+                rtoData = await rtoRes.json();
+                mtdTallies = await tallyRes.json();
+                
+                renderTable();
+                
+                // Attach event listener using delegation to bypass CSP inline handler blocking
+                document.getElementById('data-table').addEventListener('click', (e) => {
+                    const row = e.target.closest('tr[data-index]');
+                    if (row) {
+                        const idx = parseInt(row.getAttribute('data-index'));
+                        expandedState[idx] = !expandedState[idx];
+                        renderTable();
+                    }
+                });
+            } catch (err) {
+                document.getElementById('table-body').innerHTML = `<tr><td colspan="7" class="text-center py-10 text-rose-500 font-bold">Error loading data: ${err.message}</td></tr>`;
+            }
+        }
+
+        // Export toggle to global window for inline onclick handler
+        window.toggleCluster = function(index) {
+            expandedState[index] = !expandedState[index];
+            renderTable();
+        };
+
+        function renderTable() {
+            let html = `
+            <thead class="bg-zinc-900 border-b border-zinc-800">
+                <tr>
+                    <th class="px-6 py-4 text-left font-label font-bold text-xs uppercase tracking-widest text-zinc-400">Location</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">EXPECTED</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-rose-400">GAP</th>
+                </tr>
+            </thead>
+            `;
+
+            let grandTally = 0, grandTiv = 0, grandExpected = 0;
+
+            CLUSTER_SKELETON.forEach((clusterData, cIdx) => {
+                let clusterTally = 0, clusterTiv = 0, clusterExpected = 0;
+                let branchHtml = '';
+
+                clusterData.branches.forEach(b => {
+                    let tiv = 0;
+                    if (rtoData[b.dataKey] && rtoData[b.dataKey].monthly2026) {
+                        const sepData = rtoData[b.dataKey].monthly2026.find(m => m.month === 'SEP');
+                        if (sepData) tiv = sepData.tiv || 0;
+                    }
+
+                    let tally = 0;
+                    if (b.name === 'Kazhakoottam & Enjakkal') {
+                        tally = (mtdTallies['Kazhakoottam'] || 0) + (mtdTallies['Enjakkal'] || 0);
+                    } else if (b.name === 'Kalamassery') {
+                        tally = mtdTallies['Kalamaserry'] || 0;
+                    } else {
+                        tally = mtdTallies[b.name] || 0;
+                    }
+
+                    const expected = Math.round(tiv * (b.targetPct / 100));
+                    clusterTiv += tiv;
+                    clusterTally += tally;
+                    clusterExpected += expected;
+
+                    const branchShare = tiv > 0 ? ((tally / tiv) * 100).toFixed(1) : '0.0';
+                    const branchGap = expected - tally;
+
+                    branchHtml += `
+                        <tr class="bg-[#15151c]">
+                            <td class="px-6 py-3 pl-16">
+                                <span class="font-body text-zinc-400 font-medium">${b.name}</span>
+                            </td>
+                            <td class="px-6 py-3 text-center text-zinc-500 text-sm">${tiv}</td>
+                            <td class="px-6 py-3 text-center text-emerald-500/80 font-bold">${tally}</td>
+                            <td class="px-6 py-3 text-center text-zinc-300 font-bold">${branchShare}%</td>
+                            <td class="px-6 py-3 text-center text-blue-400/80 font-bold">${b.targetPct}%</td>
+                            <td class="px-6 py-3 text-center text-zinc-500">${expected}</td>
+                            <td class="px-6 py-3 text-center font-bold ${branchGap > 0 ? 'text-rose-500/80' : 'text-emerald-500/80'}">
+                                ${branchGap > 0 ? '-' + branchGap : '+' + Math.abs(branchGap)}
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                const clusterShare = clusterTiv > 0 ? ((clusterTally / clusterTiv) * 100).toFixed(1) : '0.0';
+                const clusterTargetPct = clusterTiv > 0 ? ((clusterExpected / clusterTiv) * 100).toFixed(1) : '0.0';
+                const clusterGap = clusterExpected - clusterTally;
+
+                grandTally += clusterTally;
+                grandTiv += clusterTiv;
+                grandExpected += clusterExpected;
+
+                const isOpen = expandedState[cIdx];
+
+                html += `
+                    <tbody class="divide-y divide-zinc-800/50">
+                        <tr data-index="${cIdx}" class="group bg-zinc-950 hover:bg-zinc-900/80 cursor-pointer transition-colors">
+                            <td class="px-6 py-5">
+                                <div class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-zinc-500 chevron ${isOpen ? 'open' : ''}">chevron_right</span>
+                                    <span class="font-headline font-bold text-white tracking-wide">${clusterData.cluster}</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterTiv}</td>
+                            <td class="px-6 py-5 text-center font-bold text-emerald-400 text-lg">${clusterTally}</td>
+                            <td class="px-6 py-5 text-center font-bold text-white">${clusterShare}%</td>
+                            <td class="px-6 py-5 text-center font-bold text-blue-400">${clusterTargetPct}%</td>
+                            <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterExpected}</td>
+                            <td class="px-6 py-5 text-center font-bold text-lg ${clusterGap > 0 ? 'text-rose-500' : 'text-emerald-500'}">
+                                ${clusterGap > 0 ? '-' + clusterGap : '+' + Math.abs(clusterGap)}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="collapse-content ${isOpen ? 'open' : ''}">
+                        ${branchHtml}
+                    </tbody>
+                `;
+            });
+
+            const grandGap = grandExpected - grandTally;
+            html += `
+                <tbody class="divide-y divide-zinc-800/50 border-t-2 border-zinc-700">
+                    <tr class="bg-zinc-900">
+                        <td class="px-6 py-6 text-right font-headline font-bold text-emerald-500 tracking-widest uppercase">
+                            Grand Total
+                        </td>
+                        <td class="px-6 py-6 text-center font-bold text-zinc-300 text-lg">${grandTiv}</td>
+                        <td class="px-6 py-6 text-center font-bold text-emerald-400 text-2xl">${grandTally}</td>
+                        <td class="px-6 py-6 text-center font-black text-white text-xl">
+                            ${grandTiv > 0 ? ((grandTally / grandTiv) * 100).toFixed(1) : '0.0'}%
+                        </td>
+                        <td class="px-6 py-6 text-center font-black text-blue-400 text-xl">
+                            ${grandTiv > 0 ? ((grandExpected / grandTiv) * 100).toFixed(1) : '0.0'}%
+                        </td>
+                        <td class="px-6 py-6 text-center font-bold text-zinc-300 text-lg">${grandExpected}</td>
+                        <td class="px-6 py-6 text-center font-black text-2xl ${grandGap > 0 ? 'text-rose-500' : 'text-emerald-500'}">
+                            ${grandGap > 0 ? '-' + grandGap : '+' + Math.abs(grandGap)}
+                        </td>
+                    </tr>
+                </tbody>
+            `;
+
+            document.getElementById('data-table').innerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
+</html>
