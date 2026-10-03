@@ -1060,5 +1060,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+
+    <script>
+        // If loaded inside an iframe (like the stock-blocking modal)
+        if (window.self !== window.top) {
+            const headerActions = document.querySelector('.header-actions');
+            if (headerActions) headerActions.style.display = 'none';
+            
+            // Optional: reduce padding to fit better in the modal
+            const pageHeader = document.querySelector('.page-header');
+            if (pageHeader) {
+                pageHeader.style.padding = '10px 20px';
+                pageHeader.style.marginBottom = '10px';
+            }
+            
+            const dashboardContainer = document.querySelector('.dashboard-container');
+            if (dashboardContainer) {
+                dashboardContainer.style.padding = '10px';
+            }
+        }
+    </script>
 </body>
 </html>
