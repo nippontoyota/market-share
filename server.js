@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const session = require('express-session');
+const session = require('cookie-session');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
@@ -195,11 +195,9 @@ app.get('/api/sso', (req, res) => {
   const validTokens = ['nippon-ceo-token-2026', 'nippon-branch-token-2026'];
   if (validTokens.includes(req.query.token)) {
     req.session.isAuthenticated = true;
-    req.session.save(() => {
-      let target = req.query.redirect || '/ceo-dashboard';
-      if (!target.startsWith('/')) target = '/' + target;
-      res.redirect(target);
-    });
+    let target = req.query.redirect || '/ceo-dashboard';
+    if (!target.startsWith('/')) target = '/' + target;
+    res.redirect(target);
   } else {
     res.status(401).send('Unauthorized SSO');
   }
