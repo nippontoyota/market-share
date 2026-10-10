@@ -1036,6 +1036,37 @@ document.addEventListener('DOMContentLoaded', () => {
     if (clusterInputMtd) {
         clusterInputMtd.addEventListener('input', calculateClusterStatsMtd);
         window.triggerClusterCalculation = calculateClusterStatsMtd;
+        
+        // --- FETCH LIVE TALLY AUTOMATICALLY ---
+        setTimeout(async () => {
+            try {
+                const tallyUrl = (window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://stockpro-backend-mkqb.onrender.com') + '/public/mtd-tally?t=' + new Date().getTime();
+                const tallyRes = await fetch(tallyUrl);
+                if (tallyRes.ok) {
+                    const mtdTallies = await tallyRes.json();
+                    let liveTally = 0;
+                    
+                    if (currentClusterData) {
+                        const cName = currentClusterData.name;
+                        if (cName === 'Kazhakkottam & Enchakkal' || cName === 'Kazhakoottam & Enjakkal') {
+                            liveTally = (mtdTallies['Kazhakoottam'] || 0) + (mtdTallies['Enjakkal'] || 0);
+                        } else if (cName === 'Kalamassery') {
+                            liveTally = mtdTallies['Kalamaserry'] || 0;
+                        } else if (cName === 'Trivandrum Royals') {
+                            liveTally = mtdTallies['Trivandrum Royals'] || mtdTallies['Trivandrum'] || 0;
+                        } else {
+                            liveTally = mtdTallies[cName] || 0;
+                        }
+                    }
+                    
+                    clusterInputMtd.value = liveTally;
+                    // change from input to a div for static view
+                    clusterInputMtd.outerHTML = '<div id="customTivInputMtd" style="font-size: 26px; font-weight: 800; color: #4ade80; text-align: right; padding-right: 10px;">' + liveTally + '</div>';
+                    
+                    calculateClusterStatsMtd();
+                }
+            } catch(e) { console.error('Failed to fetch live tally', e); }
+        }, 500);
     }
 
 
