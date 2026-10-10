@@ -79,16 +79,12 @@ app.use(express.json());
 
 // Session configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'change-this-secret-in-production',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    sameSite: 'none',
-    secure: true,
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
-  },
-  name: 'dashboard.sid'
+  name: 'dashboard.sid',
+  keys: [process.env.SESSION_SECRET || 'change-this-secret-in-production'],
+  maxAge: 24 * 60 * 60 * 1000,
+  secure: true,
+  httpOnly: true,
+  sameSite: 'none'
 }));
 
 // Login rate limiting (30 attempts per 15 minutes window)
