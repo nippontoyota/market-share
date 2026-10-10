@@ -84,8 +84,8 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: isProduction,
-    sameSite: 'lax',
+    sameSite: 'none',
+    secure: true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   },
   name: 'dashboard.sid'
