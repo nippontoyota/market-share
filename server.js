@@ -56,7 +56,8 @@ app.use(helmet({
         "http://127.0.0.1:3099",
         "http://localhost:3099",
         "https://market-share-api.bharath-c.workers.dev",
-        "http://localhost:4000"
+        "http://localhost:4000",
+        "https://stockpro-backend-mkqb.onrender.com"
       ],
       // The updater is intentionally plain HTTP on loopback. Do not rewrite
       // that local request to HTTPS, where the helper does not listen.

@@ -93,7 +93,7 @@
                 // Fetch Data concurrently from RTO JSON and Live Backend
                 const [rtoRes, tallyRes] = await Promise.all([
                     fetch('/rto_data.json'),
-                    fetch('http://localhost:4000/public/mtd-tally?t=' + new Date().getTime())
+                    fetch((window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://stockpro-backend-mkqb.onrender.com') + '/public/mtd-tally?t=' + new Date().getTime())
                 ]);
                 
                 if (!rtoRes.ok || !tallyRes.ok) throw new Error("Failed to fetch data");
