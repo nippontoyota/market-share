@@ -199,6 +199,31 @@
                 <span id="reconciliationCount">Scope: 2026 JAN-SEP ONLY (DATA THROUGH SEP 10)</span>
             </div>
 
+            <!-- SUB-RTO BREAKDOWN TABLE -->
+            <div class="analysis-section" style="margin-bottom: 24px;">
+                <div class="section-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>📍 Sub-RTO Performance Breakdown (<span id="subRtoTableCount">0</span> Sub-RTOs)</span>
+                    <span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">Official 2026 Registrations by RTO Office</span>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Sub-RTO Code & Office</th>
+                                <th>2026 TIV</th>
+                                <th>Toyota Units</th>
+                                <th>Toyota Share %</th>
+                                <th>Avg TIV / Mo</th>
+                                <th>Avg Toyota / Mo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="subRtoTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <!-- CLUSTER MONTHLY SUMMARY TABLE -->
             <div class="table-container">
                 <table class="data-table">
@@ -587,6 +612,30 @@
 
             // Build Sub-RTO Pills
             buildSubRtoPills(data.subRtos);
+
+            // Populate Sub-RTO Performance Breakdown Table on Cluster page
+            const subRtoTbody = document.getElementById('subRtoTableBody');
+            if (subRtoTbody && data.subRtos) {
+                const countElem = document.getElementById('subRtoTableCount');
+                if (countElem) countElem.innerText = data.subRtos.length;
+                subRtoTbody.innerHTML = '';
+                data.subRtos.forEach(sr => {
+                    const shareColor = sr.share2026 >= 10 ? 'var(--accent-green)' : (sr.share2026 >= 8 ? 'var(--accent-blue)' : 'var(--accent-yellow)');
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="text-left" style="font-weight: 600;">
+                            <span class="subrto-pill-badge" style="margin-right: 8px;">${sr.code}</span>
+                            <span>${sr.name}</span>
+                        </td>
+                        <td style="font-weight: 700;">${sr.tiv2026.toLocaleString()}</td>
+                        <td style="font-weight: 700; color: var(--accent-blue);">${sr.toyota2026.toLocaleString()}</td>
+                        <td style="font-weight: 800; color: ${shareColor};">${sr.share2026}%</td>
+                        <td>${sr.avgMonthlyLmv.toLocaleString()}</td>
+                        <td>${sr.avgMonthlyToyota.toLocaleString()}</td>
+                    `;
+                    subRtoTbody.appendChild(tr);
+                });
+            }
 
             // Determine initial view from query params
             const requestedView = getQueryParam('view');
