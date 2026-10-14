@@ -83,9 +83,12 @@ app.use(session({
   name: 'dashboard.sid',
   keys: [process.env.SESSION_SECRET || 'change-this-secret-in-production'],
   maxAge: 24 * 60 * 60 * 1000,
-  secure: true,
+  // Cross-origin iframe embedding (Vercel) needs Secure + SameSite=None, but
+  // cookie-session won't set a Secure cookie over plain http://localhost,
+  // which silently breaks local login.
+  secure: isProduction,
   httpOnly: true,
-  sameSite: 'none'
+  sameSite: isProduction ? 'none' : 'lax'
 }));
 
 // Login rate limiting (30 attempts per 15 minutes window)
