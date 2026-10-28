@@ -16,7 +16,8 @@
                         zinc: { 300: '#d4d4d8', 400: '#a1a1aa', 500: '#71717a', 800: '#27272a', 900: '#18181b', 950: '#09090b' },
                         emerald: { 400: '#34d399', 500: '#10b981' },
                         rose: { 400: '#fb7185', 500: '#f43f5e' },
-                        blue: { 400: '#60a5fa' }
+                        blue: { 400: '#60a5fa' },
+                        amber: { 400: '#fbbf24', 500: '#f59e0b' }
                     },
                     fontFamily: {
                         headline: ['Inter', 'sans-serif'],
@@ -48,6 +49,7 @@
                 <tr>
                     <th class="px-6 py-4 text-left font-label font-bold text-xs uppercase tracking-widest text-zinc-400">Location</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-amber-400">TKM</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
@@ -56,7 +58,7 @@
                 </tr>
             </thead>
             <tbody id="table-body" class="divide-y divide-zinc-800/50">
-                <tr><td colspan="7" class="text-center py-10 text-zinc-500">Loading live data...</td></tr>
+                <tr><td colspan="8" class="text-center py-10 text-zinc-500">Loading live data...</td></tr>
             </tbody>
         </table>
     </div>
@@ -113,7 +115,7 @@
                     }
                 });
             } catch (err) {
-                document.getElementById('table-body').innerHTML = `<tr><td colspan="7" class="text-center py-10 text-rose-500 font-bold">Error loading data: ${err.message}</td></tr>`;
+                document.getElementById('table-body').innerHTML = `<tr><td colspan="8" class="text-center py-10 text-rose-500 font-bold">Error loading data: ${err.message}</td></tr>`;
             }
         }
 
@@ -129,6 +131,7 @@
                 <tr>
                     <th class="px-6 py-4 text-left font-label font-bold text-xs uppercase tracking-widest text-zinc-400">Location</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-amber-400">TKM</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
@@ -138,17 +141,21 @@
             </thead>
             `;
 
-            let grandTally = 0, grandTiv = 0, grandExpected = 0;
+            let grandTally = 0, grandTiv = 0, grandTkm = 0, grandExpected = 0;
 
             CLUSTER_SKELETON.forEach((clusterData, cIdx) => {
-                let clusterTally = 0, clusterTiv = 0, clusterExpected = 0;
+                let clusterTally = 0, clusterTiv = 0, clusterTkm = 0, clusterExpected = 0;
                 let branchHtml = '';
 
                 clusterData.branches.forEach(b => {
                     let tiv = 0;
+                    let tkm = 0;
                     if (rtoData[b.dataKey] && rtoData[b.dataKey].monthly2026) {
                         const sepData = rtoData[b.dataKey].monthly2026.find(m => m.month === 'SEP');
-                        if (sepData) tiv = sepData.tiv || 0;
+                        if (sepData) {
+                            tiv = sepData.tiv || 0;
+                            tkm = sepData.toyota || 0;
+                        }
                     }
 
                     let tally = 0;
@@ -162,10 +169,11 @@
 
                     const expected = Math.round(tiv * (b.targetPct / 100));
                     clusterTiv += tiv;
+                    clusterTkm += tkm;
                     clusterTally += tally;
                     clusterExpected += expected;
 
-                    const branchShare = tiv > 0 ? ((tally / tiv) * 100).toFixed(1) : '0.0';
+                    const branchShare = tiv > 0 ? ((tkm / tiv) * 100).toFixed(1) : '0.0';
                     const branchGap = expected - tally;
 
                     branchHtml += `
@@ -174,6 +182,7 @@
                                 <span class="font-body text-zinc-400 font-medium">${b.name}</span>
                             </td>
                             <td class="px-6 py-3 text-center text-zinc-500 text-sm">${tiv}</td>
+                            <td class="px-6 py-3 text-center text-amber-400/90 font-bold">${tkm}</td>
                             <td class="px-6 py-3 text-center text-emerald-500/80 font-bold">${tally}</td>
                             <td class="px-6 py-3 text-center text-zinc-300 font-bold">${branchShare}%</td>
                             <td class="px-6 py-3 text-center text-blue-400/80 font-bold">${b.targetPct}%</td>
@@ -185,12 +194,13 @@
                     `;
                 });
 
-                const clusterShare = clusterTiv > 0 ? ((clusterTally / clusterTiv) * 100).toFixed(1) : '0.0';
+                const clusterShare = clusterTiv > 0 ? ((clusterTkm / clusterTiv) * 100).toFixed(1) : '0.0';
                 const clusterTargetPct = clusterTiv > 0 ? ((clusterExpected / clusterTiv) * 100).toFixed(1) : '0.0';
                 const clusterGap = clusterExpected - clusterTally;
 
                 grandTally += clusterTally;
                 grandTiv += clusterTiv;
+                grandTkm += clusterTkm;
                 grandExpected += clusterExpected;
 
                 const isOpen = expandedState[cIdx];
@@ -205,6 +215,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterTiv}</td>
+                            <td class="px-6 py-5 text-center font-bold text-amber-400 text-lg">${clusterTkm}</td>
                             <td class="px-6 py-5 text-center font-bold text-emerald-400 text-lg">${clusterTally}</td>
                             <td class="px-6 py-5 text-center font-bold text-white">${clusterShare}%</td>
                             <td class="px-6 py-5 text-center font-bold text-blue-400">${clusterTargetPct}%</td>
@@ -228,9 +239,10 @@
                             Grand Total
                         </td>
                         <td class="px-6 py-6 text-center font-bold text-zinc-300 text-lg">${grandTiv}</td>
+                        <td class="px-6 py-6 text-center font-bold text-amber-400 text-2xl">${grandTkm}</td>
                         <td class="px-6 py-6 text-center font-bold text-emerald-400 text-2xl">${grandTally}</td>
                         <td class="px-6 py-6 text-center font-black text-white text-xl">
-                            ${grandTiv > 0 ? ((grandTally / grandTiv) * 100).toFixed(1) : '0.0'}%
+                            ${grandTiv > 0 ? ((grandTkm / grandTiv) * 100).toFixed(1) : '0.0'}%
                         </td>
                         <td class="px-6 py-6 text-center font-black text-blue-400 text-xl">
                             ${grandTiv > 0 ? ((grandExpected / grandTiv) * 100).toFixed(1) : '0.0'}%
