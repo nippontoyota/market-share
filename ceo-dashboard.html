@@ -17,7 +17,8 @@
                         emerald: { 400: '#34d399', 500: '#10b981' },
                         rose: { 400: '#fb7185', 500: '#f43f5e' },
                         blue: { 400: '#60a5fa' },
-                        amber: { 400: '#fbbf24', 500: '#f59e0b' }
+                        amber: { 400: '#fbbf24', 500: '#f59e0b' },
+                        purple: { 400: '#c084fc', 500: '#a855f7' }
                     },
                     fontFamily: {
                         headline: ['Inter', 'sans-serif'],
@@ -51,6 +52,7 @@
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-amber-400">TKM</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-purple-400">LY MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">EXPECTED</th>
@@ -58,7 +60,7 @@
                 </tr>
             </thead>
             <tbody id="table-body" class="divide-y divide-zinc-800/50">
-                <tr><td colspan="8" class="text-center py-10 text-zinc-500">Loading live data...</td></tr>
+                <tr><td colspan="9" class="text-center py-10 text-zinc-500">Loading live data...</td></tr>
             </tbody>
         </table>
     </div>
@@ -115,7 +117,7 @@
                     }
                 });
             } catch (err) {
-                document.getElementById('table-body').innerHTML = `<tr><td colspan="8" class="text-center py-10 text-rose-500 font-bold">Error loading data: ${err.message}</td></tr>`;
+                document.getElementById('table-body').innerHTML = `<tr><td colspan="9" class="text-center py-10 text-rose-500 font-bold">Error loading data: ${err.message}</td></tr>`;
             }
         }
 
@@ -133,6 +135,7 @@
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-amber-400">TKM</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-purple-400">LY MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">EXPECTED</th>
@@ -141,10 +144,10 @@
             </thead>
             `;
 
-            let grandTally = 0, grandTiv = 0, grandTkm = 0, grandExpected = 0;
+            let grandTally = 0, grandTiv = 0, grandTkm = 0, grandExpected = 0, grandLyTiv = 0, grandLyTkm = 0;
 
             CLUSTER_SKELETON.forEach((clusterData, cIdx) => {
-                let clusterTally = 0, clusterTiv = 0, clusterTkm = 0, clusterExpected = 0;
+                let clusterTally = 0, clusterTiv = 0, clusterTkm = 0, clusterExpected = 0, clusterLyTiv = 0, clusterLyTkm = 0;
                 let branchHtml = '';
 
                 clusterData.branches.forEach(b => {
@@ -155,6 +158,16 @@
                         if (sepData) {
                             tiv = sepData.tiv || 0;
                             tkm = sepData.toyota || 0;
+                        }
+                    }
+
+                    let lyTiv = 0;
+                    let lyTkm = 0;
+                    if (rtoData[b.dataKey] && rtoData[b.dataKey].monthly2025) {
+                        const sep2025 = rtoData[b.dataKey].monthly2025.find(m => m.month === 'SEP');
+                        if (sep2025) {
+                            lyTiv = sep2025.tiv || 0;
+                            lyTkm = sep2025.toyota || 0;
                         }
                     }
 
@@ -170,9 +183,12 @@
                     const expected = Math.round(tiv * (b.targetPct / 100));
                     clusterTiv += tiv;
                     clusterTkm += tkm;
+                    clusterLyTiv += lyTiv;
+                    clusterLyTkm += lyTkm;
                     clusterTally += tally;
                     clusterExpected += expected;
 
+                    const branchLyShare = lyTiv > 0 ? ((lyTkm / lyTiv) * 100).toFixed(1) : '0.0';
                     const branchShare = tiv > 0 ? ((tkm / tiv) * 100).toFixed(1) : '0.0';
                     const branchGap = expected - tally;
 
@@ -184,6 +200,7 @@
                             <td class="px-6 py-3 text-center text-zinc-500 text-sm">${tiv}</td>
                             <td class="px-6 py-3 text-center text-amber-400/90 font-bold">${tkm}</td>
                             <td class="px-6 py-3 text-center text-emerald-500/80 font-bold">${tally}</td>
+                            <td class="px-6 py-3 text-center text-purple-400/90 font-bold">${branchLyShare}%</td>
                             <td class="px-6 py-3 text-center text-zinc-300 font-bold">${branchShare}%</td>
                             <td class="px-6 py-3 text-center text-blue-400/80 font-bold">${b.targetPct}%</td>
                             <td class="px-6 py-3 text-center text-zinc-500">${expected}</td>
@@ -194,6 +211,7 @@
                     `;
                 });
 
+                const clusterLyShare = clusterLyTiv > 0 ? ((clusterLyTkm / clusterLyTiv) * 100).toFixed(1) : '0.0';
                 const clusterShare = clusterTiv > 0 ? ((clusterTkm / clusterTiv) * 100).toFixed(1) : '0.0';
                 const clusterTargetPct = clusterTiv > 0 ? ((clusterExpected / clusterTiv) * 100).toFixed(1) : '0.0';
                 const clusterGap = clusterExpected - clusterTally;
@@ -201,6 +219,8 @@
                 grandTally += clusterTally;
                 grandTiv += clusterTiv;
                 grandTkm += clusterTkm;
+                grandLyTiv += clusterLyTiv;
+                grandLyTkm += clusterLyTkm;
                 grandExpected += clusterExpected;
 
                 const isOpen = expandedState[cIdx];
@@ -217,6 +237,7 @@
                             <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterTiv}</td>
                             <td class="px-6 py-5 text-center font-bold text-amber-400 text-lg">${clusterTkm}</td>
                             <td class="px-6 py-5 text-center font-bold text-emerald-400 text-lg">${clusterTally}</td>
+                            <td class="px-6 py-5 text-center font-bold text-purple-400 text-lg">${clusterLyShare}%</td>
                             <td class="px-6 py-5 text-center font-bold text-white">${clusterShare}%</td>
                             <td class="px-6 py-5 text-center font-bold text-blue-400">${clusterTargetPct}%</td>
                             <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterExpected}</td>
@@ -231,6 +252,7 @@
                 `;
             });
 
+            const grandLyShare = grandLyTiv > 0 ? ((grandLyTkm / grandLyTiv) * 100).toFixed(1) : '0.0';
             const grandGap = grandExpected - grandTally;
             html += `
                 <tbody class="divide-y divide-zinc-800/50 border-t-2 border-zinc-700">
@@ -241,6 +263,7 @@
                         <td class="px-6 py-6 text-center font-bold text-zinc-300 text-lg">${grandTiv}</td>
                         <td class="px-6 py-6 text-center font-bold text-amber-400 text-2xl">${grandTkm}</td>
                         <td class="px-6 py-6 text-center font-bold text-emerald-400 text-2xl">${grandTally}</td>
+                        <td class="px-6 py-6 text-center font-black text-purple-400 text-xl">${grandLyShare}%</td>
                         <td class="px-6 py-6 text-center font-black text-white text-xl">
                             ${grandTiv > 0 ? ((grandTkm / grandTiv) * 100).toFixed(1) : '0.0'}%
                         </td>

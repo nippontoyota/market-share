@@ -10,6 +10,7 @@ import openpyxl
 import json
 import os
 import datetime
+import csv
 
 file_2026 = r"VAHAN_KERALA_MASTER1.xlsm"
 if not os.path.exists(file_2026):
@@ -96,6 +97,25 @@ for row in rows_2026[1:]:
         'loc': loc,
         'm_vals': m_vals
     })
+
+csv_file_2025 = r"RTO_2025_2026_Combined.csv"
+monthly2025_by_loc = {}
+if os.path.exists(csv_file_2025):
+    with open(csv_file_2025, mode='r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            if row.get('Year') == '2025' and row.get('Check_Eligible') == 'Required':
+                l_loc = row.get('Mapped_Location')
+                m_month = row.get('Month')
+                nos_val = int(float(row.get('Nos', 0))) if row.get('Nos') else 0
+                is_toyota = 'TOYOTA' in row.get('Maker', '').upper()
+                if l_loc not in monthly2025_by_loc:
+                    monthly2025_by_loc[l_loc] = {}
+                if m_month not in monthly2025_by_loc[l_loc]:
+                    monthly2025_by_loc[l_loc][m_month] = {'tiv': 0, 'toyota': 0}
+                monthly2025_by_loc[l_loc][m_month]['tiv'] += nos_val
+                if is_toyota:
+                    monthly2025_by_loc[l_loc][m_month]['toyota'] += nos_val
 
 preferred_order = [
     'Alappuzha', 'Irinjalakuda', 'Kalamassery', 'Kayamkulam',
@@ -203,6 +223,13 @@ for loc in loc_keys:
     
     main_insight = f"{disp_name} cluster recorded {main_summary['tiv']:,} total industry registrations in 2026 {month_span} (Through {data_through}) across {len(sub_codes)} sub-RTOs. Toyota ranks #{toyota_main_rank} overall with {main_summary['toyota']:,} units ({main_summary['share']}% market share). Q1 share stood at {q1_metrics['share']}% compared to {q2_metrics['share']}% in Q2."
     
+    loc_2025 = monthly2025_by_loc.get(loc, {})
+    monthly2025 = []
+    for m in MONTH_ORDER:
+        d = loc_2025.get(m, {'tiv': 0, 'toyota': 0})
+        sh = round(d['toyota'] / d['tiv'] * 100, 1) if d['tiv'] > 0 else 0.0
+        monthly2025.append({'month': m, 'tiv': d['tiv'], 'toyota': d['toyota'], 'share': sh})
+
     cluster_obj = {
         'id': loc,
         'name': disp_name,
@@ -217,6 +244,7 @@ for loc in loc_keys:
             'avgMonthlyToyota': round(main_summary['toyota'] / average_divisor, 1)
         },
         'monthly2026': monthly2026,
+        'monthly2025': monthly2025,
         'q1': q1_metrics,
         'q2': q2_metrics,
         'makers': maker_rankings,
@@ -247,7 +275,8 @@ print(json.dumps(processed_data))
     }
     const pyPath = path.join(scratchDir, 'run_gen.py');
     fs.writeFileSync(pyPath, pythonScript);
-    const output = execSync(`python "${pyPath}"`, { maxBuffer: 15 * 1024 * 1024 });
+    const pyCmd = process.platform === 'win32' ? 'python' : 'python3';
+    const output = execSync(`${pyCmd} "${pyPath}"`, { maxBuffer: 15 * 1024 * 1024 });
     const processedData = JSON.parse(output.toString());
     
     fs.writeFileSync(path.join(__dirname, 'rto_data.json'), JSON.stringify(processedData, null, 2));

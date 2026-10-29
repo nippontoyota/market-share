@@ -78,6 +78,80 @@
         "share": 13.1
       }
     ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 718,
+        "toyota": 73,
+        "share": 10.2
+      },
+      {
+        "month": "FEB",
+        "tiv": 430,
+        "toyota": 61,
+        "share": 14.2
+      },
+      {
+        "month": "MAR",
+        "tiv": 446,
+        "toyota": 63,
+        "share": 14.1
+      },
+      {
+        "month": "APR",
+        "tiv": 572,
+        "toyota": 71,
+        "share": 12.4
+      },
+      {
+        "month": "MAY",
+        "tiv": 508,
+        "toyota": 77,
+        "share": 15.2
+      },
+      {
+        "month": "JUN",
+        "tiv": 443,
+        "toyota": 64,
+        "share": 14.4
+      },
+      {
+        "month": "JUL",
+        "tiv": 544,
+        "toyota": 100,
+        "share": 18.4
+      },
+      {
+        "month": "AUG",
+        "tiv": 659,
+        "toyota": 77,
+        "share": 11.7
+      },
+      {
+        "month": "SEP",
+        "tiv": 593,
+        "toyota": 86,
+        "share": 14.5
+      },
+      {
+        "month": "OCT",
+        "tiv": 816,
+        "toyota": 109,
+        "share": 13.4
+      },
+      {
+        "month": "NOV",
+        "tiv": 672,
+        "toyota": 102,
+        "share": 15.2
+      },
+      {
+        "month": "DEC",
+        "tiv": 672,
+        "toyota": 69,
+        "share": 10.3
+      }
+    ],
     "q1": {
       "tiv": 1979,
       "toyota": 283,
@@ -215,7 +289,7 @@
         "pct": 0
       }
     ],
-    "insight": "Irinjalakuda cluster recorded 6,969 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 3 sub-RTOs. Toyota ranks #2 overall with 799 units (11.5% market share). Q1 share stood at 14.3% compared to 9.8% in Q2.",
+    "insight": "Irinjalakuda cluster recorded 6,969 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 3 sub-RTOs. Toyota ranks #2 overall with 799 units (11.5% market share). Q1 share stood at 14.3% compared to 9.8% in Q2.",
     "subRtos": [
       {
         "code": "KL45",
@@ -395,7 +469,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,846 registrations. Top maker: MARUTI SUZUKI INDIA LTD (41.6% share). Toyota rank: #2 with 327 units (11.5% market share). Q1 share was 13.5% vs Q2 share of 11.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,846 registrations. Top maker: MARUTI SUZUKI INDIA LTD (41.6% share). Toyota rank: #2 with 327 units (11.5% market share). Q1 share was 13.5% vs Q2 share of 11.2%."
       },
       {
         "code": "KL47",
@@ -590,7 +664,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,655 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.5% share). Toyota rank: #2 with 211 units (12.7% market share). Q1 share was 17.8% vs Q2 share of 9.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,655 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.5% share). Toyota rank: #2 with 211 units (12.7% market share). Q1 share was 17.8% vs Q2 share of 9.6%."
       },
       {
         "code": "KL64",
@@ -790,7 +864,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,468 registrations. Top maker: MARUTI SUZUKI INDIA LTD (42.9% share). Toyota rank: #2 with 261 units (10.6% market share). Q1 share was 13.0% vs Q2 share of 8.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,468 registrations. Top maker: MARUTI SUZUKI INDIA LTD (42.9% share). Toyota rank: #2 with 261 units (10.6% market share). Q1 share was 13.0% vs Q2 share of 8.2%."
       }
     ]
   },
@@ -873,6 +947,80 @@
         "tiv": 1091,
         "toyota": 146,
         "share": 13.4
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 1910,
+        "toyota": 269,
+        "share": 14.1
+      },
+      {
+        "month": "FEB",
+        "tiv": 1372,
+        "toyota": 197,
+        "share": 14.4
+      },
+      {
+        "month": "MAR",
+        "tiv": 1403,
+        "toyota": 210,
+        "share": 15
+      },
+      {
+        "month": "APR",
+        "tiv": 1855,
+        "toyota": 292,
+        "share": 15.7
+      },
+      {
+        "month": "MAY",
+        "tiv": 1522,
+        "toyota": 262,
+        "share": 17.2
+      },
+      {
+        "month": "JUN",
+        "tiv": 1578,
+        "toyota": 311,
+        "share": 19.7
+      },
+      {
+        "month": "JUL",
+        "tiv": 1705,
+        "toyota": 312,
+        "share": 18.3
+      },
+      {
+        "month": "AUG",
+        "tiv": 1758,
+        "toyota": 299,
+        "share": 17
+      },
+      {
+        "month": "SEP",
+        "tiv": 1369,
+        "toyota": 220,
+        "share": 16.1
+      },
+      {
+        "month": "OCT",
+        "tiv": 2454,
+        "toyota": 321,
+        "share": 13.1
+      },
+      {
+        "month": "NOV",
+        "tiv": 2009,
+        "toyota": 358,
+        "share": 17.8
+      },
+      {
+        "month": "DEC",
+        "tiv": 1849,
+        "toyota": 323,
+        "share": 17.5
       }
     ],
     "q1": {
@@ -1022,7 +1170,7 @@
         "pct": 0
       }
     ],
-    "insight": "Kalamassery cluster recorded 18,449 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 5 sub-RTOs. Toyota ranks #2 overall with 2,503 units (13.6% market share). Q1 share stood at 15.5% compared to 13.0% in Q2.",
+    "insight": "Kalamassery cluster recorded 18,449 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 5 sub-RTOs. Toyota ranks #2 overall with 2,503 units (13.6% market share). Q1 share stood at 15.5% compared to 13.0% in Q2.",
     "subRtos": [
       {
         "code": "KL7",
@@ -1237,7 +1385,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 8,356 registrations. Top maker: MARUTI SUZUKI INDIA LTD (27.2% share). Toyota rank: #2 with 1,196 units (14.3% market share). Q1 share was 15.6% vs Q2 share of 13.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 8,356 registrations. Top maker: MARUTI SUZUKI INDIA LTD (27.2% share). Toyota rank: #2 with 1,196 units (14.3% market share). Q1 share was 15.6% vs Q2 share of 13.9%."
       },
       {
         "code": "KL40",
@@ -1422,7 +1570,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,007 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.7% share). Toyota rank: #2 with 435 units (14.5% market share). Q1 share was 17.0% vs Q2 share of 13.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,007 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.7% share). Toyota rank: #2 with 435 units (14.5% market share). Q1 share was 17.0% vs Q2 share of 13.9%."
       },
       {
         "code": "KL41",
@@ -1627,7 +1775,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,778 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.1% share). Toyota rank: #2 with 376 units (13.5% market share). Q1 share was 16.5% vs Q2 share of 11.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,778 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.1% share). Toyota rank: #2 with 376 units (13.5% market share). Q1 share was 16.5% vs Q2 share of 11.2%."
       },
       {
         "code": "KL42",
@@ -1817,7 +1965,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,349 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.6% share). Toyota rank: #2 with 250 units (10.6% market share). Q1 share was 12.0% vs Q2 share of 10.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,349 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.6% share). Toyota rank: #2 with 250 units (10.6% market share). Q1 share was 12.0% vs Q2 share of 10.8%."
       },
       {
         "code": "KL63",
@@ -2012,7 +2160,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,959 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.1% share). Toyota rank: #2 with 246 units (12.6% market share). Q1 share was 15.8% vs Q2 share of 12.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,959 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.1% share). Toyota rank: #2 with 246 units (12.6% market share). Q1 share was 15.8% vs Q2 share of 12.5%."
       }
     ]
   },
@@ -2095,6 +2243,80 @@
         "tiv": 571,
         "toyota": 32,
         "share": 5.6
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 1020,
+        "toyota": 73,
+        "share": 7.2
+      },
+      {
+        "month": "FEB",
+        "tiv": 616,
+        "toyota": 50,
+        "share": 8.1
+      },
+      {
+        "month": "MAR",
+        "tiv": 791,
+        "toyota": 65,
+        "share": 8.2
+      },
+      {
+        "month": "APR",
+        "tiv": 901,
+        "toyota": 77,
+        "share": 8.5
+      },
+      {
+        "month": "MAY",
+        "tiv": 853,
+        "toyota": 90,
+        "share": 10.6
+      },
+      {
+        "month": "JUN",
+        "tiv": 754,
+        "toyota": 78,
+        "share": 10.3
+      },
+      {
+        "month": "JUL",
+        "tiv": 731,
+        "toyota": 73,
+        "share": 10
+      },
+      {
+        "month": "AUG",
+        "tiv": 945,
+        "toyota": 83,
+        "share": 8.8
+      },
+      {
+        "month": "SEP",
+        "tiv": 831,
+        "toyota": 77,
+        "share": 9.3
+      },
+      {
+        "month": "OCT",
+        "tiv": 1200,
+        "toyota": 104,
+        "share": 8.7
+      },
+      {
+        "month": "NOV",
+        "tiv": 924,
+        "toyota": 96,
+        "share": 10.4
+      },
+      {
+        "month": "DEC",
+        "tiv": 894,
+        "toyota": 96,
+        "share": 10.7
       }
     ],
     "q1": {
@@ -2224,7 +2446,7 @@
         "pct": 0
       }
     ],
-    "insight": "Kayamkulam cluster recorded 10,185 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 5 sub-RTOs. Toyota ranks #2 overall with 803 units (7.9% market share). Q1 share stood at 8.2% compared to 8.0% in Q2.",
+    "insight": "Kayamkulam cluster recorded 10,185 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 5 sub-RTOs. Toyota ranks #2 overall with 803 units (7.9% market share). Q1 share stood at 8.2% compared to 8.0% in Q2.",
     "subRtos": [
       {
         "code": "KL4",
@@ -2414,7 +2636,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,654 registrations. Top maker: MARUTI SUZUKI INDIA LTD (43.1% share). Toyota rank: #5 with 183 units (6.9% market share). Q1 share was 7.1% vs Q2 share of 6.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,654 registrations. Top maker: MARUTI SUZUKI INDIA LTD (43.1% share). Toyota rank: #5 with 183 units (6.9% market share). Q1 share was 7.1% vs Q2 share of 6.8%."
       },
       {
         "code": "KL29",
@@ -2599,7 +2821,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,707 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.1% share). Toyota rank: #2 with 246 units (9.1% market share). Q1 share was 9.8% vs Q2 share of 8.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,707 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.1% share). Toyota rank: #2 with 246 units (9.1% market share). Q1 share was 9.8% vs Q2 share of 8.0%."
       },
       {
         "code": "KL31",
@@ -2789,7 +3011,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,664 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.0% share). Toyota rank: #2 with 224 units (8.4% market share). Q1 share was 8.5% vs Q2 share of 9.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,664 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.0% share). Toyota rank: #2 with 224 units (8.4% market share). Q1 share was 8.5% vs Q2 share of 9.0%."
       },
       {
         "code": "KL61",
@@ -2959,7 +3181,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,251 registrations. Top maker: MARUTI SUZUKI INDIA LTD (58.4% share). Toyota rank: #2 with 83 units (6.6% market share). Q1 share was 7.7% vs Q2 share of 7.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,251 registrations. Top maker: MARUTI SUZUKI INDIA LTD (58.4% share). Toyota rank: #2 with 83 units (6.6% market share). Q1 share was 7.7% vs Q2 share of 7.6%."
       },
       {
         "code": "KL66",
@@ -3119,7 +3341,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 909 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.3% share). Toyota rank: #3 with 67 units (7.4% market share). Q1 share was 6.8% vs Q2 share of 8.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 909 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.3% share). Toyota rank: #3 with 67 units (7.4% market share). Q1 share was 6.8% vs Q2 share of 8.8%."
       }
     ]
   },
@@ -3205,6 +3427,80 @@
         "tiv": 1427,
         "toyota": 104,
         "share": 7.3
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 2350,
+        "toyota": 248,
+        "share": 10.6
+      },
+      {
+        "month": "FEB",
+        "tiv": 1478,
+        "toyota": 172,
+        "share": 11.6
+      },
+      {
+        "month": "MAR",
+        "tiv": 1618,
+        "toyota": 172,
+        "share": 10.6
+      },
+      {
+        "month": "APR",
+        "tiv": 2232,
+        "toyota": 246,
+        "share": 11
+      },
+      {
+        "month": "MAY",
+        "tiv": 2010,
+        "toyota": 233,
+        "share": 11.6
+      },
+      {
+        "month": "JUN",
+        "tiv": 1841,
+        "toyota": 243,
+        "share": 13.2
+      },
+      {
+        "month": "JUL",
+        "tiv": 1826,
+        "toyota": 236,
+        "share": 12.9
+      },
+      {
+        "month": "AUG",
+        "tiv": 2344,
+        "toyota": 250,
+        "share": 10.7
+      },
+      {
+        "month": "SEP",
+        "tiv": 1968,
+        "toyota": 248,
+        "share": 12.6
+      },
+      {
+        "month": "OCT",
+        "tiv": 2761,
+        "toyota": 285,
+        "share": 10.3
+      },
+      {
+        "month": "NOV",
+        "tiv": 2255,
+        "toyota": 264,
+        "share": 11.7
+      },
+      {
+        "month": "DEC",
+        "tiv": 2440,
+        "toyota": 252,
+        "share": 10.3
       }
     ],
     "q1": {
@@ -3364,7 +3660,7 @@
         "pct": 0
       }
     ],
-    "insight": "Trivandrum Royals (Kazhakkottam & Enchakkal) cluster recorded 23,915 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 8 sub-RTOs. Toyota ranks #2 overall with 2,065 units (8.6% market share). Q1 share stood at 9.8% compared to 8.7% in Q2.",
+    "insight": "Trivandrum Royals (Kazhakkottam & Enchakkal) cluster recorded 23,915 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 8 sub-RTOs. Toyota ranks #2 overall with 2,065 units (8.6% market share). Q1 share stood at 9.8% compared to 8.7% in Q2.",
     "subRtos": [
       {
         "code": "KL1",
@@ -3594,7 +3890,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 10,122 registrations. Top maker: MARUTI SUZUKI INDIA LTD (36.9% share). Toyota rank: #2 with 1,072 units (10.6% market share). Q1 share was 12.0% vs Q2 share of 9.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 10,122 registrations. Top maker: MARUTI SUZUKI INDIA LTD (36.9% share). Toyota rank: #2 with 1,072 units (10.6% market share). Q1 share was 12.0% vs Q2 share of 9.8%."
       },
       {
         "code": "KL16",
@@ -3774,7 +4070,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,458 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.8% share). Toyota rank: #3 with 173 units (7.0% market share). Q1 share was 6.7% vs Q2 share of 8.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,458 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.8% share). Toyota rank: #3 with 173 units (7.0% market share). Q1 share was 6.7% vs Q2 share of 8.1%."
       },
       {
         "code": "KL19",
@@ -3954,7 +4250,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,483 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.9% share). Toyota rank: #3 with 108 units (7.3% market share). Q1 share was 9.1% vs Q2 share of 7.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,483 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.9% share). Toyota rank: #3 with 108 units (7.3% market share). Q1 share was 9.1% vs Q2 share of 7.2%."
       },
       {
         "code": "KL20",
@@ -4129,7 +4425,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,403 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.3% share). Toyota rank: #4 with 97 units (6.9% market share). Q1 share was 8.4% vs Q2 share of 7.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,403 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.3% share). Toyota rank: #4 with 97 units (6.9% market share). Q1 share was 8.4% vs Q2 share of 7.2%."
       },
       {
         "code": "KL21",
@@ -4324,7 +4620,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,587 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #2 with 198 units (7.7% market share). Q1 share was 9.5% vs Q2 share of 8.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,587 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #2 with 198 units (7.7% market share). Q1 share was 9.5% vs Q2 share of 8.5%."
       },
       {
         "code": "KL22",
@@ -4514,7 +4810,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,646 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.4% share). Toyota rank: #2 with 221 units (8.4% market share). Q1 share was 9.2% vs Q2 share of 9.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,646 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.4% share). Toyota rank: #2 with 221 units (8.4% market share). Q1 share was 9.2% vs Q2 share of 9.9%."
       },
       {
         "code": "KL74",
@@ -4684,7 +4980,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,553 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.4% share). Toyota rank: #7 with 76 units (4.9% market share). Q1 share was 4.8% vs Q2 share of 4.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,553 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.4% share). Toyota rank: #7 with 76 units (4.9% market share). Q1 share was 4.8% vs Q2 share of 4.6%."
       },
       {
         "code": "KL81",
@@ -4864,7 +5160,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,663 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.4% share). Toyota rank: #3 with 120 units (7.2% market share). Q1 share was 8.2% vs Q2 share of 7.4%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,663 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.4% share). Toyota rank: #3 with 120 units (7.2% market share). Q1 share was 8.2% vs Q2 share of 7.4%."
       }
     ]
   },
@@ -4948,6 +5244,80 @@
         "tiv": 1020,
         "toyota": 52,
         "share": 5.1
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 1501,
+        "toyota": 129,
+        "share": 8.6
+      },
+      {
+        "month": "FEB",
+        "tiv": 1025,
+        "toyota": 102,
+        "share": 10
+      },
+      {
+        "month": "MAR",
+        "tiv": 1097,
+        "toyota": 99,
+        "share": 9
+      },
+      {
+        "month": "APR",
+        "tiv": 1396,
+        "toyota": 121,
+        "share": 8.7
+      },
+      {
+        "month": "MAY",
+        "tiv": 1331,
+        "toyota": 153,
+        "share": 11.5
+      },
+      {
+        "month": "JUN",
+        "tiv": 1279,
+        "toyota": 160,
+        "share": 12.5
+      },
+      {
+        "month": "JUL",
+        "tiv": 1173,
+        "toyota": 124,
+        "share": 10.6
+      },
+      {
+        "month": "AUG",
+        "tiv": 1508,
+        "toyota": 137,
+        "share": 9.1
+      },
+      {
+        "month": "SEP",
+        "tiv": 1355,
+        "toyota": 119,
+        "share": 8.8
+      },
+      {
+        "month": "OCT",
+        "tiv": 1892,
+        "toyota": 155,
+        "share": 8.2
+      },
+      {
+        "month": "NOV",
+        "tiv": 1341,
+        "toyota": 140,
+        "share": 10.4
+      },
+      {
+        "month": "DEC",
+        "tiv": 1491,
+        "toyota": 156,
+        "share": 10.5
       }
     ],
     "q1": {
@@ -5092,7 +5462,7 @@
         "pct": 0
       }
     ],
-    "insight": "Kollam cluster recorded 16,025 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 6 sub-RTOs. Toyota ranks #2 overall with 1,154 units (7.2% market share). Q1 share stood at 7.1% compared to 7.8% in Q2.",
+    "insight": "Kollam cluster recorded 16,025 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 6 sub-RTOs. Toyota ranks #2 overall with 1,154 units (7.2% market share). Q1 share stood at 7.1% compared to 7.8% in Q2.",
     "subRtos": [
       {
         "code": "KL2",
@@ -5302,7 +5672,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 6,438 registrations. Top maker: MARUTI SUZUKI INDIA LTD (45.1% share). Toyota rank: #5 with 453 units (7.0% market share). Q1 share was 6.4% vs Q2 share of 7.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 6,438 registrations. Top maker: MARUTI SUZUKI INDIA LTD (45.1% share). Toyota rank: #5 with 453 units (7.0% market share). Q1 share was 6.4% vs Q2 share of 7.7%."
       },
       {
         "code": "KL23",
@@ -5497,7 +5867,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,727 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.0% share). Toyota rank: #2 with 223 units (8.2% market share). Q1 share was 8.4% vs Q2 share of 8.4%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,727 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.0% share). Toyota rank: #2 with 223 units (8.2% market share). Q1 share was 8.4% vs Q2 share of 8.4%."
       },
       {
         "code": "KL24",
@@ -5692,7 +6062,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,466 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.5% share). Toyota rank: #4 with 156 units (6.3% market share). Q1 share was 6.8% vs Q2 share of 7.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,466 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.5% share). Toyota rank: #4 with 156 units (6.3% market share). Q1 share was 6.8% vs Q2 share of 7.1%."
       },
       {
         "code": "KL25",
@@ -5877,7 +6247,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,826 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.7% share). Toyota rank: #3 with 130 units (7.1% market share). Q1 share was 8.0% vs Q2 share of 8.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,826 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.7% share). Toyota rank: #3 with 130 units (7.1% market share). Q1 share was 8.0% vs Q2 share of 8.1%."
       },
       {
         "code": "KL80",
@@ -6057,7 +6427,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,176 registrations. Top maker: MARUTI SUZUKI INDIA LTD (61.1% share). Toyota rank: #2 with 85 units (7.2% market share). Q1 share was 6.7% vs Q2 share of 6.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,176 registrations. Top maker: MARUTI SUZUKI INDIA LTD (61.1% share). Toyota rank: #2 with 85 units (7.2% market share). Q1 share was 6.7% vs Q2 share of 6.9%."
       },
       {
         "code": "KL82",
@@ -6227,7 +6597,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,392 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.5% share). Toyota rank: #2 with 107 units (7.7% market share). Q1 share was 6.8% vs Q2 share of 8.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,392 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.5% share). Toyota rank: #2 with 107 units (7.7% market share). Q1 share was 6.8% vs Q2 share of 8.7%."
       }
     ]
   },
@@ -6311,6 +6681,80 @@
         "tiv": 1175,
         "toyota": 84,
         "share": 7.1
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 1581,
+        "toyota": 142,
+        "share": 9
+      },
+      {
+        "month": "FEB",
+        "tiv": 1007,
+        "toyota": 92,
+        "share": 9.1
+      },
+      {
+        "month": "MAR",
+        "tiv": 1180,
+        "toyota": 140,
+        "share": 11.9
+      },
+      {
+        "month": "APR",
+        "tiv": 1396,
+        "toyota": 163,
+        "share": 11.7
+      },
+      {
+        "month": "MAY",
+        "tiv": 1405,
+        "toyota": 161,
+        "share": 11.5
+      },
+      {
+        "month": "JUN",
+        "tiv": 1336,
+        "toyota": 169,
+        "share": 12.6
+      },
+      {
+        "month": "JUL",
+        "tiv": 1206,
+        "toyota": 145,
+        "share": 12
+      },
+      {
+        "month": "AUG",
+        "tiv": 1400,
+        "toyota": 142,
+        "share": 10.1
+      },
+      {
+        "month": "SEP",
+        "tiv": 1338,
+        "toyota": 166,
+        "share": 12.4
+      },
+      {
+        "month": "OCT",
+        "tiv": 1939,
+        "toyota": 181,
+        "share": 9.3
+      },
+      {
+        "month": "NOV",
+        "tiv": 1653,
+        "toyota": 217,
+        "share": 13.1
+      },
+      {
+        "month": "DEC",
+        "tiv": 1652,
+        "toyota": 177,
+        "share": 10.7
       }
     ],
     "q1": {
@@ -6465,7 +6909,7 @@
         "pct": 0
       }
     ],
-    "insight": "Kottayam cluster recorded 16,749 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 6 sub-RTOs. Toyota ranks #2 overall with 1,390 units (8.3% market share). Q1 share stood at 9.1% compared to 9.0% in Q2.",
+    "insight": "Kottayam cluster recorded 16,749 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 6 sub-RTOs. Toyota ranks #2 overall with 1,390 units (8.3% market share). Q1 share stood at 9.1% compared to 9.0% in Q2.",
     "subRtos": [
       {
         "code": "KL5",
@@ -6670,7 +7114,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 5,669 registrations. Top maker: MARUTI SUZUKI INDIA LTD (44.0% share). Toyota rank: #3 with 427 units (7.5% market share). Q1 share was 8.1% vs Q2 share of 8.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 5,669 registrations. Top maker: MARUTI SUZUKI INDIA LTD (44.0% share). Toyota rank: #3 with 427 units (7.5% market share). Q1 share was 8.1% vs Q2 share of 8.1%."
       },
       {
         "code": "KL33",
@@ -6870,7 +7314,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,036 registrations. Top maker: MARUTI SUZUKI INDIA LTD (49.6% share). Toyota rank: #3 with 223 units (7.3% market share). Q1 share was 7.8% vs Q2 share of 7.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,036 registrations. Top maker: MARUTI SUZUKI INDIA LTD (49.6% share). Toyota rank: #3 with 223 units (7.3% market share). Q1 share was 7.8% vs Q2 share of 7.2%."
       },
       {
         "code": "KL34",
@@ -7050,7 +7494,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,198 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.6% share). Toyota rank: #3 with 184 units (8.4% market share). Q1 share was 8.3% vs Q2 share of 9.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,198 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.6% share). Toyota rank: #3 with 184 units (8.4% market share). Q1 share was 8.3% vs Q2 share of 9.2%."
       },
       {
         "code": "KL35",
@@ -7255,7 +7699,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,784 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.3% share). Toyota rank: #2 with 289 units (10.4% market share). Q1 share was 11.4% vs Q2 share of 12.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,784 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.3% share). Toyota rank: #2 with 289 units (10.4% market share). Q1 share was 11.4% vs Q2 share of 12.6%."
       },
       {
         "code": "KL36",
@@ -7440,7 +7884,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,593 registrations. Top maker: MARUTI SUZUKI INDIA LTD (48.3% share). Toyota rank: #4 with 113 units (7.1% market share). Q1 share was 8.5% vs Q2 share of 6.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,593 registrations. Top maker: MARUTI SUZUKI INDIA LTD (48.3% share). Toyota rank: #4 with 113 units (7.1% market share). Q1 share was 8.5% vs Q2 share of 6.5%."
       },
       {
         "code": "KL67",
@@ -7620,7 +8064,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,469 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.8% share). Toyota rank: #2 with 154 units (10.5% market share). Q1 share was 12.8% vs Q2 share of 11.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,469 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.8% share). Toyota rank: #2 with 154 units (10.5% market share). Q1 share was 12.8% vs Q2 share of 11.6%."
       }
     ]
   },
@@ -7705,6 +8149,80 @@
         "tiv": 814,
         "toyota": 77,
         "share": 9.5
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 1225,
+        "toyota": 144,
+        "share": 11.8
+      },
+      {
+        "month": "FEB",
+        "tiv": 798,
+        "toyota": 76,
+        "share": 9.5
+      },
+      {
+        "month": "MAR",
+        "tiv": 885,
+        "toyota": 89,
+        "share": 10.1
+      },
+      {
+        "month": "APR",
+        "tiv": 1042,
+        "toyota": 161,
+        "share": 15.5
+      },
+      {
+        "month": "MAY",
+        "tiv": 1130,
+        "toyota": 150,
+        "share": 13.3
+      },
+      {
+        "month": "JUN",
+        "tiv": 1081,
+        "toyota": 166,
+        "share": 15.4
+      },
+      {
+        "month": "JUL",
+        "tiv": 1059,
+        "toyota": 150,
+        "share": 14.2
+      },
+      {
+        "month": "AUG",
+        "tiv": 1105,
+        "toyota": 145,
+        "share": 13.1
+      },
+      {
+        "month": "SEP",
+        "tiv": 946,
+        "toyota": 150,
+        "share": 15.9
+      },
+      {
+        "month": "OCT",
+        "tiv": 1459,
+        "toyota": 167,
+        "share": 11.4
+      },
+      {
+        "month": "NOV",
+        "tiv": 1269,
+        "toyota": 180,
+        "share": 14.2
+      },
+      {
+        "month": "DEC",
+        "tiv": 1145,
+        "toyota": 136,
+        "share": 11.9
       }
     ],
     "q1": {
@@ -7854,7 +8372,7 @@
         "pct": 0
       }
     ],
-    "insight": "Muvattupuzha cluster recorded 12,558 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 7 sub-RTOs. Toyota ranks #2 overall with 1,175 units (9.4% market share). Q1 share stood at 10.7% compared to 9.6% in Q2.",
+    "insight": "Muvattupuzha cluster recorded 12,558 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 7 sub-RTOs. Toyota ranks #2 overall with 1,175 units (9.4% market share). Q1 share stood at 10.7% compared to 9.6% in Q2.",
     "subRtos": [
       {
         "code": "KL6",
@@ -8029,7 +8547,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,285 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.8% share). Toyota rank: #5 with 79 units (6.1% market share). Q1 share was 5.8% vs Q2 share of 6.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,285 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.8% share). Toyota rank: #5 with 79 units (6.1% market share). Q1 share was 5.8% vs Q2 share of 6.5%."
       },
       {
         "code": "KL17",
@@ -8229,7 +8747,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,630 registrations. Top maker: MARUTI SUZUKI INDIA LTD (44.2% share). Toyota rank: #2 with 434 units (12.0% market share). Q1 share was 14.8% vs Q2 share of 11.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,630 registrations. Top maker: MARUTI SUZUKI INDIA LTD (44.2% share). Toyota rank: #2 with 434 units (12.0% market share). Q1 share was 14.8% vs Q2 share of 11.9%."
       },
       {
         "code": "KL37",
@@ -8389,7 +8907,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,168 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #6 with 66 units (5.7% market share). Q1 share was 7.1% vs Q2 share of 5.3%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,168 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #6 with 66 units (5.7% market share). Q1 share was 7.1% vs Q2 share of 5.3%."
       },
       {
         "code": "KL38",
@@ -8574,7 +9092,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,268 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.9% share). Toyota rank: #3 with 198 units (8.7% market share). Q1 share was 10.4% vs Q2 share of 9.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,268 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.9% share). Toyota rank: #3 with 198 units (8.7% market share). Q1 share was 10.4% vs Q2 share of 9.0%."
       },
       {
         "code": "KL44",
@@ -8759,7 +9277,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,710 registrations. Top maker: MARUTI SUZUKI INDIA LTD (45.8% share). Toyota rank: #2 with 208 units (12.2% market share). Q1 share was 13.0% vs Q2 share of 13.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,710 registrations. Top maker: MARUTI SUZUKI INDIA LTD (45.8% share). Toyota rank: #2 with 208 units (12.2% market share). Q1 share was 13.0% vs Q2 share of 13.6%."
       },
       {
         "code": "KL68",
@@ -8929,7 +9447,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 743 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.4% share). Toyota rank: #3 with 55 units (7.4% market share). Q1 share was 8.5% vs Q2 share of 8.3%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 743 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.4% share). Toyota rank: #3 with 55 units (7.4% market share). Q1 share was 8.5% vs Q2 share of 8.3%."
       },
       {
         "code": "KL69",
@@ -9129,7 +9647,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,754 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.7% share). Toyota rank: #4 with 135 units (7.7% market share). Q1 share was 7.1% vs Q2 share of 8.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,754 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.7% share). Toyota rank: #4 with 135 units (7.7% market share). Q1 share was 7.1% vs Q2 share of 8.1%."
       }
     ]
   },
@@ -9210,6 +9728,80 @@
         "tiv": 539,
         "toyota": 33,
         "share": 6.1
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 720,
+        "toyota": 58,
+        "share": 8.1
+      },
+      {
+        "month": "FEB",
+        "tiv": 532,
+        "toyota": 71,
+        "share": 13.3
+      },
+      {
+        "month": "MAR",
+        "tiv": 593,
+        "toyota": 51,
+        "share": 8.6
+      },
+      {
+        "month": "APR",
+        "tiv": 698,
+        "toyota": 72,
+        "share": 10.3
+      },
+      {
+        "month": "MAY",
+        "tiv": 585,
+        "toyota": 55,
+        "share": 9.4
+      },
+      {
+        "month": "JUN",
+        "tiv": 559,
+        "toyota": 69,
+        "share": 12.3
+      },
+      {
+        "month": "JUL",
+        "tiv": 639,
+        "toyota": 73,
+        "share": 11.4
+      },
+      {
+        "month": "AUG",
+        "tiv": 704,
+        "toyota": 67,
+        "share": 9.5
+      },
+      {
+        "month": "SEP",
+        "tiv": 592,
+        "toyota": 73,
+        "share": 12.3
+      },
+      {
+        "month": "OCT",
+        "tiv": 1100,
+        "toyota": 96,
+        "share": 8.7
+      },
+      {
+        "month": "NOV",
+        "tiv": 803,
+        "toyota": 94,
+        "share": 11.7
+      },
+      {
+        "month": "DEC",
+        "tiv": 801,
+        "toyota": 89,
+        "share": 11.1
       }
     ],
     "q1": {
@@ -9349,7 +9941,7 @@
         "pct": 0
       }
     ],
-    "insight": "Nettoor cluster recorded 7,836 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 3 sub-RTOs. Toyota ranks #3 overall with 636 units (8.1% market share). Q1 share stood at 9.7% compared to 7.9% in Q2.",
+    "insight": "Nettoor cluster recorded 7,836 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 3 sub-RTOs. Toyota ranks #3 overall with 636 units (8.1% market share). Q1 share stood at 9.7% compared to 7.9% in Q2.",
     "subRtos": [
       {
         "code": "KL32",
@@ -9544,7 +10136,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,050 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.1% share). Toyota rank: #5 with 197 units (6.5% market share). Q1 share was 7.6% vs Q2 share of 5.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,050 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.1% share). Toyota rank: #5 with 197 units (6.5% market share). Q1 share was 7.6% vs Q2 share of 5.7%."
       },
       {
         "code": "KL39",
@@ -9749,7 +10341,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,258 registrations. Top maker: MARUTI SUZUKI INDIA LTD (36.0% share). Toyota rank: #2 with 303 units (9.3% market share). Q1 share was 11.4% vs Q2 share of 9.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,258 registrations. Top maker: MARUTI SUZUKI INDIA LTD (36.0% share). Toyota rank: #2 with 303 units (9.3% market share). Q1 share was 11.4% vs Q2 share of 9.9%."
       },
       {
         "code": "KL43",
@@ -9929,7 +10521,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,528 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.7% share). Toyota rank: #3 with 136 units (8.9% market share). Q1 share was 9.9% vs Q2 share of 7.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,528 registrations. Top maker: MARUTI SUZUKI INDIA LTD (38.7% share). Toyota rank: #3 with 136 units (8.9% market share). Q1 share was 9.9% vs Q2 share of 7.8%."
       }
     ]
   },
@@ -10039,6 +10631,80 @@
         "tiv": 5554,
         "toyota": 313,
         "share": 5.6
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "FEB",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "MAR",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "APR",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "MAY",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "JUN",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "JUL",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "AUG",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "SEP",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "OCT",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "NOV",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
+      },
+      {
+        "month": "DEC",
+        "tiv": 0,
+        "toyota": 0,
+        "share": 0
       }
     ],
     "q1": {
@@ -10203,7 +10869,7 @@
         "pct": 0
       }
     ],
-    "insight": "Other / Unmapped cluster recorded 88,734 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 32 sub-RTOs. Toyota ranks #3 overall with 7,482 units (8.4% market share). Q1 share stood at 10.2% compared to 8.9% in Q2.",
+    "insight": "Other / Unmapped cluster recorded 88,734 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 32 sub-RTOs. Toyota ranks #3 overall with 7,482 units (8.4% market share). Q1 share stood at 10.2% compared to 8.9% in Q2.",
     "subRtos": [
       {
         "code": "KL9",
@@ -10408,7 +11074,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,398 registrations. Top maker: MARUTI SUZUKI INDIA LTD (42.5% share). Toyota rank: #7 with 182 units (5.4% market share). Q1 share was 7.3% vs Q2 share of 5.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,398 registrations. Top maker: MARUTI SUZUKI INDIA LTD (42.5% share). Toyota rank: #7 with 182 units (5.4% market share). Q1 share was 7.3% vs Q2 share of 5.6%."
       },
       {
         "code": "KL10",
@@ -10598,7 +11264,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,182 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.4% share). Toyota rank: #3 with 270 units (8.5% market share). Q1 share was 10.3% vs Q2 share of 8.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,182 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.4% share). Toyota rank: #3 with 270 units (8.5% market share). Q1 share was 10.3% vs Q2 share of 8.7%."
       },
       {
         "code": "KL11",
@@ -10823,7 +11489,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 4,643 registrations. Top maker: MARUTI SUZUKI INDIA LTD (33.7% share). Toyota rank: #2 with 543 units (11.7% market share). Q1 share was 13.2% vs Q2 share of 10.4%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 4,643 registrations. Top maker: MARUTI SUZUKI INDIA LTD (33.7% share). Toyota rank: #2 with 543 units (11.7% market share). Q1 share was 13.2% vs Q2 share of 10.4%."
       },
       {
         "code": "KL12",
@@ -11003,7 +11669,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,579 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #3 with 135 units (8.5% market share). Q1 share was 8.6% vs Q2 share of 9.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,579 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #3 with 135 units (8.5% market share). Q1 share was 8.6% vs Q2 share of 9.5%."
       },
       {
         "code": "KL13",
@@ -11208,7 +11874,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 4,859 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.1% share). Toyota rank: #3 with 381 units (7.8% market share). Q1 share was 9.8% vs Q2 share of 7.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 4,859 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.1% share). Toyota rank: #3 with 381 units (7.8% market share). Q1 share was 9.8% vs Q2 share of 7.8%."
       },
       {
         "code": "KL14",
@@ -11393,7 +12059,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 5,028 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #5 with 314 units (6.2% market share). Q1 share was 8.4% vs Q2 share of 6.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 5,028 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #5 with 314 units (6.2% market share). Q1 share was 8.4% vs Q2 share of 6.9%."
       },
       {
         "code": "KL15",
@@ -11483,7 +12149,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1 registrations. Top maker: TOYOTA KIRLOSKAR MOTOR PVT LTD (100.0% share). Toyota rank: #1 with 1 units (100.0% market share). Q1 share was 100.0% vs Q2 share of 0.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1 registrations. Top maker: TOYOTA KIRLOSKAR MOTOR PVT LTD (100.0% share). Toyota rank: #1 with 1 units (100.0% market share). Q1 share was 100.0% vs Q2 share of 0.0%."
       },
       {
         "code": "KL18",
@@ -11663,7 +12329,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,624 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.3% share). Toyota rank: #2 with 487 units (13.4% market share). Q1 share was 17.2% vs Q2 share of 14.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,624 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.3% share). Toyota rank: #2 with 487 units (13.4% market share). Q1 share was 17.2% vs Q2 share of 14.7%."
       },
       {
         "code": "KL49",
@@ -11843,7 +12509,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,790 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.4% share). Toyota rank: #6 with 111 units (6.2% market share). Q1 share was 6.3% vs Q2 share of 7.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,790 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.4% share). Toyota rank: #6 with 111 units (6.2% market share). Q1 share was 6.3% vs Q2 share of 7.0%."
       },
       {
         "code": "KL50",
@@ -12028,7 +12694,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,776 registrations. Top maker: MARUTI SUZUKI INDIA LTD (57.7% share). Toyota rank: #2 with 151 units (8.5% market share). Q1 share was 12.7% vs Q2 share of 9.3%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,776 registrations. Top maker: MARUTI SUZUKI INDIA LTD (57.7% share). Toyota rank: #2 with 151 units (8.5% market share). Q1 share was 12.7% vs Q2 share of 9.3%."
       },
       {
         "code": "KL51",
@@ -12208,7 +12874,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,378 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.7% share). Toyota rank: #5 with 140 units (5.9% market share). Q1 share was 7.3% vs Q2 share of 6.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,378 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.7% share). Toyota rank: #5 with 140 units (5.9% market share). Q1 share was 7.3% vs Q2 share of 6.1%."
       },
       {
         "code": "KL52",
@@ -12383,7 +13049,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,795 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.0% share). Toyota rank: #2 with 278 units (9.9% market share). Q1 share was 11.2% vs Q2 share of 11.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,795 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.0% share). Toyota rank: #2 with 278 units (9.9% market share). Q1 share was 11.2% vs Q2 share of 11.7%."
       },
       {
         "code": "KL53",
@@ -12568,7 +13234,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,121 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.3% share). Toyota rank: #2 with 222 units (7.1% market share). Q1 share was 10.8% vs Q2 share of 6.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,121 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.3% share). Toyota rank: #2 with 222 units (7.1% market share). Q1 share was 10.8% vs Q2 share of 6.9%."
       },
       {
         "code": "KL54",
@@ -12748,7 +13414,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,866 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.6% share). Toyota rank: #2 with 164 units (8.8% market share). Q1 share was 11.7% vs Q2 share of 8.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,866 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.6% share). Toyota rank: #2 with 164 units (8.8% market share). Q1 share was 11.7% vs Q2 share of 8.9%."
       },
       {
         "code": "KL55",
@@ -12953,7 +13619,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 5,010 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.7% share). Toyota rank: #2 with 508 units (10.1% market share). Q1 share was 11.5% vs Q2 share of 10.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 5,010 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.7% share). Toyota rank: #2 with 508 units (10.1% market share). Q1 share was 11.5% vs Q2 share of 10.8%."
       },
       {
         "code": "KL56",
@@ -13128,7 +13794,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,838 registrations. Top maker: MARUTI SUZUKI INDIA LTD (49.6% share). Toyota rank: #3 with 156 units (8.5% market share). Q1 share was 9.2% vs Q2 share of 9.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,838 registrations. Top maker: MARUTI SUZUKI INDIA LTD (49.6% share). Toyota rank: #3 with 156 units (8.5% market share). Q1 share was 9.2% vs Q2 share of 9.5%."
       },
       {
         "code": "KL57",
@@ -13313,7 +13979,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,264 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.1% share). Toyota rank: #2 with 343 units (10.5% market share). Q1 share was 11.5% vs Q2 share of 12.3%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,264 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.1% share). Toyota rank: #2 with 343 units (10.5% market share). Q1 share was 11.5% vs Q2 share of 12.3%."
       },
       {
         "code": "KL58",
@@ -13513,7 +14179,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 5,077 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.2% share). Toyota rank: #2 with 474 units (9.3% market share). Q1 share was 11.2% vs Q2 share of 9.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 5,077 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.2% share). Toyota rank: #2 with 474 units (9.3% market share). Q1 share was 11.2% vs Q2 share of 9.9%."
       },
       {
         "code": "KL59",
@@ -13698,7 +14364,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,366 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.2% share). Toyota rank: #3 with 240 units (7.1% market share). Q1 share was 8.6% vs Q2 share of 7.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,366 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.2% share). Toyota rank: #3 with 240 units (7.1% market share). Q1 share was 8.6% vs Q2 share of 7.6%."
       },
       {
         "code": "KL60",
@@ -13883,7 +14549,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,929 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.4% share). Toyota rank: #3 with 294 units (7.5% market share). Q1 share was 9.6% vs Q2 share of 7.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,929 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.4% share). Toyota rank: #3 with 294 units (7.5% market share). Q1 share was 9.6% vs Q2 share of 7.0%."
       },
       {
         "code": "KL65",
@@ -14083,7 +14749,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 3,873 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.6% share). Toyota rank: #2 with 322 units (8.3% market share). Q1 share was 11.6% vs Q2 share of 9.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 3,873 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.6% share). Toyota rank: #2 with 322 units (8.3% market share). Q1 share was 11.6% vs Q2 share of 9.0%."
       },
       {
         "code": "KL70",
@@ -14258,7 +14924,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,451 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.9% share). Toyota rank: #6 with 81 units (5.6% market share). Q1 share was 6.2% vs Q2 share of 6.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,451 registrations. Top maker: MARUTI SUZUKI INDIA LTD (47.9% share). Toyota rank: #6 with 81 units (5.6% market share). Q1 share was 6.2% vs Q2 share of 6.1%."
       },
       {
         "code": "KL71",
@@ -14438,7 +15104,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,892 registrations. Top maker: MARUTI SUZUKI INDIA LTD (59.0% share). Toyota rank: #2 with 239 units (8.3% market share). Q1 share was 10.2% vs Q2 share of 8.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,892 registrations. Top maker: MARUTI SUZUKI INDIA LTD (59.0% share). Toyota rank: #2 with 239 units (8.3% market share). Q1 share was 10.2% vs Q2 share of 8.0%."
       },
       {
         "code": "KL72",
@@ -14608,7 +15274,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,508 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #2 with 182 units (12.1% market share). Q1 share was 11.8% vs Q2 share of 15.3%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,508 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.2% share). Toyota rank: #2 with 182 units (12.1% market share). Q1 share was 11.8% vs Q2 share of 15.3%."
       },
       {
         "code": "KL73",
@@ -14798,7 +15464,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,922 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #4 with 150 units (7.8% market share). Q1 share was 8.6% vs Q2 share of 10.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,922 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #4 with 150 units (7.8% market share). Q1 share was 8.6% vs Q2 share of 10.5%."
       },
       {
         "code": "KL76",
@@ -14963,7 +15629,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,005 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.9% share). Toyota rank: #3 with 168 units (8.4% market share). Q1 share was 10.0% vs Q2 share of 8.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,005 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.9% share). Toyota rank: #3 with 168 units (8.4% market share). Q1 share was 10.0% vs Q2 share of 8.9%."
       },
       {
         "code": "KL77",
@@ -15143,7 +15809,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,970 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.1% share). Toyota rank: #2 with 233 units (11.8% market share). Q1 share was 13.2% vs Q2 share of 12.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,970 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.1% share). Toyota rank: #2 with 233 units (11.8% market share). Q1 share was 13.2% vs Q2 share of 12.9%."
       },
       {
         "code": "KL78",
@@ -15308,7 +15974,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,423 registrations. Top maker: MARUTI SUZUKI INDIA LTD (57.2% share). Toyota rank: #5 with 150 units (6.2% market share). Q1 share was 7.2% vs Q2 share of 6.4%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,423 registrations. Top maker: MARUTI SUZUKI INDIA LTD (57.2% share). Toyota rank: #5 with 150 units (6.2% market share). Q1 share was 7.2% vs Q2 share of 6.4%."
       },
       {
         "code": "KL79",
@@ -15463,7 +16129,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,131 registrations. Top maker: MARUTI SUZUKI INDIA LTD (59.8% share). Toyota rank: #5 with 61 units (5.4% market share). Q1 share was 5.5% vs Q2 share of 5.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,131 registrations. Top maker: MARUTI SUZUKI INDIA LTD (59.8% share). Toyota rank: #5 with 61 units (5.4% market share). Q1 share was 5.5% vs Q2 share of 5.9%."
       },
       {
         "code": "KL84",
@@ -15633,7 +16299,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,705 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.4% share). Toyota rank: #3 with 217 units (8.0% market share). Q1 share was 9.8% vs Q2 share of 8.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,705 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.4% share). Toyota rank: #3 with 217 units (8.0% market share). Q1 share was 9.8% vs Q2 share of 8.6%."
       },
       {
         "code": "KL85",
@@ -15818,7 +16484,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,877 registrations. Top maker: MARUTI SUZUKI INDIA LTD (45.2% share). Toyota rank: #4 with 159 units (8.5% market share). Q1 share was 10.7% vs Q2 share of 8.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,877 registrations. Top maker: MARUTI SUZUKI INDIA LTD (45.2% share). Toyota rank: #4 with 159 units (8.5% market share). Q1 share was 10.7% vs Q2 share of 8.5%."
       },
       {
         "code": "KL86",
@@ -15998,7 +16664,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,453 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.7% share). Toyota rank: #6 with 126 units (5.1% market share). Q1 share was 5.5% vs Q2 share of 4.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,453 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.7% share). Toyota rank: #6 with 126 units (5.1% market share). Q1 share was 5.5% vs Q2 share of 4.9%."
       }
     ]
   },
@@ -16080,6 +16746,80 @@
         "tiv": 436,
         "toyota": 35,
         "share": 8
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 677,
+        "toyota": 56,
+        "share": 8.3
+      },
+      {
+        "month": "FEB",
+        "tiv": 463,
+        "toyota": 64,
+        "share": 13.8
+      },
+      {
+        "month": "MAR",
+        "tiv": 554,
+        "toyota": 64,
+        "share": 11.6
+      },
+      {
+        "month": "APR",
+        "tiv": 617,
+        "toyota": 65,
+        "share": 10.5
+      },
+      {
+        "month": "MAY",
+        "tiv": 622,
+        "toyota": 78,
+        "share": 12.5
+      },
+      {
+        "month": "JUN",
+        "tiv": 540,
+        "toyota": 77,
+        "share": 14.3
+      },
+      {
+        "month": "JUL",
+        "tiv": 590,
+        "toyota": 87,
+        "share": 14.7
+      },
+      {
+        "month": "AUG",
+        "tiv": 752,
+        "toyota": 79,
+        "share": 10.5
+      },
+      {
+        "month": "SEP",
+        "tiv": 564,
+        "toyota": 48,
+        "share": 8.5
+      },
+      {
+        "month": "OCT",
+        "tiv": 886,
+        "toyota": 85,
+        "share": 9.6
+      },
+      {
+        "month": "NOV",
+        "tiv": 633,
+        "toyota": 85,
+        "share": 13.4
+      },
+      {
+        "month": "DEC",
+        "tiv": 629,
+        "toyota": 78,
+        "share": 12.4
       }
     ],
     "q1": {
@@ -16219,7 +16959,7 @@
         "pct": 0
       }
     ],
-    "insight": "Pathanamthitta cluster recorded 6,909 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 4 sub-RTOs. Toyota ranks #2 overall with 608 units (8.8% market share). Q1 share stood at 10.5% compared to 8.6% in Q2.",
+    "insight": "Pathanamthitta cluster recorded 6,909 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 4 sub-RTOs. Toyota ranks #2 overall with 608 units (8.8% market share). Q1 share stood at 10.5% compared to 8.6% in Q2.",
     "subRtos": [
       {
         "code": "KL3",
@@ -16424,7 +17164,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,010 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.2% share). Toyota rank: #2 with 199 units (9.9% market share). Q1 share was 10.8% vs Q2 share of 7.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,010 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.2% share). Toyota rank: #2 with 199 units (9.9% market share). Q1 share was 10.8% vs Q2 share of 7.9%."
       },
       {
         "code": "KL26",
@@ -16619,7 +17359,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,160 registrations. Top maker: MARUTI SUZUKI INDIA LTD (58.0% share). Toyota rank: #2 with 152 units (7.0% market share). Q1 share was 9.1% vs Q2 share of 7.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,160 registrations. Top maker: MARUTI SUZUKI INDIA LTD (58.0% share). Toyota rank: #2 with 152 units (7.0% market share). Q1 share was 9.1% vs Q2 share of 7.8%."
       },
       {
         "code": "KL62",
@@ -16804,7 +17544,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,326 registrations. Top maker: MARUTI SUZUKI INDIA LTD (60.9% share). Toyota rank: #2 with 126 units (9.5% market share). Q1 share was 11.9% vs Q2 share of 10.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,326 registrations. Top maker: MARUTI SUZUKI INDIA LTD (60.9% share). Toyota rank: #2 with 126 units (9.5% market share). Q1 share was 11.9% vs Q2 share of 10.2%."
       },
       {
         "code": "KL83",
@@ -16974,7 +17714,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,413 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.3% share). Toyota rank: #2 with 131 units (9.3% market share). Q1 share was 11.1% vs Q2 share of 9.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,413 registrations. Top maker: MARUTI SUZUKI INDIA LTD (56.3% share). Toyota rank: #2 with 131 units (9.3% market share). Q1 share was 11.1% vs Q2 share of 9.0%."
       }
     ]
   },
@@ -17055,6 +17795,80 @@
         "tiv": 321,
         "toyota": 16,
         "share": 5
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 500,
+        "toyota": 40,
+        "share": 8
+      },
+      {
+        "month": "FEB",
+        "tiv": 352,
+        "toyota": 41,
+        "share": 11.6
+      },
+      {
+        "month": "MAR",
+        "tiv": 375,
+        "toyota": 42,
+        "share": 11.2
+      },
+      {
+        "month": "APR",
+        "tiv": 368,
+        "toyota": 35,
+        "share": 9.5
+      },
+      {
+        "month": "MAY",
+        "tiv": 410,
+        "toyota": 49,
+        "share": 12
+      },
+      {
+        "month": "JUN",
+        "tiv": 406,
+        "toyota": 48,
+        "share": 11.8
+      },
+      {
+        "month": "JUL",
+        "tiv": 395,
+        "toyota": 52,
+        "share": 13.2
+      },
+      {
+        "month": "AUG",
+        "tiv": 442,
+        "toyota": 54,
+        "share": 12.2
+      },
+      {
+        "month": "SEP",
+        "tiv": 401,
+        "toyota": 44,
+        "share": 11
+      },
+      {
+        "month": "OCT",
+        "tiv": 562,
+        "toyota": 55,
+        "share": 9.8
+      },
+      {
+        "month": "NOV",
+        "tiv": 458,
+        "toyota": 56,
+        "share": 12.2
+      },
+      {
+        "month": "DEC",
+        "tiv": 439,
+        "toyota": 54,
+        "share": 12.3
       }
     ],
     "q1": {
@@ -17184,7 +17998,7 @@
         "pct": 0
       }
     ],
-    "insight": "Thiruvalla cluster recorded 4,737 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 3 sub-RTOs. Toyota ranks #2 overall with 429 units (9.1% market share). Q1 share stood at 8.2% compared to 10.3% in Q2.",
+    "insight": "Thiruvalla cluster recorded 4,737 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 3 sub-RTOs. Toyota ranks #2 overall with 429 units (9.1% market share). Q1 share stood at 8.2% compared to 10.3% in Q2.",
     "subRtos": [
       {
         "code": "KL27",
@@ -17369,7 +18183,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,033 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.6% share). Toyota rank: #2 with 208 units (10.2% market share). Q1 share was 10.1% vs Q2 share of 11.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,033 registrations. Top maker: MARUTI SUZUKI INDIA LTD (53.6% share). Toyota rank: #2 with 208 units (10.2% market share). Q1 share was 10.1% vs Q2 share of 11.8%."
       },
       {
         "code": "KL28",
@@ -17559,7 +18373,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,158 registrations. Top maker: MARUTI SUZUKI INDIA LTD (57.7% share). Toyota rank: #2 with 88 units (7.6% market share). Q1 share was 6.4% vs Q2 share of 9.3%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,158 registrations. Top maker: MARUTI SUZUKI INDIA LTD (57.7% share). Toyota rank: #2 with 88 units (7.6% market share). Q1 share was 6.4% vs Q2 share of 9.3%."
       },
       {
         "code": "KL30",
@@ -17734,7 +18548,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,546 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.7% share). Toyota rank: #2 with 133 units (8.6% market share). Q1 share was 7.2% vs Q2 share of 8.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,546 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.7% share). Toyota rank: #2 with 133 units (8.6% market share). Q1 share was 7.2% vs Q2 share of 8.9%."
       }
     ]
   },
@@ -17816,6 +18630,80 @@
         "tiv": 847,
         "toyota": 72,
         "share": 8.5
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 1244,
+        "toyota": 90,
+        "share": 7.2
+      },
+      {
+        "month": "FEB",
+        "tiv": 820,
+        "toyota": 83,
+        "share": 10.1
+      },
+      {
+        "month": "MAR",
+        "tiv": 938,
+        "toyota": 93,
+        "share": 9.9
+      },
+      {
+        "month": "APR",
+        "tiv": 1133,
+        "toyota": 113,
+        "share": 10
+      },
+      {
+        "month": "MAY",
+        "tiv": 901,
+        "toyota": 99,
+        "share": 11
+      },
+      {
+        "month": "JUN",
+        "tiv": 986,
+        "toyota": 142,
+        "share": 14.4
+      },
+      {
+        "month": "JUL",
+        "tiv": 965,
+        "toyota": 119,
+        "share": 12.3
+      },
+      {
+        "month": "AUG",
+        "tiv": 1166,
+        "toyota": 90,
+        "share": 7.7
+      },
+      {
+        "month": "SEP",
+        "tiv": 1114,
+        "toyota": 129,
+        "share": 11.6
+      },
+      {
+        "month": "OCT",
+        "tiv": 1686,
+        "toyota": 121,
+        "share": 7.2
+      },
+      {
+        "month": "NOV",
+        "tiv": 1251,
+        "toyota": 138,
+        "share": 11
+      },
+      {
+        "month": "DEC",
+        "tiv": 1293,
+        "toyota": 118,
+        "share": 9.1
       }
     ],
     "q1": {
@@ -17950,7 +18838,7 @@
         "pct": 0
       }
     ],
-    "insight": "Trichur cluster recorded 12,937 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 4 sub-RTOs. Toyota ranks #2 overall with 982 units (7.6% market share). Q1 share stood at 8.0% compared to 7.2% in Q2.",
+    "insight": "Trichur cluster recorded 12,937 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 4 sub-RTOs. Toyota ranks #2 overall with 982 units (7.6% market share). Q1 share stood at 8.0% compared to 7.2% in Q2.",
     "subRtos": [
       {
         "code": "KL8",
@@ -18150,7 +19038,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 5,371 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.3% share). Toyota rank: #4 with 401 units (7.5% market share). Q1 share was 8.4% vs Q2 share of 7.7%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 5,371 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.3% share). Toyota rank: #4 with 401 units (7.5% market share). Q1 share was 8.4% vs Q2 share of 7.7%."
       },
       {
         "code": "KL46",
@@ -18340,7 +19228,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,850 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.0% share). Toyota rank: #2 with 233 units (8.2% market share). Q1 share was 7.7% vs Q2 share of 8.0%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,850 registrations. Top maker: MARUTI SUZUKI INDIA LTD (51.0% share). Toyota rank: #2 with 233 units (8.2% market share). Q1 share was 7.7% vs Q2 share of 8.0%."
       },
       {
         "code": "KL48",
@@ -18520,7 +19408,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,625 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.3% share). Toyota rank: #4 with 180 units (6.9% market share). Q1 share was 6.4% vs Q2 share of 5.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,625 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.3% share). Toyota rank: #4 with 180 units (6.9% market share). Q1 share was 6.4% vs Q2 share of 5.6%."
       },
       {
         "code": "KL75",
@@ -18720,7 +19608,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,091 registrations. Top maker: MARUTI SUZUKI INDIA LTD (44.3% share). Toyota rank: #3 with 168 units (8.0% market share). Q1 share was 9.1% vs Q2 share of 6.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,091 registrations. Top maker: MARUTI SUZUKI INDIA LTD (44.3% share). Toyota rank: #3 with 168 units (8.0% market share). Q1 share was 9.1% vs Q2 share of 6.9%."
       }
     ]
   },
@@ -18806,6 +19694,80 @@
         "tiv": 1427,
         "toyota": 104,
         "share": 7.3
+      }
+    ],
+    "monthly2025": [
+      {
+        "month": "JAN",
+        "tiv": 2350,
+        "toyota": 248,
+        "share": 10.6
+      },
+      {
+        "month": "FEB",
+        "tiv": 1478,
+        "toyota": 172,
+        "share": 11.6
+      },
+      {
+        "month": "MAR",
+        "tiv": 1618,
+        "toyota": 172,
+        "share": 10.6
+      },
+      {
+        "month": "APR",
+        "tiv": 2232,
+        "toyota": 246,
+        "share": 11
+      },
+      {
+        "month": "MAY",
+        "tiv": 2010,
+        "toyota": 233,
+        "share": 11.6
+      },
+      {
+        "month": "JUN",
+        "tiv": 1841,
+        "toyota": 243,
+        "share": 13.2
+      },
+      {
+        "month": "JUL",
+        "tiv": 1826,
+        "toyota": 236,
+        "share": 12.9
+      },
+      {
+        "month": "AUG",
+        "tiv": 2344,
+        "toyota": 250,
+        "share": 10.7
+      },
+      {
+        "month": "SEP",
+        "tiv": 1968,
+        "toyota": 248,
+        "share": 12.6
+      },
+      {
+        "month": "OCT",
+        "tiv": 2761,
+        "toyota": 285,
+        "share": 10.3
+      },
+      {
+        "month": "NOV",
+        "tiv": 2255,
+        "toyota": 264,
+        "share": 11.7
+      },
+      {
+        "month": "DEC",
+        "tiv": 2440,
+        "toyota": 252,
+        "share": 10.3
       }
     ],
     "q1": {
@@ -18965,7 +19927,7 @@
         "pct": 0
       }
     ],
-    "insight": "Trivandrum Royals (Kazhakkottam & Enchakkal) cluster recorded 23,915 total industry registrations in 2026 JAN-OCT (Through Oct 27, 2026) across 8 sub-RTOs. Toyota ranks #2 overall with 2,065 units (8.6% market share). Q1 share stood at 9.8% compared to 8.7% in Q2.",
+    "insight": "Trivandrum Royals (Kazhakkottam & Enchakkal) cluster recorded 23,915 total industry registrations in 2026 JAN-OCT (Through Oct 29, 2026) across 8 sub-RTOs. Toyota ranks #2 overall with 2,065 units (8.6% market share). Q1 share stood at 9.8% compared to 8.7% in Q2.",
     "subRtos": [
       {
         "code": "KL1",
@@ -19195,7 +20157,7 @@
           }
         ],
         "noteType": "note-green",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 10,122 registrations. Top maker: MARUTI SUZUKI INDIA LTD (36.9% share). Toyota rank: #2 with 1,072 units (10.6% market share). Q1 share was 12.0% vs Q2 share of 9.8%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 10,122 registrations. Top maker: MARUTI SUZUKI INDIA LTD (36.9% share). Toyota rank: #2 with 1,072 units (10.6% market share). Q1 share was 12.0% vs Q2 share of 9.8%."
       },
       {
         "code": "KL16",
@@ -19375,7 +20337,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,458 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.8% share). Toyota rank: #3 with 173 units (7.0% market share). Q1 share was 6.7% vs Q2 share of 8.1%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,458 registrations. Top maker: MARUTI SUZUKI INDIA LTD (52.8% share). Toyota rank: #3 with 173 units (7.0% market share). Q1 share was 6.7% vs Q2 share of 8.1%."
       },
       {
         "code": "KL19",
@@ -19555,7 +20517,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,483 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.9% share). Toyota rank: #3 with 108 units (7.3% market share). Q1 share was 9.1% vs Q2 share of 7.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,483 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.9% share). Toyota rank: #3 with 108 units (7.3% market share). Q1 share was 9.1% vs Q2 share of 7.2%."
       },
       {
         "code": "KL20",
@@ -19730,7 +20692,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,403 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.3% share). Toyota rank: #4 with 97 units (6.9% market share). Q1 share was 8.4% vs Q2 share of 7.2%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,403 registrations. Top maker: MARUTI SUZUKI INDIA LTD (46.3% share). Toyota rank: #4 with 97 units (6.9% market share). Q1 share was 8.4% vs Q2 share of 7.2%."
       },
       {
         "code": "KL21",
@@ -19925,7 +20887,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,587 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #2 with 198 units (7.7% market share). Q1 share was 9.5% vs Q2 share of 8.5%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,587 registrations. Top maker: MARUTI SUZUKI INDIA LTD (55.0% share). Toyota rank: #2 with 198 units (7.7% market share). Q1 share was 9.5% vs Q2 share of 8.5%."
       },
       {
         "code": "KL22",
@@ -20115,7 +21077,7 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 2,646 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.4% share). Toyota rank: #2 with 221 units (8.4% market share). Q1 share was 9.2% vs Q2 share of 9.9%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 2,646 registrations. Top maker: MARUTI SUZUKI INDIA LTD (39.4% share). Toyota rank: #2 with 221 units (8.4% market share). Q1 share was 9.2% vs Q2 share of 9.9%."
       },
       {
         "code": "KL74",
@@ -20285,7 +21247,7 @@
           }
         ],
         "noteType": "note-amber",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,553 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.4% share). Toyota rank: #7 with 76 units (4.9% market share). Q1 share was 4.8% vs Q2 share of 4.6%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,553 registrations. Top maker: MARUTI SUZUKI INDIA LTD (50.4% share). Toyota rank: #7 with 76 units (4.9% market share). Q1 share was 4.8% vs Q2 share of 4.6%."
       },
       {
         "code": "KL81",
@@ -20465,13 +21427,13 @@
           }
         ],
         "noteType": "note-blue",
-        "noteText": "2026 JAN-OCT (Through Oct 27, 2026) TIV: 1,663 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.4% share). Toyota rank: #3 with 120 units (7.2% market share). Q1 share was 8.2% vs Q2 share of 7.4%."
+        "noteText": "2026 JAN-OCT (Through Oct 29, 2026) TIV: 1,663 registrations. Top maker: MARUTI SUZUKI INDIA LTD (54.4% share). Toyota rank: #3 with 120 units (7.2% market share). Q1 share was 8.2% vs Q2 share of 7.4%."
       }
     ]
   },
   "_meta": {
     "currentMonth": "OCT",
-    "asOfDay": 27,
+    "asOfDay": 29,
     "monthSpan": "JAN-OCT"
   }
 }
