@@ -51,9 +51,9 @@
                     <th class="px-6 py-4 text-left font-label font-bold text-xs uppercase tracking-widest text-zinc-400">Location</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-amber-400">TKM</th>
-                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
-                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-purple-400">LY MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-purple-400">LY MS %</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">EXPECTED</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-rose-400">GAP</th>
@@ -134,9 +134,9 @@
                     <th class="px-6 py-4 text-left font-label font-bold text-xs uppercase tracking-widest text-zinc-400">Location</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">TIV</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-amber-400">TKM</th>
-                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
-                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-purple-400">LY MS %</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">MS %</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-purple-400">LY MS %</th>
+                    <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-emerald-400">NIPPON TALLY</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-blue-400">TARGET</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-zinc-400">EXPECTED</th>
                     <th class="px-6 py-4 text-center font-label font-bold text-xs uppercase tracking-widest text-rose-400">GAP</th>
@@ -199,9 +199,9 @@
                             </td>
                             <td class="px-6 py-3 text-center text-zinc-500 text-sm">${tiv}</td>
                             <td class="px-6 py-3 text-center text-amber-400/90 font-bold">${tkm}</td>
-                            <td class="px-6 py-3 text-center text-emerald-500/80 font-bold">${tally}</td>
-                            <td class="px-6 py-3 text-center text-purple-400/90 font-bold">${branchLyShare}%</td>
                             <td class="px-6 py-3 text-center text-zinc-300 font-bold">${branchShare}%</td>
+                            <td class="px-6 py-3 text-center text-purple-400/90 font-bold">${branchLyShare}%</td>
+                            <td class="px-6 py-3 text-center text-emerald-500/80 font-bold">${tally}</td>
                             <td class="px-6 py-3 text-center text-blue-400/80 font-bold">${b.targetPct}%</td>
                             <td class="px-6 py-3 text-center text-zinc-500">${expected}</td>
                             <td class="px-6 py-3 text-center font-bold ${branchGap > 0 ? 'text-rose-500/80' : 'text-emerald-500/80'}">
@@ -236,9 +236,9 @@
                             </td>
                             <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterTiv}</td>
                             <td class="px-6 py-5 text-center font-bold text-amber-400 text-lg">${clusterTkm}</td>
-                            <td class="px-6 py-5 text-center font-bold text-emerald-400 text-lg">${clusterTally}</td>
-                            <td class="px-6 py-5 text-center font-bold text-purple-400 text-lg">${clusterLyShare}%</td>
                             <td class="px-6 py-5 text-center font-bold text-white">${clusterShare}%</td>
+                            <td class="px-6 py-5 text-center font-bold text-purple-400 text-lg">${clusterLyShare}%</td>
+                            <td class="px-6 py-5 text-center font-bold text-emerald-400 text-lg">${clusterTally}</td>
                             <td class="px-6 py-5 text-center font-bold text-blue-400">${clusterTargetPct}%</td>
                             <td class="px-6 py-5 text-center font-medium text-zinc-400">${clusterExpected}</td>
                             <td class="px-6 py-5 text-center font-bold text-lg ${clusterGap > 0 ? 'text-rose-500' : 'text-emerald-500'}">
@@ -262,11 +262,11 @@
                         </td>
                         <td class="px-6 py-6 text-center font-bold text-zinc-300 text-lg">${grandTiv}</td>
                         <td class="px-6 py-6 text-center font-bold text-amber-400 text-2xl">${grandTkm}</td>
-                        <td class="px-6 py-6 text-center font-bold text-emerald-400 text-2xl">${grandTally}</td>
-                        <td class="px-6 py-6 text-center font-black text-purple-400 text-xl">${grandLyShare}%</td>
                         <td class="px-6 py-6 text-center font-black text-white text-xl">
                             ${grandTiv > 0 ? ((grandTkm / grandTiv) * 100).toFixed(1) : '0.0'}%
                         </td>
+                        <td class="px-6 py-6 text-center font-black text-purple-400 text-xl">${grandLyShare}%</td>
+                        <td class="px-6 py-6 text-center font-bold text-emerald-400 text-2xl">${grandTally}</td>
                         <td class="px-6 py-6 text-center font-black text-blue-400 text-xl">
                             ${grandTiv > 0 ? ((grandExpected / grandTiv) * 100).toFixed(1) : '0.0'}%
                         </td>
