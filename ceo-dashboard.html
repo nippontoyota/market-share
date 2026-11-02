@@ -128,6 +128,8 @@
         };
 
         function renderTable() {
+            // Follows the latest month in the refreshed data instead of a fixed month.
+            const currentMonth = (rtoData._meta && rtoData._meta.currentMonth) || 'SEP';
             let html = `
             <thead class="bg-zinc-900 border-b border-zinc-800">
                 <tr>
@@ -154,7 +156,7 @@
                     let tiv = 0;
                     let tkm = 0;
                     if (rtoData[b.dataKey] && rtoData[b.dataKey].monthly2026) {
-                        const sepData = rtoData[b.dataKey].monthly2026.find(m => m.month === 'SEP');
+                        const sepData = rtoData[b.dataKey].monthly2026.find(m => m.month === currentMonth);
                         if (sepData) {
                             tiv = sepData.tiv || 0;
                             tkm = sepData.toyota || 0;
@@ -164,7 +166,7 @@
                     let lyTiv = 0;
                     let lyTkm = 0;
                     if (rtoData[b.dataKey] && rtoData[b.dataKey].monthly2025) {
-                        const sep2025 = rtoData[b.dataKey].monthly2025.find(m => m.month === 'SEP');
+                        const sep2025 = rtoData[b.dataKey].monthly2025.find(m => m.month === currentMonth);
                         if (sep2025) {
                             lyTiv = sep2025.tiv || 0;
                             lyTkm = sep2025.toyota || 0;
